@@ -42,6 +42,7 @@ static SDL_GLContext opengl_context;
 static float displayAspect;
 
 cvar_t *r_sdlDriver;
+cvar_t *r_allowScreenSaver;
 cvar_t *r_allowSoftwareGL;
 
 // Window cvars
@@ -689,7 +690,24 @@ static qboolean GLimp_StartDriverAndSetMode(glconfig_t *glConfig, const windowDe
 	{
 		const char *driverName;
 
-		if (SDL_Init(SDL_INIT_VIDEO) == -1)
+		if ( r_sdlDriver->string[0] != '\0' )
+		{
+			SDL_setenv("SDL_VIDEODRIVER", r_sdlDriver->string, 0 );
+		}
+
+		if ( r_allowScreenSaver->integer )
+		{
+			SDL_SetHint( SDL_HINT_VIDEO_ALLOW_SCREENSAVER, "1" );
+		}
+
+		/*
+			Starting from SDL2 2.0.14 The default value for SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS 
+			is now false for better compatibility with modern window managers, however it 
+			prevented the game from alt-tab/minimize, set to 1 before calling SDL_Init fix it.
+		*/
+		SDL_SetHint( SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "1" );
+
+		if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		{
 			Com_Printf( "SDL_Init( SDL_INIT_VIDEO ) FAILED (%s)\n", SDL_GetError());
 			return qfalse;
@@ -704,7 +722,6 @@ static qboolean GLimp_StartDriverAndSetMode(glconfig_t *glConfig, const windowDe
 		}
 
 		Com_Printf( "SDL using driver \"%s\"\n", driverName );
-		Cvar_Set( "r_sdlDriver", driverName );
 	}
 
 	if (SDL_GetNumVideoDisplays() <= 0)
@@ -748,6 +765,7 @@ window_t WIN_Init( const windowDesc_t *windowDesc, glconfig_t *glConfig )
 	Cmd_AddCommand("minimize", GLimp_Minimize);
 
 	r_sdlDriver			= Cvar_Get( "r_sdlDriver",			"",			CVAR_ROM );
+	r_allowScreenSaver	= Cvar_Get( "r_allowScreenSaver",	"0",		CVAR_ARCHIVE|CVAR_LATCH );
 	r_allowSoftwareGL	= Cvar_Get( "r_allowSoftwareGL",	"0",		CVAR_ARCHIVE|CVAR_LATCH );
 
 	// Window cvars
@@ -829,8 +847,17 @@ void WIN_Shutdown( void )
 
 	IN_Shutdown();
 
+	if ( opengl_context ) {
+		SDL_GL_DeleteContext( opengl_context );
+		opengl_context = NULL;
+	}
+
+	if ( screen ) {
+		SDL_DestroyWindow( screen );
+		screen = NULL;
+	}
+
 	SDL_QuitSubSystem( SDL_INIT_VIDEO );
-	screen = NULL;
 }
 
 void GLimp_EnableLogging( qboolean enable )
@@ -899,6 +926,12 @@ void *WIN_GL_GetProcAddress( const char *proc )
 {
 	return SDL_GL_GetProcAddress( proc );
 }
+
+qboolean WIN_GL_ExtensionSupported( const char *extension )
+{
+	return SDL_GL_ExtensionSupported( extension ) == SDL_TRUE ? qtrue : qfalse;
+}
+
 // VULKAN
 void WIN_VK_MinimizeFix(void) {
 	Cvar_SetValue("com_minimized", 1);
