@@ -862,7 +862,7 @@ static qboolean R_GetPortalOrientations( const drawSurf_t *drawSurf, int entityN
 	// to see a surface before the server has communicated the matching
 	// portal surface entity, so we don't want to print anything here...
 
-	//ri.Printf( PRINT_ALL, "Portal surface without a portal entity\n" );
+	//ri->Printf( PRINT_ALL, "Portal surface without a portal entity\n" );
 
 	return qfalse;
 }

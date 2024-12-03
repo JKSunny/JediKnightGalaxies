@@ -269,11 +269,11 @@ void vk_get_vulkan_properties( VkPhysicalDeviceProperties *props )
     glConfig.version_string = (const char*)vk.version_string;
     glConfig.renderer_string = (const char*)vk.renderer_string;
 
-    ri.Printf( PRINT_ALL, "----- Vulkan -----\n" );
-    ri.Printf( PRINT_ALL, "VK_VENDOR: %s\n", vk.vendor_string );
-    ri.Printf( PRINT_ALL, "VK_RENDERER: %s\n", vk.renderer_string );
-    ri.Printf( PRINT_ALL, "VK_VERSION: %s\n", vk.version_string );
-    ri.Printf( PRINT_ALL, "use the gfxinfo command for details \n\n" );
+    ri->Printf( PRINT_ALL, "----- Vulkan -----\n" );
+    ri->Printf( PRINT_ALL, "VK_VENDOR: %s\n", vk.vendor_string );
+    ri->Printf( PRINT_ALL, "VK_RENDERER: %s\n", vk.renderer_string );
+    ri->Printf( PRINT_ALL, "VK_VERSION: %s\n", vk.version_string );
+    ri->Printf( PRINT_ALL, "use the gfxinfo command for details \n\n" );
 
     VK_SET_OBJECT_NAME( (intptr_t)vk.device, vk.renderer_string, VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_EXT );
 }
@@ -282,7 +282,7 @@ void vk_get_vulkan_properties( VkPhysicalDeviceProperties *props )
 ================
 R_PrintLongString
 
-Workaround for ri.Printf's 1024 characters buffer limit.
+Workaround for ri->Printf's 1024 characters buffer limit.
 ================
 */
 void R_PrintLongString( const char *string )
@@ -311,7 +311,7 @@ void R_PrintLongString( const char *string )
         }
 
         Q_strncpyz( buffer, p, charsToTake + 1 );
-        ri.Printf( PRINT_ALL, "%s", buffer );
+        ri->Printf( PRINT_ALL, "%s", buffer );
         remainingLength -= charsToTake;
         p += charsToTake;
     }
@@ -330,54 +330,54 @@ static void GfxInfo ( void )
     const char *fs;
     int mode;
 
-    ri.Printf( PRINT_ALL, "VK_VENDOR: %s\n", vk.vendor_string );
-    ri.Printf( PRINT_ALL, "VK_RENDERER: %s\n", vk.renderer_string );
-    ri.Printf( PRINT_ALL, "VK_VERSION: %s\n", vk.version_string );
+    ri->Printf( PRINT_ALL, "VK_VENDOR: %s\n", vk.vendor_string );
+    ri->Printf( PRINT_ALL, "VK_RENDERER: %s\n", vk.renderer_string );
+    ri->Printf( PRINT_ALL, "VK_VERSION: %s\n", vk.version_string );
 
-    ri.Printf( PRINT_ALL, "\nVK_DEVICE_EXTENSIONS:\n" );
+    ri->Printf( PRINT_ALL, "\nVK_DEVICE_EXTENSIONS:\n" );
     R_PrintLongString( vk.device_extensions_string );
 
-    ri.Printf( PRINT_ALL, "\n\nVK_INSTANCE_EXTENSIONS:\n" );
+    ri->Printf( PRINT_ALL, "\n\nVK_INSTANCE_EXTENSIONS:\n" );
     R_PrintLongString( vk.instance_extensions_string );
 
-    ri.Printf( PRINT_ALL, "\n\nVK_MAX_TEXTURE_SIZE: %d\n", glConfig.maxTextureSize );
-    ri.Printf( PRINT_ALL, "VK_MAX_TEXTURE_UNITS: %d\n", glConfig.maxActiveTextures );
-    ri.Printf( PRINT_ALL, "\nPIXELFORMAT: color(%d-bits) Z(%d-bit) stencil(%d-bits)\n", 
+    ri->Printf( PRINT_ALL, "\n\nVK_MAX_TEXTURE_SIZE: %d\n", glConfig.maxTextureSize );
+    ri->Printf( PRINT_ALL, "VK_MAX_TEXTURE_UNITS: %d\n", glConfig.maxActiveTextures );
+    ri->Printf( PRINT_ALL, "\nPIXELFORMAT: color(%d-bits) Z(%d-bit) stencil(%d-bits)\n", 
         glConfig.colorBits, glConfig.depthBits, glConfig.stencilBits );
 
-    ri.Printf( PRINT_ALL, " presentation: %s\n", vk_format_string( vk.present_format.format ) );
+    ri->Printf( PRINT_ALL, " presentation: %s\n", vk_format_string( vk.present_format.format ) );
     if ( vk.color_format != vk.present_format.format )
-        ri.Printf( PRINT_ALL, " color: %s\n", vk_format_string( vk.color_format ));
+        ri->Printf( PRINT_ALL, " color: %s\n", vk_format_string( vk.color_format ));
   
     if ( vk.capture_format != vk.present_format.format || vk.capture_format != vk.color_format )
-        ri.Printf( PRINT_ALL, " capture: %s\n", vk_format_string( vk.capture_format ) );
+        ri->Printf( PRINT_ALL, " capture: %s\n", vk_format_string( vk.capture_format ) );
 
-    ri.Printf( PRINT_ALL, " depth: %s\n", vk_format_string( vk.depth_format ) );
+    ri->Printf( PRINT_ALL, " depth: %s\n", vk_format_string( vk.depth_format ) );
 
     if ( glConfig.isFullscreen )
     {
-        const char *modefs = ri.Cvar_VariableString( "r_modeFullscreen" );
+        const char *modefs = ri->Cvar_VariableString( "r_modeFullscreen" );
         if (*modefs)
             mode = atoi(modefs);
         else
-            mode = ri.Cvar_VariableIntegerValue( "r_mode" );
+            mode = ri->Cvar_VariableIntegerValue( "r_mode" );
         fs = fsstrings[1];
     }
     else
     {
-        mode = ri.Cvar_VariableIntegerValue( "r_mode" );
+        mode = ri->Cvar_VariableIntegerValue( "r_mode" );
         fs = fsstrings[0];
     }
 
     if ( glConfig.vidWidth != gls.windowWidth || glConfig.vidHeight != gls.windowHeight )
-        ri.Printf( PRINT_ALL, "RENDER: %d x %d, MODE: %d, %d x %d %s hz:", glConfig.vidWidth, glConfig.vidHeight, mode, gls.windowWidth, gls.windowHeight, fs );
+        ri->Printf( PRINT_ALL, "RENDER: %d x %d, MODE: %d, %d x %d %s hz:", glConfig.vidWidth, glConfig.vidHeight, mode, gls.windowWidth, gls.windowHeight, fs );
     else
-        ri.Printf( PRINT_ALL, "MODE: %d, %d x %d %s hz:", mode, gls.windowWidth, gls.windowHeight, fs );
+        ri->Printf( PRINT_ALL, "MODE: %d, %d x %d %s hz:", mode, gls.windowWidth, gls.windowHeight, fs );
 
     if ( glConfig.displayFrequency )
-        ri.Printf( PRINT_ALL, " %d\n", glConfig.displayFrequency );
+        ri->Printf( PRINT_ALL, " %d\n", glConfig.displayFrequency );
     else
-        ri.Printf( PRINT_ALL, " N/A\n" );
+        ri->Printf( PRINT_ALL, " N/A\n" );
 }
 
 
@@ -393,37 +393,37 @@ static void VarInfo( void )
     int displayRefresh;
     const char *enablestrings[] = { "disabled", "enabled" };
 
-    displayRefresh = ri.Cvar_VariableIntegerValue( "r_displayRefresh" );
+    displayRefresh = ri->Cvar_VariableIntegerValue( "r_displayRefresh" );
     if ( displayRefresh )
-        ri.Printf( PRINT_ALL, "Display refresh set to %d\n", displayRefresh );
+        ri->Printf( PRINT_ALL, "Display refresh set to %d\n", displayRefresh );
 
     if ( tr.world )
-        ri.Printf( PRINT_ALL, "Light Grid size set to (%.2f %.2f %.2f)\n", tr.world->lightGridSize[0], tr.world->lightGridSize[1], tr.world->lightGridSize[2] );
+        ri->Printf( PRINT_ALL, "Light Grid size set to (%.2f %.2f %.2f)\n", tr.world->lightGridSize[0], tr.world->lightGridSize[1], tr.world->lightGridSize[2] );
 
     if ( glConfig.deviceSupportsGamma)
-        ri.Printf( PRINT_ALL, "GAMMA: hardware w/ %d overbright bits\n", tr.overbrightBits );
+        ri->Printf( PRINT_ALL, "GAMMA: hardware w/ %d overbright bits\n", tr.overbrightBits );
     else
-        ri.Printf( PRINT_ALL, "GAMMA: software w/ %d overbright bits\n", tr.overbrightBits );
+        ri->Printf( PRINT_ALL, "GAMMA: software w/ %d overbright bits\n", tr.overbrightBits );
 
-    ri.Printf( PRINT_ALL, "texturemode: %s\n", r_textureMode->string );
-    ri.Printf( PRINT_ALL, "texture bits: %d\n", r_texturebits->integer ? r_texturebits->integer : 32 );
-    ri.Printf( PRINT_ALL, "picmip: %d%s\n", r_picmip->integer, r_nomip->integer ? ", worldspawn only" : "" );
-    ri.Printf( PRINT_ALL, "anisotropic filtering: %s  ", enablestrings[(r_ext_texture_filter_anisotropic->integer != 0) && vk.maxAnisotropy] );
+    ri->Printf( PRINT_ALL, "texturemode: %s\n", r_textureMode->string );
+    ri->Printf( PRINT_ALL, "texture bits: %d\n", r_texturebits->integer ? r_texturebits->integer : 32 );
+    ri->Printf( PRINT_ALL, "picmip: %d%s\n", r_picmip->integer, r_nomip->integer ? ", worldspawn only" : "" );
+    ri->Printf( PRINT_ALL, "anisotropic filtering: %s  ", enablestrings[(r_ext_texture_filter_anisotropic->integer != 0) && vk.maxAnisotropy] );
     if ( r_ext_texture_filter_anisotropic->integer != 0 && vk.maxAnisotropy )
     {
         if ( Q_isintegral( r_ext_texture_filter_anisotropic->value ) )
-            ri.Printf( PRINT_ALL, "(%i of ", (int)r_ext_texture_filter_anisotropic->value );
+            ri->Printf( PRINT_ALL, "(%i of ", (int)r_ext_texture_filter_anisotropic->value );
         else
-            ri.Printf( PRINT_ALL, "(%f of ", r_ext_texture_filter_anisotropic->value );
+            ri->Printf( PRINT_ALL, "(%f of ", r_ext_texture_filter_anisotropic->value );
 
         if ( Q_isintegral( vk.maxAnisotropy ) )
-            ri.Printf( PRINT_ALL, "%i)\n", (int)vk.maxAnisotropy );
+            ri->Printf( PRINT_ALL, "%i)\n", (int)vk.maxAnisotropy );
         else
-            ri.Printf( PRINT_ALL, "%f)\n", vk.maxAnisotropy );
+            ri->Printf( PRINT_ALL, "%f)\n", vk.maxAnisotropy );
     }
 
     if ( r_vertexLight->integer )
-        ri.Printf( PRINT_ALL, "HACK: using vertex lightmap approximation\n" );
+        ri->Printf( PRINT_ALL, "HACK: using vertex lightmap approximation\n" );
 }
 
 /*
@@ -439,18 +439,18 @@ void GfxInfo_f( void )
 
 void vk_info_f( void ) {
 #ifdef USE_VK_STATS
-    ri.Printf(PRINT_ALL, "max_vertex_usage: %iKb\n", (int)((vk.stats.vertex_buffer_max + 1023) / 1024));
-    ri.Printf(PRINT_ALL, "max_push_size: %ib\n", vk.stats.push_size_max);
+    ri->Printf(PRINT_ALL, "max_vertex_usage: %iKb\n", (int)((vk.stats.vertex_buffer_max + 1023) / 1024));
+    ri->Printf(PRINT_ALL, "max_push_size: %ib\n", vk.stats.push_size_max);
 
-    ri.Printf(PRINT_ALL, "pipeline handles: %i\n", vk.pipeline_create_count);
-    ri.Printf(PRINT_ALL, "pipeline descriptors: %i, base: %i\n", vk.pipelines_count, vk.pipelines_world_base);
-    ri.Printf(PRINT_ALL, "image chunks: %i\n", vk_world.num_image_chunks);
+    ri->Printf(PRINT_ALL, "pipeline handles: %i\n", vk.pipeline_create_count);
+    ri->Printf(PRINT_ALL, "pipeline descriptors: %i, base: %i\n", vk.pipelines_count, vk.pipelines_world_base);
+    ri->Printf(PRINT_ALL, "image chunks: %i\n", vk_world.num_image_chunks);
 
     for ( uint32_t i = 0; i < vk_world.num_image_chunks; i++ )
-        ri.Printf( PRINT_ALL, "image chunk[%i] items: %i size: %ikbytes used: %ikbytes\n", 
+        ri->Printf( PRINT_ALL, "image chunk[%i] items: %i size: %ikbytes used: %ikbytes\n", 
             i, vk_world.image_chunks[i].items, (int)(vk_world.image_chunks[i].size / 1024), (int)(vk_world.image_chunks[i].used / 1024));
 
 #else
-    ri.Printf(PRINT_ALL, "vk_info statistics are not enabled in this build.\n");
+    ri->Printf(PRINT_ALL, "vk_info statistics are not enabled in this build.\n");
 #endif
 }

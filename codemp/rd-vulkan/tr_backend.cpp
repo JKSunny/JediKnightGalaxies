@@ -549,7 +549,7 @@ void RE_StretchRaw ( int x, int y, int w, int h, int cols, int rows, const byte 
 
 	start = 0;
 	if (r_speeds->integer) {
-		start = ri.Milliseconds() * ri.Cvar_VariableValue("timescale");
+		start = ri->Milliseconds() * ri->Cvar_VariableValue("timescale");
 	}
 
 	// make sure rows and cols are powers of 2
@@ -569,8 +569,8 @@ void RE_StretchRaw ( int x, int y, int w, int h, int cols, int rows, const byte 
 	RE_UploadCinematic( cols, rows, (byte*)data, client, dirty ); 
 
 	if (r_speeds->integer) {
-		end = ri.Milliseconds() * ri.Cvar_VariableValue("timescale");
-		ri.Printf(PRINT_ALL, "RE_UploadCinematic( %i, %i ): %i msec\n", cols, rows, end - start);
+		end = ri->Milliseconds() * ri->Cvar_VariableValue("timescale");
+		ri->Printf(PRINT_ALL, "RE_UploadCinematic( %i, %i ): %i msec\n", cols, rows, end - start);
 	}
 
 	tr.cinematicShader->stages[0]->bundle[0].image[0] = tr.scratchImage[client];
@@ -1002,19 +1002,19 @@ const void	*RB_SwapBuffers( const void *data ) {
 		if (backEnd.screenshotMask & SCREENSHOT_TGA && backEnd.screenshotTGA[0]) {
 			R_TakeScreenshot(0, 0, gls.captureWidth, gls.captureHeight, backEnd.screenshotTGA);
 			if (!backEnd.screenShotTGAsilent) {
-				ri.Printf(PRINT_ALL, "Wrote %s\n", backEnd.screenshotTGA);
+				ri->Printf(PRINT_ALL, "Wrote %s\n", backEnd.screenshotTGA);
 			}
 		}
 		if (backEnd.screenshotMask & SCREENSHOT_JPG && backEnd.screenshotJPG[0]) {
 			R_TakeScreenshotJPEG(0, 0, gls.captureWidth, gls.captureHeight, backEnd.screenshotJPG);
 			if (!backEnd.screenShotJPGsilent) {
-				ri.Printf(PRINT_ALL, "Wrote %s\n", backEnd.screenshotJPG);
+				ri->Printf(PRINT_ALL, "Wrote %s\n", backEnd.screenshotJPG);
 			}
 		}
 		if (backEnd.screenshotMask & SCREENSHOT_PNG && backEnd.screenshotPNG[0]) {
 			R_TakeScreenshotPNG(0, 0, gls.captureWidth, gls.captureHeight, backEnd.screenshotPNG);
 			if (!backEnd.screenShotPNGsilent) {
-				ri.Printf(PRINT_ALL, "Wrote %s\n", backEnd.screenshotPNG);
+				ri->Printf(PRINT_ALL, "Wrote %s\n", backEnd.screenshotPNG);
 			}
 		}
 		if (backEnd.screenshotMask & SCREENSHOT_AVI) {
@@ -1085,7 +1085,7 @@ extern const void *R_DrawWireframeAutomap( const void *data ); //tr_world.cpp
 void RB_ExecuteRenderCommands( const void *data ) {
 	int		t1, t2;
 
-	t1 = ri.Milliseconds()*ri.Cvar_VariableValue( "timescale" );
+	t1 = ri->Milliseconds()*ri->Cvar_VariableValue( "timescale" );
 
 	while ( 1 ) {
 		data = PADP(data, sizeof(void *));
@@ -1130,7 +1130,7 @@ void RB_ExecuteRenderCommands( const void *data ) {
 			if (vk.frame_count) {
 				vk_end_frame();
 			}
-			t2 = ri.Milliseconds()*ri.Cvar_VariableValue( "timescale" );
+			t2 = ri->Milliseconds()*ri->Cvar_VariableValue( "timescale" );
 			backEnd.pc.msec = t2 - t1;
 			return;
 		}

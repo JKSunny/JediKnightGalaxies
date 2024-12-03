@@ -35,7 +35,7 @@ static VkShaderModule SHADER_MODULE( const uint8_t *bytes, const int count ) {
     VkShaderModule module;
 
     if (count % 4 != 0) {
-        ri.Error(ERR_FATAL, "Vulkan: SPIR-V binary buffer size is not a multiple of 4");
+        ri->Error(ERR_FATAL, "Vulkan: SPIR-V binary buffer size is not a multiple of 4");
     }
 
     desc.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;

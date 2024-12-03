@@ -156,7 +156,7 @@ void R_ImageList_f( void ) {
 	const image_t *image;
 	int i, estTotalSize = 0;
 
-	ri.Printf( PRINT_ALL, "\n -n- --w-- --h-- type  -size- mipmap --name-------\n" );
+	ri->Printf( PRINT_ALL, "\n -n- --w-- --h-- type  -size- mipmap --name-------\n" );
 
 	for ( i = 0; i < tr.numImages; i++ )
 	{
@@ -221,13 +221,13 @@ void R_ImageList_f( void ) {
 			sizeSuffix = "Gb";
 		}
 
-		ri.Printf( PRINT_ALL, " %3i %5i %5i %s %4i%s %s %s\n", i, image->uploadWidth, image->uploadHeight, format, displaySize, sizeSuffix, yesno[(int)image->mipmap], image->imgName );
+		ri->Printf( PRINT_ALL, " %3i %5i %5i %s %4i%s %s %s\n", i, image->uploadWidth, image->uploadHeight, format, displaySize, sizeSuffix, yesno[(int)image->mipmap], image->imgName );
 		estTotalSize += estSize;
 	}
 
-	ri.Printf( PRINT_ALL, " -----------------------\n" );
-	ri.Printf( PRINT_ALL, " approx %i kbytes\n", (estTotalSize + 1023) / 1024 );
-	ri.Printf( PRINT_ALL, " %i total images\n\n", tr.numImages );
+	ri->Printf( PRINT_ALL, " -----------------------\n" );
+	ri->Printf( PRINT_ALL, " approx %i kbytes\n", (estTotalSize + 1023) / 1024 );
+	ri->Printf( PRINT_ALL, " %i total images\n\n", tr.numImages );
 }
 
 //=======================================================================
@@ -344,15 +344,15 @@ void RE_RegisterImages_Info_f( void )
 	int iNumImages	= R_Images_StartIteration();
 	while ( (pImage	= R_Images_GetNextIteration()) != NULL)
 	{
-		ri.Printf (PRINT_ALL, "%d: (%4dx%4dy) \"%s\"",iImage, pImage->width, pImage->height, pImage->imgName);
-		ri.Printf (PRINT_ALL, ", levused %d",pImage->iLastLevelUsedOn);
-		ri.Printf (PRINT_ALL, "\n");
+		ri->Printf (PRINT_ALL, "%d: (%4dx%4dy) \"%s\"",iImage, pImage->width, pImage->height, pImage->imgName);
+		ri->Printf (PRINT_ALL, ", levused %d",pImage->iLastLevelUsedOn);
+		ri->Printf (PRINT_ALL, "\n");
 
 		iTexels += pImage->width * pImage->height;
 		iImage++;
 	}
-	ri.Printf (PRINT_ALL, "%d Images. %d (%.2fMB) texels total, (not including mipmaps)\n",iNumImages, iTexels, (float)iTexels / 1024.0f / 1024.0f);
-	ri.Printf (PRINT_ALL, "RE_RegisterMedia_GetLevel(): %d",RE_RegisterMedia_GetLevel());
+	ri->Printf (PRINT_ALL, "%d Images. %d (%.2fMB) texels total, (not including mipmaps)\n",iNumImages, iTexels, (float)iTexels / 1024.0f / 1024.0f);
+	ri->Printf (PRINT_ALL, "RE_RegisterMedia_GetLevel(): %d",RE_RegisterMedia_GetLevel());
 }
 
 // currently, this just goes through all the images and dumps any not referenced on this level...
@@ -419,7 +419,7 @@ image_t *noLoadImage( const char *name, imgFlags_t flags ) {
 		//
 		if (strcmp(name, "*white")) {
 			if (pImage->flags != flags) {
-				ri.Printf(PRINT_DEVELOPER, "WARNING: reused image %s with mixed flags (%i vs %i)\n", name, pImage->flags, flags);
+				ri->Printf(PRINT_DEVELOPER, "WARNING: reused image %s with mixed flags (%i vs %i)\n", name, pImage->flags, flags);
 			}
 		}
 

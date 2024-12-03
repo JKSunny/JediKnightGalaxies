@@ -86,11 +86,11 @@ void RB_EndSurface( void ) {
 	}
 
 	if (input->numIndexes > SHADER_MAX_INDEXES) {
-		ri.Error(ERR_DROP, "RB_EndSurface() - SHADER_MAX_INDEXES hit");
+		ri->Error(ERR_DROP, "RB_EndSurface() - SHADER_MAX_INDEXES hit");
 	}
 
 	if (input->numVertexes > SHADER_MAX_VERTEXES) {
-		ri.Error(ERR_DROP, "RB_EndSurface() - SHADER_MAX_VERTEXES hit");
+		ri->Error(ERR_DROP, "RB_EndSurface() - SHADER_MAX_VERTEXES hit");
 	}
 
 	if ( tess.shader == tr.shadowShader ) {

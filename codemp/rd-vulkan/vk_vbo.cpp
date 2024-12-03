@@ -342,13 +342,13 @@ static void VBO_AddGeometry(vbo_t *vbo, vbo_item_t *vi, shaderCommands_t *input)
 	offs = input->shader->iboOffset + input->shader->curIndexes * sizeof(input->indexes[0]);
 	size = input->numIndexes * sizeof(input->indexes[0]);
 	if (offs + size > vbo->vbo_size) {
-		ri.Error(ERR_DROP, "Index0 overflow");
+		ri->Error(ERR_DROP, "Index0 overflow");
 	}
 	memcpy(vbo->vbo_buffer + offs, input->indexes, size);
 
 	// fill soft buffer too
 	if (vbo->ibo_offset + size > vbo->ibo_size) {
-		ri.Error(ERR_DROP, "Index1 overflow");
+		ri->Error(ERR_DROP, "Index1 overflow");
 	}
 	memcpy(vbo->ibo_buffer + vbo->ibo_offset, input->indexes, size);
 	vbo->ibo_offset += size;
@@ -358,7 +358,7 @@ static void VBO_AddGeometry(vbo_t *vbo, vbo_item_t *vi, shaderCommands_t *input)
 	offs = input->shader->vboOffset + input->shader->curVertexes * sizeof(input->xyz[0]);
 	size = input->numVertexes * sizeof(input->xyz[0]);
 	if (offs + size > vbo->vbo_size) {
-		ri.Error(ERR_DROP, "Vertex overflow");
+		ri->Error(ERR_DROP, "Vertex overflow");
 	}
 	//Com_Printf( "v offs=%i size=%i\n", offs, size );
 	memcpy(vbo->vbo_buffer + offs, input->xyz, size);
@@ -367,7 +367,7 @@ static void VBO_AddGeometry(vbo_t *vbo, vbo_item_t *vi, shaderCommands_t *input)
 	offs = input->shader->normalOffset + input->shader->curVertexes * sizeof(input->normal[0]);
 	size = input->numVertexes * sizeof(input->normal[0]);
 	if (offs + size > vbo->vbo_size) {
-		ri.Error(ERR_DROP, "Normals overflow");
+		ri->Error(ERR_DROP, "Normals overflow");
 	}
 	//Com_Printf( "v offs=%i size=%i\n", offs, size );
 	memcpy(vbo->vbo_buffer + offs, input->normal, size);
@@ -489,7 +489,7 @@ void R_BuildWorldVBO(msurface_t *surf, int surfCount)
 		return;
 
 	if (glConfig.maxActiveTextures < 3) {
-		ri.Printf(PRINT_WARNING, "... not enough texture units for VBO\n");
+		ri->Printf(PRINT_WARNING, "... not enough texture units for VBO\n");
 		return;
 	}
 
@@ -536,7 +536,7 @@ void R_BuildWorldVBO(msurface_t *surf, int surfCount)
 	}
 
 	if (numStaticSurfaces == 0) {
-		ri.Printf(PRINT_ALL, "...no static surfaces for VBO\n");
+		ri->Printf(PRINT_ALL, "...no static surfaces for VBO\n");
 		return;
 	}
 
@@ -546,14 +546,14 @@ void R_BuildWorldVBO(msurface_t *surf, int surfCount)
 	ibo_size = PAD(ibo_size, 32);
 
 	// 0 item is unused
-	vbo->items = (vbo_item_t*)ri.Hunk_Alloc((numStaticSurfaces + 1) * sizeof(vbo_item_t), h_low);
+	vbo->items = (vbo_item_t*)ri->Hunk_Alloc((numStaticSurfaces + 1) * sizeof(vbo_item_t), h_low);
 	vbo->items_count = numStaticSurfaces;
 
 	// last item will be used for run length termination
-	vbo->items_queue = (int*)ri.Hunk_Alloc((numStaticSurfaces + 1) * sizeof(int), h_low);
+	vbo->items_queue = (int*)ri->Hunk_Alloc((numStaticSurfaces + 1) * sizeof(int), h_low);
 	vbo->items_queue_count = 0;
 
-	ri.Printf(PRINT_ALL, "...found %i VBO surfaces (%i vertexes, %i indexes)\n",
+	ri->Printf(PRINT_ALL, "...found %i VBO surfaces (%i vertexes, %i indexes)\n",
 		numStaticSurfaces, numStaticVertexes, numStaticIndexes);
 
 	//Com_Printf( S_COLOR_CYAN "VBO size: %i\n", vbo_size );
@@ -561,20 +561,20 @@ void R_BuildWorldVBO(msurface_t *surf, int surfCount)
 
 	// vertex buffer
 	vbo_size += ibo_size;
-	vbo->vbo_buffer = (byte*)ri.Hunk_AllocateTempMemory(vbo_size);
+	vbo->vbo_buffer = (byte*)ri->Hunk_AllocateTempMemory(vbo_size);
 	vbo->vbo_offset = 0;
 	vbo->vbo_size = vbo_size;
 
 	// index buffer
-	vbo->ibo_buffer = (byte*)ri.Hunk_Alloc(ibo_size, h_low);
+	vbo->ibo_buffer = (byte*)ri->Hunk_Alloc(ibo_size, h_low);
 	vbo->ibo_offset = 0;
 	vbo->ibo_size = ibo_size;
 
 	// ibo runs buffer
-	vbo->ibo_items = (ibo_item_t*)ri.Hunk_Alloc(((numStaticIndexes / MIN_IBO_RUN) + 1) * sizeof(ibo_item_t), h_low);
+	vbo->ibo_items = (ibo_item_t*)ri->Hunk_Alloc(((numStaticIndexes / MIN_IBO_RUN) + 1) * sizeof(ibo_item_t), h_low);
 	vbo->ibo_items_count = 0;
 
-	surfList = (msurface_t**)ri.Hunk_AllocateTempMemory(numStaticSurfaces * sizeof(msurface_t*));
+	surfList = (msurface_t**)ri->Hunk_AllocateTempMemory(numStaticSurfaces * sizeof(msurface_t*));
 
 	for (i = 0, n = 0, sf = surf; i < surfCount; i++, sf++) {
 		face = (srfSurfaceFace_t *)sf->data;
@@ -595,7 +595,7 @@ void R_BuildWorldVBO(msurface_t *surf, int surfCount)
 	}
 
 	if (n != numStaticSurfaces) {
-		ri.Error(ERR_DROP, "Invalid VBO surface count");
+		ri->Error(ERR_DROP, "Invalid VBO surface count");
 	}
 
 	// sort surfaces by shader
@@ -622,7 +622,7 @@ void R_BuildWorldVBO(msurface_t *surf, int surfCount)
 			grid->vboItemIndex = i + 1;
 		}
 		else {
-			ri.Error(ERR_DROP, "Unexpected surface type");
+			ri->Error(ERR_DROP, "Unexpected surface type");
 		}
 		initItem(vbo->items + i + 1);
 		RB_BeginSurface(sf->shader, 0);
@@ -640,22 +640,22 @@ void R_BuildWorldVBO(msurface_t *surf, int surfCount)
 		if (grid->surfaceType == SF_GRID) {
 			vbo_item_t *vi = vbo->items + i + 1;
 			if (vi->num_vertexes != grid->vboExpectVertices || vi->num_indexes != grid->vboExpectIndices) {
-				ri.Error(ERR_DROP, "Unexpected grid vertexes/indexes count");
+				ri->Error(ERR_DROP, "Unexpected grid vertexes/indexes count");
 			}
 		}
 		tess.numIndexes = 0;
 		tess.numVertexes = 0;
 	}
 
-	ri.Hunk_FreeTempMemory(surfList);
+	ri->Hunk_FreeTempMemory(surfList);
 
 	//__fail:
 	vk_alloc_vbo(vbo->vbo_buffer, vbo->vbo_size);
 
 	//if ( err == GL_OUT_OF_MEMORY )
-	//	ri.Printf( PRINT_WARNING, "%s: out of memory\n", __func__ );
+	//	ri->Printf( PRINT_WARNING, "%s: out of memory\n", __func__ );
 	//else
-	//	ri.Printf( PRINT_ERROR, "%s: error %i\n", __func__, err );
+	//	ri->Printf( PRINT_ERROR, "%s: error %i\n", __func__, err );
 #if 0
 	// reset vbo markers
 	for (i = 0, sf = surf; i < surfCount; i++, sf++) {
@@ -678,7 +678,7 @@ void R_BuildWorldVBO(msurface_t *surf, int surfCount)
 #endif
 
 	// release host memory
-	ri.Hunk_FreeTempMemory(vbo->vbo_buffer);
+	ri->Hunk_FreeTempMemory(vbo->vbo_buffer);
 	vbo->vbo_buffer = NULL;
 
 	// release GPU resources
@@ -765,7 +765,7 @@ void VBO_QueueItem(int itemIndex)
 	}
 	else
 	{
-		ri.Error(ERR_DROP, "VBO queue overflow");
+		ri->Error(ERR_DROP, "VBO queue overflow");
 	}
 
 }

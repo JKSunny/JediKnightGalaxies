@@ -142,28 +142,28 @@ void R_ShaderList_f( void ) {
 	int				count;
 	const shader_t	*sh;
 
-	ri.Printf(PRINT_ALL, "-----------------------\n");
+	ri->Printf(PRINT_ALL, "-----------------------\n");
 
 	count = 0;
 	for (i = 0; i < tr.numShaders; i++) {
-		if (ri.Cmd_Argc() > 1) {
+		if (ri->Cmd_Argc() > 1) {
 			sh = tr.sortedShaders[i];
 		}
 		else {
 			sh = tr.shaders[i];
 		}
 
-		ri.Printf( PRINT_ALL, "%i: ", sh->numUnfoggedPasses);
-		ri.Printf( PRINT_ALL, "%s", sh->lightmapIndex[0] >= 0 ? "L " : "  ");
-		ri.Printf( PRINT_ALL, "%s", sh->multitextureEnv ? "MT(x) " : "  ");
-		ri.Printf( PRINT_ALL, "%s", sh->explicitlyDefined ? "E " : "  ");
-		ri.Printf( PRINT_ALL, "%s", sh->sky ? "sky" : "gen");
-		ri.Printf( PRINT_ALL, ": %s %s\n", sh->name, sh->defaultShader ? "(DEFAULTED)" : "");
+		ri->Printf( PRINT_ALL, "%i: ", sh->numUnfoggedPasses);
+		ri->Printf( PRINT_ALL, "%s", sh->lightmapIndex[0] >= 0 ? "L " : "  ");
+		ri->Printf( PRINT_ALL, "%s", sh->multitextureEnv ? "MT(x) " : "  ");
+		ri->Printf( PRINT_ALL, "%s", sh->explicitlyDefined ? "E " : "  ");
+		ri->Printf( PRINT_ALL, "%s", sh->sky ? "sky" : "gen");
+		ri->Printf( PRINT_ALL, ": %s %s\n", sh->name, sh->defaultShader ? "(DEFAULTED)" : "");
 
 		count++;
 	}
-	ri.Printf( PRINT_ALL, "%i total shaders\n", count);
-	ri.Printf( PRINT_ALL, "------------------\n");
+	ri->Printf( PRINT_ALL, "%i total shaders\n", count);
+	ri->Printf( PRINT_ALL, "------------------\n");
 }
 
 /*
@@ -459,5 +459,5 @@ void R_DebugGraphics( void ) {
 	vk_bind(tr.whiteImage);
 	vk_update_mvp(NULL);
 
-	ri.CM_DrawDebugSurface(R_DebugPolygon);
+	ri->CM_DrawDebugSurface(R_DebugPolygon);
 }

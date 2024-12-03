@@ -1337,7 +1337,7 @@ static qboolean ParseStage(shaderStage_t *stage, const char **text)
 			token = COM_ParseExt( text, qfalse );
 			if ( !token[0] )
 			{
-				ri.Printf( PRINT_ALL, S_COLOR_YELLOW  "WARNING: missing parameter for '%s' keyword in shader '%s'\n", (bClamp ? "animMap":"clampanimMap"), shader.name );
+				ri->Printf( PRINT_ALL, S_COLOR_YELLOW  "WARNING: missing parameter for '%s' keyword in shader '%s'\n", (bClamp ? "animMap":"clampanimMap"), shader.name );
 				return qfalse;
 			}
 			stage->bundle[0].imageAnimationSpeed = atof( token );
@@ -1373,7 +1373,7 @@ static qboolean ParseStage(shaderStage_t *stage, const char **text)
 					images[num] = R_FindImageFile( token, flags );
 					if ( !images[num] )
 					{
-						ri.Printf( PRINT_WARNING, "WARNING: R_FindImageFile could not find '%s' in shader '%s'\n", token, shader.name );
+						ri->Printf( PRINT_WARNING, "WARNING: R_FindImageFile could not find '%s' in shader '%s'\n", token, shader.name );
 						return qfalse;
 					}
 					stage->bundle[0].numImageAnimations++;
@@ -1386,7 +1386,7 @@ static qboolean ParseStage(shaderStage_t *stage, const char **text)
 			memcpy( stage->bundle[0].image,	images,	stage->bundle[0].numImageAnimations * sizeof( image_t* ) );
 
 			if ( totalImages > maxAnimations ) {
-				ri.Printf(PRINT_WARNING, "WARNING: ignoring excess images for 'animMap' (found %d, max is %d) in shader '%s'\n",
+				ri->Printf(PRINT_WARNING, "WARNING: ignoring excess images for 'animMap' (found %d, max is %d) in shader '%s'\n",
 					totalImages, maxAnimations, shader.name);
 			}
 		}
@@ -1399,7 +1399,7 @@ static qboolean ParseStage(shaderStage_t *stage, const char **text)
 				vk_debug("WARNING: missing parameter for 'videoMap' keyword in shader '%s'\n", shader.name);
 				return qfalse;
 			}
-			handle = ri.CIN_PlayCinematic(token, 0, 0, 256, 256, (CIN_loop | CIN_silent | CIN_shader));
+			handle = ri->CIN_PlayCinematic(token, 0, 0, 256, 256, (CIN_loop | CIN_silent | CIN_shader));
 			if (handle != -1) {
 				if (!tr.scratchImage[handle]) {
 					tr.scratchImage[handle] = R_CreateImage(va("*scratch%i", handle), NULL, 256, 256, 
@@ -2084,7 +2084,7 @@ static void ParseSkyParms( const char **text ) {
 	// innerbox
 	token = COM_ParseExt(text, qfalse);
 	if (token[0] == 0) {
-		ri.Printf(PRINT_WARNING, "WARNING: 'skyParms' missing parameter in shader '%s'\n", shader.name);
+		ri->Printf(PRINT_WARNING, "WARNING: 'skyParms' missing parameter in shader '%s'\n", shader.name);
 		return;
 	}
 	if (strcmp(token, "-")) {
@@ -2261,7 +2261,7 @@ qhandle_t RE_RegisterShaderLightMap( const char *name, const int *lightmapIndex,
 	shader_t *sh;
 
 	if (strlen(name) >= MAX_QPATH) {
-		ri.Printf(PRINT_ALL, "Shader name exceeds MAX_QPATH\n");
+		ri->Printf(PRINT_ALL, "Shader name exceeds MAX_QPATH\n");
 		return 0;
 	}
 
@@ -2292,7 +2292,7 @@ void R_RemapShader( const char *shaderName, const char *newShaderName, const cha
 		sh = R_GetShaderByHandle(h);
 	}
 	if (sh == NULL || sh == tr.defaultShader) {
-		ri.Printf( PRINT_WARNING, "WARNING: RE_RemapShader: shader %s not found\n", shaderName );
+		ri->Printf( PRINT_WARNING, "WARNING: RE_RemapShader: shader %s not found\n", shaderName );
 		return;
 	}
 
@@ -2303,7 +2303,7 @@ void R_RemapShader( const char *shaderName, const char *newShaderName, const cha
 	}
 
 	if (sh2 == NULL || sh2 == tr.defaultShader) {
-		ri.Printf( PRINT_WARNING, "WARNING: RE_RemapShader: new shader %s not found\n", newShaderName );
+		ri->Printf( PRINT_WARNING, "WARNING: RE_RemapShader: new shader %s not found\n", newShaderName );
 		return;
 	}
 
@@ -2882,11 +2882,11 @@ static void ScanAndLoadShaderFiles( void )
 	long		sum = 0, summand;
 
 	// scan for shader files
-	shaderFiles = ri.FS_ListFiles("shaders", ".shader", &numShaderFiles);
+	shaderFiles = ri->FS_ListFiles("shaders", ".shader", &numShaderFiles);
 
 	if (!shaderFiles || !numShaderFiles)
 	{
-		ri.Error(ERR_FATAL, "ERROR: no shader files found");
+		ri->Error(ERR_FATAL, "ERROR: no shader files found");
 		return;
 	}
 
@@ -2901,7 +2901,7 @@ static void ScanAndLoadShaderFiles( void )
 
 		Com_sprintf(filename, sizeof(filename), "shaders/%s", shaderFiles[i]);
 		vk_debug("...loading '%s'\n", filename);
-		summand = ri.FS_ReadFile(filename, (void**)&buffers[i]);
+		summand = ri->FS_ReadFile(filename, (void**)&buffers[i]);
 
 		if (!buffers[i]) {
 			vk_debug("Couldn't load %s", filename);
@@ -2938,7 +2938,7 @@ static void ScanAndLoadShaderFiles( void )
 					vk_debug(" (found \"%s\" on line %d)", token, COM_GetCurrentParseLine());
 				}
 				vk_debug(".\n");
-				ri.FS_FreeFile(buffers[i]);
+				ri->FS_FreeFile(buffers[i]);
 				buffers[i] = NULL;
 				break;
 			}
@@ -2947,7 +2947,7 @@ static void ScanAndLoadShaderFiles( void )
 			{
 				vk_debug("WARNING: Ignoring shader file %s. Shader \"%s\" on line %d missing closing brace.\n",
 					filename, shaderName, shaderLine);
-				ri.FS_FreeFile(buffers[i]);
+				ri->FS_FreeFile(buffers[i]);
 				buffers[i] = NULL;
 				break;
 			}
@@ -2959,7 +2959,7 @@ static void ScanAndLoadShaderFiles( void )
 	}
 
 	// build single large buffer
-	s_shaderText = (char*)ri.Hunk_Alloc(sum + numShaderFiles * 2, h_low);
+	s_shaderText = (char*)ri->Hunk_Alloc(sum + numShaderFiles * 2, h_low);
 	s_shaderText[0] = '\0';
 	textEnd = s_shaderText;
 
@@ -2972,13 +2972,13 @@ static void ScanAndLoadShaderFiles( void )
 		strcat(textEnd, buffers[i]);
 		strcat(textEnd, "\n");
 		textEnd += strlen(textEnd);
-		ri.FS_FreeFile(buffers[i]);
+		ri->FS_FreeFile(buffers[i]);
 	}
 
 	COM_CompressShader(s_shaderText);
 
 	// free up memory
-	ri.FS_FreeFileList(shaderFiles);
+	ri->FS_FreeFileList(shaderFiles);
 
 	memset(shaderTextHashTableSizes, 0, sizeof(shaderTextHashTableSizes));
 	size = 0;
@@ -3005,7 +3005,7 @@ static void ScanAndLoadShaderFiles( void )
 
 	size += MAX_SHADERTEXT_HASH;
 
-	hashMem = (char*)ri.Hunk_Alloc(size * sizeof(char*), h_low);
+	hashMem = (char*)ri->Hunk_Alloc(size * sizeof(char*), h_low);
 
 	for (i = 0; i < MAX_SHADERTEXT_HASH; i++) {
 		shaderTextHashTable[i] = (const char**)hashMem;
@@ -4653,7 +4653,7 @@ shader_t *GeneratePermanentShader( void )
 		return tr.defaultShader;
 	}
 
-	newShader = (shader_t*)ri.Hunk_Alloc( sizeof(shader_t), h_low );
+	newShader = (shader_t*)ri->Hunk_Alloc( sizeof(shader_t), h_low );
 
 	*newShader = shader;
 
@@ -4670,7 +4670,7 @@ shader_t *GeneratePermanentShader( void )
 		if ( !stages[i].active ) {
 			break;
 		}
-		newShader->stages[i] = (shaderStage_t*)ri.Hunk_Alloc( sizeof(stages[i]), h_low );
+		newShader->stages[i] = (shaderStage_t*)ri->Hunk_Alloc( sizeof(stages[i]), h_low );
 		*newShader->stages[i] = stages[i];
 
 		for ( b = 0; b < NUM_TEXTURE_BUNDLES; b++ )
@@ -4679,7 +4679,7 @@ shader_t *GeneratePermanentShader( void )
 			{
 				size = newShader->stages[i]->bundle[b].numTexMods * sizeof( texModInfo_t );
 				if ( size ) {
-					newShader->stages[i]->bundle[b].texMods = (texModInfo_t*)ri.Hunk_Alloc( size, h_low );
+					newShader->stages[i]->bundle[b].texMods = (texModInfo_t*)ri->Hunk_Alloc( size, h_low );
 					Com_Memcpy( newShader->stages[i]->bundle[b].texMods, stages[i].bundle[b].texMods, size );
 				}
 			} 

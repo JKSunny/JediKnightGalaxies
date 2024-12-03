@@ -76,14 +76,14 @@ void R_SetColorMappings( void)
     tr.identityLightByte = 255 * tr.identityLight;
 
     if (r_intensity->value < 1.0f) {
-        ri.Cvar_Set("r_intensity", "1");
+        ri->Cvar_Set("r_intensity", "1");
     }
 
     if (r_gamma->value < 0.5f) {
-        ri.Cvar_Set("r_gamma", "0.5");
+        ri->Cvar_Set("r_gamma", "0.5");
     }
     else if (r_gamma->value > 3.0f) {
-        ri.Cvar_Set("r_gamma", "3.0");
+        ri->Cvar_Set("r_gamma", "3.0");
     }
 
     g = r_gamma->value;
@@ -118,10 +118,10 @@ void R_SetColorMappings( void)
 
     if (glConfig.deviceSupportsGamma) {
         if (vk.fboActive)
-            ri.WIN_SetGamma(&glConfig, s_gammatable_linear, s_gammatable_linear, s_gammatable_linear);
+            ri->WIN_SetGamma(&glConfig, s_gammatable_linear, s_gammatable_linear, s_gammatable_linear);
         else {
             if ( applyGamma ) {
-                ri.WIN_SetGamma(&glConfig, s_gammatable, s_gammatable, s_gammatable);
+                ri->WIN_SetGamma(&glConfig, s_gammatable, s_gammatable, s_gammatable);
             }
         }
     }
@@ -312,7 +312,7 @@ void R_MipMap2( unsigned * const out, unsigned * const in, int inWidth, int inHe
     outHeight = inHeight >> 1;
 
     if (out == in)
-        temp = (unsigned int*)ri.Hunk_AllocateTempMemory(outWidth * outHeight * 4);
+        temp = (unsigned int*)ri->Hunk_AllocateTempMemory(outWidth * outHeight * 4);
     else
         temp = out;
 
@@ -350,7 +350,7 @@ void R_MipMap2( unsigned * const out, unsigned * const in, int inWidth, int inHe
 
     if (out == in) {
         Com_Memcpy(out, temp, outWidth * outHeight * 4);
-        ri.Hunk_FreeTempMemory(temp);
+        ri->Hunk_FreeTempMemory(temp);
     }
 }
 
@@ -374,7 +374,7 @@ void ResampleTexture( unsigned *in, int inwidth, int inheight, unsigned *out,
     byte* pix1, * pix2, * pix3, * pix4;
 
     if (outwidth > 2048)
-        ri.Error(ERR_DROP, "ResampleTexture: max width");
+        ri->Error(ERR_DROP, "ResampleTexture: max width");
 
     fracstep = inwidth * 0x10000 / outwidth;
 

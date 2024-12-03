@@ -279,7 +279,7 @@ static void vk_create_instance( void )
 			flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
 		}
 
-		ri.Printf(PRINT_DEVELOPER, "instance extension: %s\n", ext);
+		ri->Printf(PRINT_DEVELOPER, "instance extension: %s\n", ext);
     }
 
     // create instance
@@ -388,7 +388,7 @@ static VkFormat get_depth_format( VkPhysicalDevice physical_device ) {
         }
     }
 
-    ri.Error(ERR_FATAL, "get_depth_format: failed to find depth attachment format");
+    ri->Error(ERR_FATAL, "get_depth_format: failed to find depth attachment format");
     return VK_FORMAT_UNDEFINED; // never get here
 }
 
@@ -455,12 +455,12 @@ qboolean vk_select_surface_format( VkPhysicalDevice physical_device, VkSurfaceKH
 
     result = qvkGetPhysicalDeviceSurfaceFormatsKHR(physical_device, surface, &format_count, NULL);
     if (result < 0) {
-        ri.Printf(PRINT_ERROR, "vkGetPhysicalDeviceSurfaceFormatsKHR returned error %i\n", result);
+        ri->Printf(PRINT_ERROR, "vkGetPhysicalDeviceSurfaceFormatsKHR returned error %i\n", result);
         return qfalse;
     }
  
     if (format_count == 0) {
-        ri.Printf(PRINT_ERROR, "...no surface formats found\n");
+        ri->Printf(PRINT_ERROR, "...no surface formats found\n");
         return qfalse;
     }
 
@@ -530,7 +530,7 @@ qboolean vk_select_surface_format( VkPhysicalDevice physical_device, VkSurfaceKH
 
 static qboolean vk_create_device( VkPhysicalDevice physical_device, int device_index ) {
 
-	ri.Printf(PRINT_ALL, "selected physical device: %i\n\n", device_index);
+	ri->Printf(PRINT_ALL, "selected physical device: %i\n\n", device_index);
 
 	// select surface format
 	if (!vk_select_surface_format(physical_device, vk.surface)) {
@@ -564,7 +564,7 @@ static qboolean vk_create_device( VkPhysicalDevice physical_device, int device_i
 		free(queue_families);
 
 		if (vk.queue_family_index == ~0U) {
-			ri.Printf(PRINT_ERROR, "...failed to find graphics queue family\n");
+			ri->Printf(PRINT_ERROR, "...failed to find graphics queue family\n");
 
 			return qfalse;
 		}
@@ -634,7 +634,7 @@ static qboolean vk_create_device( VkPhysicalDevice physical_device, int device_i
 		device_extension_count = 0;
 
 		if (!swapchainSupported) {
-			ri.Printf(PRINT_ERROR, "...required device extension is not available: %s\n", VK_KHR_SWAPCHAIN_EXTENSION_NAME);
+			ri->Printf(PRINT_ERROR, "...required device extension is not available: %s\n", VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 			return qfalse;
 		}
 
@@ -665,7 +665,7 @@ static qboolean vk_create_device( VkPhysicalDevice physical_device, int device_i
 		qvkGetPhysicalDeviceFeatures(physical_device, &device_features);
 
 		if (device_features.fillModeNonSolid == VK_FALSE) {
-			ri.Printf(PRINT_ERROR, "...fillModeNonSolid feature is not supported\n");
+			ri->Printf(PRINT_ERROR, "...fillModeNonSolid feature is not supported\n");
 			return qfalse;
 		}
 
@@ -713,7 +713,7 @@ static qboolean vk_create_device( VkPhysicalDevice physical_device, int device_i
 
 		result = qvkCreateDevice(physical_device, &device_desc, NULL, &vk.device);
 		if (result < 0) {
-			ri.Printf(PRINT_ERROR, "vkCreateDevice returned %s\n", vk_result_string(result));
+			ri->Printf(PRINT_ERROR, "vkCreateDevice returned %s\n", vk_result_string(result));
 			return qfalse;
 		}
 	}
@@ -724,7 +724,7 @@ static qboolean vk_create_device( VkPhysicalDevice physical_device, int device_i
 #define INIT_INSTANCE_FUNCTION(func) \
 	q##func = (PFN_ ## func)qvkGetInstanceProcAddr(vk.instance, #func); \
 	if (q##func == NULL) {											\
-		ri.Error(ERR_FATAL, "Failed to find entrypoint %s", #func);	\
+		ri->Error(ERR_FATAL, "Failed to find entrypoint %s", #func);	\
 	}
 
 #define INIT_INSTANCE_FUNCTION_EXT(func) \
@@ -734,7 +734,7 @@ static qboolean vk_create_device( VkPhysicalDevice physical_device, int device_i
 #define INIT_DEVICE_FUNCTION(func) \
 	q##func = (PFN_ ## func) qvkGetDeviceProcAddr(vk.device, #func);\
 	if (q##func == NULL) {											\
-		ri.Error(ERR_FATAL, "Failed to find entrypoint %s", #func);	\
+		ri->Error(ERR_FATAL, "Failed to find entrypoint %s", #func);	\
 	}
 
 #define INIT_DEVICE_FUNCTION_EXT(func) \
@@ -754,7 +754,7 @@ __initStart:
 
 	Com_Memset(&vk, 0, sizeof(vk));
 
-	qvkGetInstanceProcAddr = (PFN_vkGetInstanceProcAddr)ri.VK_GetInstanceProcAddress();
+	qvkGetInstanceProcAddr = (PFN_vkGetInstanceProcAddr)ri->VK_GetInstanceProcAddress();
 	if (qvkGetInstanceProcAddr == NULL)
 		vk_debug("Failed to find entrypoint vkGetInstanceProcAddr\n");
 
@@ -800,12 +800,12 @@ __initStart:
 
 	// create surface
 #if defined(USE_JK2) || defined(USE_OPENJK)	// should backport (void**) to EJK
-	if (!ri.VK_createSurfaceImpl(vk.instance, (void**)&vk.surface)) 
+	if (!ri->VK_createSurfaceImpl(vk.instance, (void**)&vk.surface)) 
 #else
-	if (!ri.VK_createSurfaceImpl(vk.instance, &vk.surface)) 
+	if (!ri->VK_createSurfaceImpl(vk.instance, &vk.surface)) 
 #endif
 	{
-		ri.Error(ERR_FATAL, "Error creating Vulkan surface");
+		ri->Error(ERR_FATAL, "Error creating Vulkan surface");
 		return;
 	}
 
@@ -815,7 +815,7 @@ __initStart:
 		if (!deviceCountRetried) {
 			// May be a conflict between VK_LAYER_AMD_swichable_graphics and VK_LAYER_NV_optimus on laptops with AMD + Nvidia GPUs:
 			// https://stackoverflow.com/questions/68109171/vkenumeratephysicaldevices-not-finding-all-gpus/68631366#68631366
-			ri.Printf(PRINT_WARNING, "Vulkan: No physical devices found. Retrying with AMD_SWITCHABLE_GRAPHICS disabled.\n");
+			ri->Printf(PRINT_WARNING, "Vulkan: No physical devices found. Retrying with AMD_SWITCHABLE_GRAPHICS disabled.\n");
 
 			// Clear instance with a subset of vk_shutdown
 			qvkDestroySurfaceKHR(vk.instance, vk.surface, NULL);
@@ -838,11 +838,11 @@ __initStart:
 			goto __initStart;
 		}
 #endif
-		ri.Error(ERR_FATAL, "Vulkan: no physical devices found");
+		ri->Error(ERR_FATAL, "Vulkan: no physical devices found");
 		return;
 	}
 	else if (res < 0) {
-		ri.Error(ERR_FATAL, "vkEnumeratePhysicalDevices returned %s", vk_result_string(res));
+		ri->Error(ERR_FATAL, "vkEnumeratePhysicalDevices returned %s", vk_result_string(res));
 		return;
 	}
 
@@ -852,10 +852,10 @@ __initStart:
 	// initial physical device index
 	device_index = r_device->integer;
 
-	ri.Printf(PRINT_ALL, "\n\n----- Available physical devices -----\n");
+	ri->Printf(PRINT_ALL, "\n\n----- Available physical devices -----\n");
 	for (i = 0; i < device_count; i++) {
 		qvkGetPhysicalDeviceProperties(physical_devices[i], &props);
-		ri.Printf(PRINT_ALL, " %i: %s\n", i, renderer_name(&props));
+		ri->Printf(PRINT_ALL, " %i: %s\n", i, renderer_name(&props));
 		if (device_index == -1 && props.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) {
 			device_index = i;
 		}
@@ -879,7 +879,7 @@ __initStart:
 	free(physical_devices);
 
 	if (vk.physical_device == VK_NULL_HANDLE) {
-		ri.Error(ERR_FATAL, "Vulkan: unable to find any suitable physical device");
+		ri->Error(ERR_FATAL, "Vulkan: unable to find any suitable physical device");
 		return;
 	}
 

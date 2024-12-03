@@ -62,7 +62,7 @@ static void vk_alloc_attachment_memory( void )
     }
 
     if (vk.image_memory_count >= ARRAY_LEN(vk.image_memory)) {
-        ri.Error(ERR_DROP, "vk.image_memory_count == %i", (int)ARRAY_LEN(vk.image_memory));
+        ri->Error(ERR_DROP, "vk.image_memory_count == %i", (int)ARRAY_LEN(vk.image_memory));
     }
 
     memoryTypeBits = ~0U;
@@ -189,7 +189,7 @@ static void vk_add_attachment_desc( VkImage desc, VkImageView *image_view, VkIma
     VkFormat image_format, VkImageAspectFlags aspect_flags, VkImageLayout image_layout )
 {
     if (num_attachments >= ARRAY_LEN(attachments)) {
-        ri.Error(ERR_FATAL, "Attachments array overflow: max attachments: %d while %d given", (int)ARRAY_LEN(vk.image_memory), num_attachments);
+        ri->Error(ERR_FATAL, "Attachments array overflow: max attachments: %d while %d given", (int)ARRAY_LEN(vk.image_memory), num_attachments);
     }
     else {
         attachments[num_attachments].descriptor = desc;

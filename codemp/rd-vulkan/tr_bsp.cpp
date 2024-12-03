@@ -218,7 +218,7 @@ static void R_LoadLightmaps( lump_t *l, lump_t *surfs, world_t &worldData ) {
 		tr.numLightmaps = numLightmaps;
 	}
 
-	tr.lightmaps = (image_t **)ri.Hunk_Alloc( tr.numLightmaps * sizeof(image_t *), h_low );
+	tr.lightmaps = (image_t **)ri->Hunk_Alloc( tr.numLightmaps * sizeof(image_t *), h_low );
 
 	if ( tr.worldInternalLightmapping )
 	{
@@ -268,7 +268,7 @@ static void R_LoadLightmaps( lump_t *l, lump_t *surfs, world_t &worldData ) {
 				int newImageSize = lightmapWidth * lightmapHeight * 4 * 2;
 				if ( tr.worldInternalLightmapping && (lightmapWidth != lightmapSize || lightmapHeight != lightmapSize) )
 				{
-					ri.Printf( PRINT_ALL, "Error loading %s: non %dx%d lightmaps\n", filename, lightmapSize, lightmapSize );
+					ri->Printf( PRINT_ALL, "Error loading %s: non %dx%d lightmaps\n", filename, lightmapSize, lightmapSize );
 					Z_Free( externalLightmap );
 					externalLightmap = NULL;
 					continue;
@@ -367,7 +367,7 @@ static void R_LoadLightmaps( lump_t *l, lump_t *surfs, world_t &worldData ) {
 	}
 
 	if ( r_lightmap->integer == 2 )	{
-		ri.Printf( PRINT_ALL, "Brightest lightmap value: %d\n", ( int ) ( maxIntensity * 255 ) );
+		ri->Printf( PRINT_ALL, "Brightest lightmap value: %d\n", ( int ) ( maxIntensity * 255 ) );
 	}
 
 	Z_Free( image );
@@ -515,7 +515,7 @@ static void GenerateNormals( srfSurfaceFace_t *face )
 	indices = ((int*)((byte*)face + face->ofsIndices));
 
 	// store as vec4_t so we can simply use memcpy() during tesselation
-	face->normals = (float*)ri.Hunk_Alloc(face->numPoints * sizeof(tess.normal[0]), h_low);
+	face->normals = (float*)ri->Hunk_Alloc(face->numPoints * sizeof(tess.normal[0]), h_low);
 
 	for (i = 0; i < face->numIndices; i += 3) {
 		i0 = indices[i + 0];
@@ -1664,7 +1664,7 @@ static	void R_LoadSubmodels( const lump_t *l, world_t &worldData, int index ) {
 
 		assert( model != NULL );			// this should never happen
 		if ( model == NULL ) {
-			ri.Error(ERR_DROP, "R_LoadSubmodels: R_AllocModel() failed");
+			ri->Error(ERR_DROP, "R_LoadSubmodels: R_AllocModel() failed");
 		}
 
 		model->type = MOD_BRUSH;
@@ -2295,15 +2295,15 @@ void RE_LoadWorldMap_Actual( const char *name, world_t &worldData, int index )
 
 	// check for cached disk file from the server first...
 	//
-	if (ri.CM_GetCachedMapDiskImage())
+	if (ri->CM_GetCachedMapDiskImage())
 	{
-		buffer = (byte *)ri.CM_GetCachedMapDiskImage();
+		buffer = (byte *)ri->CM_GetCachedMapDiskImage();
 	}
 	else
 	{
 		// still needs loading...
 		//
-		ri.FS_ReadFile( name, (void **)&buffer );
+		ri->FS_ReadFile( name, (void **)&buffer );
 		if ( !buffer ) {
 			Com_Error (ERR_DROP, "RE_LoadWorldMap: %s not found", name);
 		}
@@ -2364,14 +2364,14 @@ void RE_LoadWorldMap_Actual( const char *name, world_t &worldData, int index )
 		tr.mapLoading = qfalse;
 	}
 
-	if (ri.CM_GetCachedMapDiskImage())
+	if (ri->CM_GetCachedMapDiskImage())
 	{
-		Z_Free( ri.CM_GetCachedMapDiskImage() );
-		ri.CM_SetCachedMapDiskImage( NULL );
+		Z_Free( ri->CM_GetCachedMapDiskImage() );
+		ri->CM_SetCachedMapDiskImage( NULL );
 	}
 	else
 	{
-		ri.FS_FreeFile( buffer );
+		ri->FS_FreeFile( buffer );
 	}
 }
 
@@ -2379,7 +2379,7 @@ void RE_LoadWorldMap_Actual( const char *name, world_t &worldData, int index )
 //
 void RE_LoadWorldMap( const char *name )
 {
-	ri.CM_SetUsingCache( qtrue );
+	ri->CM_SetUsingCache( qtrue );
 	RE_LoadWorldMap_Actual( name, s_worldData, 0 );
-	ri.CM_SetUsingCache( qfalse );
+	ri->CM_SetUsingCache( qfalse );
 }
