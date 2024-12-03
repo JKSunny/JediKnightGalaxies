@@ -536,10 +536,16 @@ typedef struct trRefdef_s {
 //=================================================================================
 
 // skins allow models to be retextured without modifying the model file
-typedef struct skinSurface_s {
+typedef struct {
 	char		name[MAX_QPATH];
 	shader_t	*shader;
 } skinSurface_t;
+
+typedef struct skin_s {
+	char			name[MAX_QPATH];		// game path, including extension
+	int				numSurfaces;
+	skinSurface_t	*surfaces[128];
+} skin_t;
 
 typedef struct fog_s {
 	int			originalBrushNumber;
@@ -839,6 +845,41 @@ typedef struct world_s {
 } world_t;
 
 //======================================================================
+
+typedef enum {
+	MOD_BAD,
+	MOD_BRUSH,
+	MOD_MESH,
+/*
+Ghoul2 Insert Start
+*/
+   	MOD_MDXM,
+	MOD_MDXA
+/*
+Ghoul2 Insert End
+*/
+
+} modtype_t;
+
+typedef struct model_s {
+	char		name[MAX_QPATH];
+	modtype_t	type;
+	int			index;				// model = tr.models[model->mod_index]
+
+	int			dataSize;			// just for listing purposes
+	bmodel_t	*bmodel;			// only if type == MOD_BRUSH
+	md3Header_t	*md3[MD3_MAX_LODS];	// only if type == MOD_MESH
+/*
+Ghoul2 Insert Start
+*/
+	mdxmHeader_t *mdxm;				// only if type == MOD_GL2M which is a GHOUL II Mesh file NOT a GHOUL II animation file
+	mdxaHeader_t *mdxa;				// only if type == MOD_GL2A which is a GHOUL II Animation file
+/*
+Ghoul2 Insert End
+*/
+	unsigned char	numLods;
+	bool			bspInstance;			// model is a bsp instance
+} model_t;
 
 #define	MAX_MOD_KNOWN	1024
 
