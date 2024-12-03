@@ -1,0 +1,12 @@
+{
+	"name":             "@JKG_ITEMS_rifle_Bryar_Rifle",
+	"internal":             "rifle_Bryar",
+	"itemtype":             "weapon",
+	"weapon":		"WP_DISRUPTOR",
+	"variation":		"6",
+	"weight":		"10",
+	"cost":		"900",
+	"xml":			"xml/items/Bryar_rifle.xml",
+	"itemIcon":		"models/weapons/Bryar_rifle/icon_default",
+	"itemDescription": "The Bryar rifle was the predecessor of the Bryar pistol made famous by Kyle Katarn and could 'charge' large shots making the blaster bolts more likely to pierce through armor."
+}

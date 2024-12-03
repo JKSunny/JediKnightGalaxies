@@ -1,0 +1,497 @@
+//----------------------------------------------------------------------------------------------
+//
+//	MULTIPLAYER - MAIN MENU
+//
+//	Opening menu. Called when game is first started.
+//
+//----------------------------------------------------------------------------------------------
+{
+	assetGlobalDef 
+	{
+		font					"ergoec" 18			// font 1
+		smallFont				"aurabesh" 18			// font 2 Aurabesh, 18pt
+		bigFont					"anewhope" 20			// font 3 
+		small2Font				"arialnb" 	14		// font 4 Arial Black 18pt
+		small3Font				"bankgothic"	18		// font 5 ~BlasTech - Bank Gothic Medium, 18 pt, converted using BobaFett's Fontdat Creator.
+		small4Font				"segoeui"	10		// font 6 ~BlasTech - Segoeui (eez: ?), 10 pt 
+		font2					"euraldb" 18			// font 7 ~BobaFett, font & size unknown
+		cursor					"cursor"			// cursor	
+		gradientBar				"ui/assets/gradientbar2.tga"	// gradient bar
+		itemFocusSound				"sound/interface/menuroam.wav"	// sound for item getting focus (via keyboard or mouse )	
+
+		fadeClamp				1.0				// sets the fadeup alpha
+		fadeCycle				1				// how often fade happens in milliseconds
+		fadeAmount				0.1				// amount to adjust alpha per cycle
+		
+		moveRollSound				"sound/player/roll1"
+		moveJumpSound				"sound/weapons/force/jump"
+
+		shadowColor				0.1 0.1 0.1 0.25		// shadow color
+		focuscolor				0 0 1 1
+		precacheSound
+		{
+			"sound/interface/choose_color.wav" ;
+			"sound/interface/choose_head.wav" ;
+			"sound/interface/choose_torso.wav" ;
+			"sound/interface/choose_saber.wav" ;
+			"sound/interface/choose_hilt.wav" ;
+			"sound/interface/choose_blade.wav" ;
+			"sound/interface/transition.wav"  ;
+			"sound/interface/esc.wav" ;
+			"sound/interface/sub_select.wav" ;
+		}
+	}
+							   
+	menuDef 
+	{
+		name					"main"
+		fullScreen				1				
+		rect					0 0 640 480					// Size and position of the menu
+		visible					1						// Visible on open
+		focusColor				1 1 1 1					// Focus color for text and items
+        stylesheet              "mainstyle"               // Use this stylesheet
+//		descX					320
+//		descY					424
+//		descScale				1					// No, we do not want descriptions. ~BlasT
+//		descColor				1 .682 0 .8
+//		descAlignment				ITEM_ALIGN_CENTER		
+
+		onOpen 
+		{
+			exec				"music music/t2_dpred/impbaseb_explore"
+			play				"sound/interface/sub_select.wav" 
+
+			//transition	<item name>	<start rect>		<end rect>	<gaps>	<time/frames 25 = 0.6 s, 50 = 1.1 s, 100 = 2.1 s @ 91 FPS>
+			//transition2 skips out the first rect block and instead uses the item's rect for start (ALLOWING for negative positioning), but only plays the first time the menu is launched
+			transition2	backgroundfog				0 0 640 480	20	100
+			transition2	video					511 158 92 89	20	100
+			transition2	background				0 0 640 480	20	100
+			transition2	holomenu				54 89 245 245	20	100
+			transition2	logo					10 6 487 123	20	100
+		}
+									
+		onESC 
+		{ 
+			play				"sound/interface/esc.wav" 
+			close				all 
+			open				quitMenu 
+		}	
+		onClose
+		{ 
+		}
+		
+//----------------------------------------------------------------------------------------------
+//	MENU BACKGROUND
+//----------------------------------------------------------------------------------------------
+	
+		itemDef 
+		{
+            class               blankshader
+			name				backgroundfog
+			rect				-50 -121 821 616
+			background			"gfx/ui/main_bg_smoke"
+		}
+
+		itemDef 
+		{
+            class               blankshader
+			name				video
+			rect				606 82 118 114
+			background			"gfx/ui/main_video_roq"
+		}
+
+		itemDef 
+		{
+            class               blankshader
+			name				background
+			rect				-50 -121 821 616
+			background			"gfx/ui/main_bg"
+		}
+
+		itemDef 
+		{
+            class               blankshader
+			name				holomenu
+			rect				64 99 224 224
+			background			"gfx/ui/main_menu"
+		}
+
+		itemDef 
+		{
+            class               blankshader
+			name				logo
+			rect				253 6 391 97
+			background			"gfx/ui/main_bg_logo"
+		}
+
+		itemDef 
+		{
+            class               blankshader
+			name				filmgrain
+			rect				0 0 640 480
+			background			"gfx/ui/main_bg_grain"
+		}
+
+//----------------------------------------------------------------------------------------------
+//  TOOLTIP
+//----------------------------------------------------------------------------------------------
+    itemDef
+    {
+        name        tooltip
+        group       none
+        background  "gfx/ui/inv_cursorbox"
+        font        5
+        align       ITEM_ALIGN_CENTER
+        textscale   0.4
+        type        ITEM_TYPE_OWNERDRAW
+        ownerdraw   1045
+        text        " " // this makes me want to set a Waffle House on fire, but it's the only way
+        decoration
+        
+    }
+
+//----------------------------------------------------------------------------------------------
+//	TOP MENU BUTTONS
+//----------------------------------------------------------------------------------------------
+
+		// Selection highlight for the big buttons
+		itemDef 
+		{
+            class               blankshader
+			name				bigbutton_select
+			rect				0 0 0 0
+			background			"gfx/ui/shop_itembutton_sel"
+		}
+
+		// Selection highlight for the small buttons
+		itemDef 
+		{
+            class               blankshader
+			name				smallbutton_select
+			rect				0 0 0 0
+			background			"gfx/ui/main_buttonsmall"
+		}
+
+		// "PLAY_" button
+
+		itemDef 
+		{
+			name				playbutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				40 108 273 68
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				playbutton
+			group				main_button
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				76 119 200 47
+			text				@JKG_MAINMENU_PLAY
+			font				5
+			textscale				0.8
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			3
+			textstyle			-1
+			forecolor			1 1 1 1
+			visible				1
+            tooltip             "Play Jedi Knight Galaxies"
+
+			mouseEnter 
+			{ 
+				show			bigbutton_select
+				setitemrect		bigbutton_select	40 108 273 68
+			}
+			mouseExit 
+			{ 
+				hide			bigbutton_select 
+					clearfocus
+			}
+			action 
+			{ 			
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			joinserver
+			}
+		}
+
+		itemDef
+		{
+			name				playbutton_undertext
+			group				none
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				76 119 200 47
+			text				@JKG_MAINMENU_PLAY_DESC
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			28
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		// "CHARACTER_" button
+
+		itemDef 
+		{
+			name				characterbutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				40 165 273 68
+			background			"gfx/ui/shop_itembutton_na"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				characterbutton
+			group				main_button
+			style				WINDOW_STYLE_EMPTY
+			//type				ITEM_TYPE_BUTTON
+			rect				76 175 200 47
+			text				@JKG_MAINMENU_CHARACTER
+			font				5
+			textscale				0.8
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			3
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+            tooltip             "Character Selection\n(locked until Phase 2)"
+
+			//mouseEnter 
+			//{ 
+			//	show			bigbutton_select
+			//	setitemrect		bigbutton_select	40 165 273 68
+			//}
+			//mouseExit 
+			//{ 
+			//	hide			bigbutton_select 
+			//		clearfocus
+			//}
+			//action 
+			//{ 			
+			//	play			"sound/interface/button1.wav" ; 
+			//	close			all ; 
+			//	open			playerMenu
+			//}
+		}
+
+		itemDef
+		{
+			name				characterbutton_undertext
+			group				none
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				76 175 200 47
+			text				@JKG_MAINMENU_CHARACTER_DESC
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			28
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		// "CONFIGURE_" button
+
+		itemDef 
+		{
+			name				configurebutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				40 221 273 68
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				configurebutton
+			group				main_button
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				76 231 200 47
+			text				@JKG_MAINMENU_CONFIGURE
+			font				5
+			textscale				0.8
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			4
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+            tooltip             "Adjust controls and video/sound settings."
+
+			mouseEnter 
+			{ 
+				show			bigbutton_select
+				setitemrect		bigbutton_select	40 221 273 68
+			}
+			mouseExit 
+			{ 
+				hide			bigbutton_select 
+					clearfocus
+			}
+			action 
+			{ 			
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			configureMenu
+			}
+		}
+
+		itemDef
+		{
+			name				configurebutton_undertext
+			group				none
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				76 231 200 47
+			text				@JKG_MAINMENU_CONFIGURE_DESC
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			29
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+//----------------------------------------------------------------------------------------------
+//	OTHER MAIN MENU BUTTONS
+//----------------------------------------------------------------------------------------------
+
+		// "CREDITS_" button (currently leads to the lost Controls menu)
+
+		itemDef 
+		{
+			name				creditsbutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				65 280 117 29
+			background			"gfx/ui/shop_itembutton_na"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				creditsbutton
+			group				main_button
+			style				WINDOW_STYLE_EMPTY
+			//type				ITEM_TYPE_BUTTON
+			rect				77 288 95 17
+			text				@JKG_MAINMENU_CREDITS
+			//text				@JKG_MAINMENU_CREDITS
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			24
+			textaligny			3
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+            tooltip             "Find out who made Jedi Knight Galaxies!\n(currently unavailable)"
+
+			//mouseEnter 
+			//{ 
+			//	show			smallbutton_select
+			//	setitemrect		smallbutton_select	65 280 117 29
+			//}
+			//mouseExit 
+			//{ 
+			//	hide			smallbutton_select 
+			//		clearfocus
+			//}
+			//action 
+			//{ 			
+			//	play			"sound/interface/button1.wav" ; 
+			//	close			all ; 
+			//	open			controlsMenu
+			//}
+		}
+
+		// "EXIT_" button
+
+		itemDef 
+		{
+			name				exitbutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				170 280 117 29
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				exitbutton
+			group				main_button
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				181 288 95 17
+			text				@JKG_MAINMENU_EXIT
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			36
+			textaligny			3
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+            tooltip             "Leaving so soon?"
+
+			mouseEnter 
+			{ 
+				show			smallbutton_select
+				setitemrect		smallbutton_select	170 280 117 29
+			}
+			mouseExit 
+			{ 
+				hide			smallbutton_select 
+					clearfocus
+			}
+			action 
+			{ 			
+				play			"sound/interface/esc.wav" 
+				close			all ; 
+				open			quitMenu 
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+

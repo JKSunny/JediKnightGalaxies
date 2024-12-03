@@ -1,0 +1,29 @@
+{
+	"ref":		"rphelmet",
+	"slot":		"head",
+	"armor":		100,
+	"movemodifier":	1.0,
+
+	"visuals": {
+		"model":	"models/players/rebel_pilot/model.glm*default",
+		"modelGroup":	"rebel_pilot",
+
+		"armorOnSurfaces": [
+			"head_helmet"
+		],
+
+		"bodyOffSurfaces": [
+			"head_helmet",
+			"head_hair",
+			"head_haira",
+			"head_hairb",
+			"head_l_hairback",
+			"heada",
+			"headb",
+			"head_com",
+			"head_left",
+			"head_right",
+			"head_fins"
+		]
+	}
+}

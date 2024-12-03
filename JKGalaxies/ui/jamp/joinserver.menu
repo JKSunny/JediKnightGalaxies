@@ -1,0 +1,1027 @@
+//----------------------------------------------------------------------------------------------
+// Join a Server
+//	Allows user to view a list of available servers and choose which one to join.
+//
+//----------------------------------------------------------------------------------------------
+{
+	menuDef 
+	{
+		name					"joinserver"
+		visible					0
+		fullscreen				1
+		rect					0 0 640 480
+		outOfBoundsClick	
+		focusColor				1 1 1 .9								// Focus color for text and items
+		descX					320
+		descY					424
+		descScale				.6
+		descColor				.7 .85 1 .7
+		descAlignment				ITEM_ALIGN_CENTER		
+
+		onOpen 
+		{ 
+			uiScript			UpdateFilter
+			
+			transition2			getnewlist_button	15 26 180 26	20	20
+			transition2			refreshFilter_button	15 54 180 26	20	20
+		}
+
+		onEsc 
+		{ 
+			play				"sound/interface/esc.wav" ; 
+			uiScript			closeJoin
+			open				mainmenu
+		}
+
+
+//----------------------------------------------------------------------------------------------
+//	MENU BACKGROUND
+//----------------------------------------------------------------------------------------------
+		itemDef 
+		{
+			name				backgroundfog
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/ui/main_bg_smoke"
+			forecolor			1 1 1 .9
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				-50 -121 821 616
+			background			"gfx/ui/main_bg"
+			forecolor			1 1 1 .9
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				filmgrain
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/ui/main_bg_grain"
+			forecolor			1 1 1 .9
+			visible				1
+			decoration
+		}
+
+
+		// Setup background box (upper right)
+		itemDef 
+		{
+			name				setup_background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				300 9 350 80
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 .9
+			visible				1
+			decoration
+		}
+
+//----------------------------------------------------------------------------------------------
+//	Top buttons
+//----------------------------------------------------------------------------------------------
+		// GET NEW LIST
+		itemDef 
+		{
+			name				getnewlist_button
+			group				none
+			text				@MENUS_GET_NEW_LIST
+			descText			@MENUS_GET_UPDATED_SERVER_LIST
+			type				ITEM_TYPE_BUTTON
+			font				5
+			textscale			.8
+			style				WINDOW_STYLE_FILLED
+			rect				-170 26 180 26
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0								// center
+			textaligny			0
+			forecolor			1 1 1 .9
+			visible 			1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+				uiScript		RefreshServers 	  	  
+		}
+}
+
+		// REFRESH LIST
+		itemDef 
+		{
+			name				refreshFilter_button
+			text				@MENUS_REFRESH_LIST
+			descText			@MENUS_REFRESH_SERVER_LIST
+			font				5
+			textscale			.8
+			style				WINDOW_STYLE_FILLED
+			type				ITEM_TYPE_BUTTON
+			rect				-220 54 180 26
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			0
+			forecolor			1 1 1 .9
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+			//	uiScript		RefreshFilter 
+				uiScript		RefreshServers	  	  
+		}
+}
+
+//----------------------------------------------------------------------------------------------
+//	Selectors (top right box - left column)
+//----------------------------------------------------------------------------------------------		
+		// Source selector
+		itemDef 
+		{
+			name				netsource
+			style				0	
+			//text			@MENUS_SOURCE
+			descText			@MENUS_CHOOSE_SOURCE_OF_SERVERS
+			ownerdraw			UI_NETSOURCE
+			rect				350 26 130 18
+			font				5
+			textscale				0.4
+			textalignx			0
+			textaligny			0
+			textalign			ITEM_ALIGN_LEFT
+			textstyle			3
+			forecolor			1 1 1 .9
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+		}
+}
+
+		// Filter selector
+		itemDef 
+		{
+			name				netfilter
+			style				0	
+			//text			@MENUS_GAME
+			descText			@MENUS_SET_FILTER_FOR_SPECIFIC
+			ownerdraw			UI_NETFILTER
+			rect				350 44 130 18
+			font				5
+			textscale				0.4
+			textalignx			0
+			textaligny			0
+			textalign			ITEM_ALIGN_LEFT
+			textstyle			3
+			forecolor			1 1 1 .9
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+		}
+}
+
+		// Game type selector
+		itemDef 
+		{
+			name				gametypefilter
+			style				0	
+			text				@MENUS_GAME_TYPE
+			descText			@MENUS_FILTER_FOR_SPECIFIC_GAME
+			ownerdraw			UI_JOINGAMETYPE
+			rect				350 62 130 18
+			font				5
+			textscale				0.4
+			textalignx			0
+			textaligny			0
+			textalign			ITEM_ALIGN_LEFT
+			textstyle			3
+			forecolor			1 1 1 .9
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ;  
+		}
+}
+
+//----------------------------------------------------------------------------------------------
+//	Selectors (top right box - right column)
+//----------------------------------------------------------------------------------------------
+		// view empty selector
+		itemDef 
+		{
+			name				viewEmpty
+			type				ITEM_TYPE_YESNO
+			text				@MENUS_VIEW_EMPTY
+			descText			@MENUS_INCLUDE_EMPTY_SERVERS
+			cvar				"ui_browserShowEmpty"
+			font				5
+			textscale				0.4
+			rect				480 26 180 18
+			textalignx			0
+			textaligny			0
+			textalign			ITEM_ALIGN_LEFT
+			forecolor			1 1 1 .9
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+			//	uiScript		RefreshFilter
+				uiScript		RefreshServers  
+		}
+}
+
+		// View Full selector
+		itemDef 
+		{
+			name				viewFull
+			type				11
+			text				@MENUS_VIEW_FULL
+			descText			@MENUS_INCLUDE_FULL_SERVERS
+			cvar				"ui_browserShowFull"
+			font				5
+			textscale				0.4
+			rect				480 44 180 18
+			textalignx			0
+			textaligny			0
+			textalign			ITEM_ALIGN_LEFT
+			forecolor			1 1 1 .9
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+			//	uiScript		RefreshFilter
+				uiScript		RefreshServers  
+		}
+}
+
+		// Data Rate selector
+		itemDef 
+		{
+			name				datarate
+	            	type				ITEM_TYPE_MULTI
+			text				@MENUS_DATA_RATE
+			descText			@MENUS_DATA_RATE_DESC
+			cvar				"rate"
+            		cvarFloatList 
+			{ 
+				"@MENUS_56K" 4000 
+				"@MENUS_ISDN" 5000 
+				"@MENUS_LAN/CABLE" 25000  
+			}
+			textscale			1
+			rect				480 62 180 18
+			font				5
+			textscale				0.4
+			textalignx			0
+			textaligny			0
+			textalign			ITEM_ALIGN_LEFT
+			forecolor			1 1 1 .9
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+		        	uiScript		update ui_setRate
+		}
+}
+//----------------------------------------------------------------------------------------------
+//	COLUMN HEADINGS/SORT TABS	
+//----------------------------------------------------------------------------------------------
+		itemDef 
+		{
+			name				server
+			group				grpTabs
+			text				@MENUS_SERVER_NAME
+			descText			@MENUS_SORT_BY_SERVER_NAME
+			type				ITEM_TYPE_BUTTON
+			textscale			0.5
+			style				WINDOW_STYLE_EMPTY
+			rect				10 88 185 26 
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			4					// center
+			textaligny			4
+			forecolor			1 1 1 .8
+			font				5
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+				uiScript		ServerSort 0
+				setitemcolor		grpTabs backcolor 0.6 0.6 0.6 1
+				setitemcolor		server backcolor 1 1 1 1
+				setitemcolor		grpTabs forecolor 1 1 1 .8
+				setitemcolor		server forecolor 0.75 0.85 1 0.8
+				setitemcolor		grpColumn backcolor 0 0 0 0
+				setitemcolor		serverColumn backcolor 0 0.2 0.35  0.4
+			}
+			mouseEnter 
+			{ 
+				setitemcolor		serverColumn bordercolor .79 .64 .22 1
+			}
+
+			mouseExit 
+			{ 
+				setitemcolor		serverColumn bordercolor 0.2 0.3 0.5 0.5 
+			}  
+		}
+
+		itemDef 
+		{
+			name				map
+			group				grpTabs
+			type				ITEM_TYPE_BUTTON
+			text				@MENUS_MAP_NAME_1
+			descText			@MENUS_SORT_BY_MAP_NAME
+			textscale			0.5
+			style				WINDOW_STYLE_EMPTY
+			rect				195 88 145 26
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			4					// center
+			textaligny			4
+			forecolor			1 1 1 .8
+			font				5
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+				uiScript		ServerSort 1
+				setitemcolor		grpTabs backcolor 0.6 0.6 0.6 1
+				setitemcolor		map backcolor 1 1 1 1
+				setitemcolor		grpTabs forecolor 1 1 1 .8
+				setitemcolor		map forecolor 0.75 0.85 1 0.8
+				setitemcolor		grpColumn backcolor 0 0 0 0
+				setitemcolor		mapColumn backcolor 0 0.2 0.35 .4
+			}
+			mouseEnter 
+			{ 
+				setitemcolor		mapColumn bordercolor .79 .64 .22 1
+			}
+			mouseExit 
+			{ 
+				setitemcolor		mapColumn bordercolor 0.2 0.3 0.5 0.5 
+			}	  	  
+		}
+
+		itemDef 
+		{
+			name				Players
+			group				grpTabs
+			text				@MENUS_PLYRS
+			descText			@MENUS_SORT_BY_NUMBER_OF_PLAYERS
+			type				ITEM_TYPE_BUTTON
+			textscale			0.5
+			style				WINDOW_STYLE_EMPTY
+			background			"gfx/menus/menu_blendbox3"	// Frame around button
+			rect				319 88 60 26
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			4					// center
+			textaligny			4
+			forecolor			1 1 1 .8
+			font				5
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+				uiScript		ServerSort 2
+				setitemcolor		grpTabs backcolor 0.6 0.6 0.6 1
+				setitemcolor		Players backcolor 1 1 1 1
+				setitemcolor		grpTabs forecolor 1 1 1 .8
+				setitemcolor		Players forecolor 0.75 0.85 1 0.8
+				setitemcolor		grpColumn backcolor 0 0 0 0
+				setitemcolor		playerColumn backcolor 0 0.2 0.35 .4
+			}
+			mouseEnter 
+			{ 
+				setitemcolor		playerColumn bordercolor .79 .64 .22 1
+			}
+			mouseExit 
+			{ 
+				setitemcolor		playerColumn bordercolor 0.2 0.3 0.5 0.5 
+			}  	  
+		}
+
+		itemDef 
+		{
+			name				Type
+			group				grpTabs
+			text				@MENUS_SORT_TYPE
+			descText			@MENUS_SORT_BY_GAME_TYPE
+			textscale			0.5
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			background			"gfx/menus/menu_blendbox3"	// Frame around button
+			rect				379 88 36 26
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			4					// center
+			textaligny			4
+			forecolor			1 1 1 .8
+			font				5
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+				uiScript		ServerSort 3
+				setitemcolor		grpTabs backcolor 0.6 0.6 0.6 1
+				setitemcolor		Type backcolor 1 1 1 1
+				setitemcolor		grpTabs forecolor 1 1 1 .8
+				setitemcolor		Type forecolor 0.75 0.85 1 0.8
+				setitemcolor		grpColumn backcolor 0 0 0 0
+				setitemcolor		typeColumn backcolor 0 0.2 0.35 .4 
+			}
+			mouseEnter 
+			{ 
+				setitemcolor		typeColumn bordercolor .79 .64 .22 1
+			}
+			mouseExit 
+			{ 
+				setitemcolor		typeColumn bordercolor 0.2 0.3 0.5 0.5 
+			}	  	  
+		}
+
+		itemDef 
+        {
+            name                Version
+            group               grpTabs
+            text                @MENUS_GAMEVERSION
+            descText            @MENUS_SORT_BY_GAMEVERSION
+            type                ITEM_TYPE_BUTTON
+            textscale           0.5
+            style               WINDOW_STYLE_EMPTY
+            background          "gfx/menus/menu_blendbox3"    // Frame around button
+            rect                480 88 78 26
+            textalign           ITEM_ALIGN_LEFT
+            textalignx          4                    // center
+            textaligny          4
+            forecolor           1 1 1 .8
+            font                5
+            visible             1 
+            action 
+            { 
+                play           "sound/interface/button1.wav"
+                uiScript        ServerSort 4
+                setitemcolor        grpTabs backcolor 0.6 0.6 0.6 1
+                setitemcolor        Version backcolor 1 1 1 1
+                setitemcolor        grpTabs forecolor 1 1 1 .8
+                setitemcolor        Version forecolor 0.75 0.85 1 0.8
+                setitemcolor        grpColumn backcolor 0 0 0 0
+                setitemcolor        versionColumn backcolor 0 0.2 0.35 .4
+            }
+            mouseEnter 
+            { 
+                setitemcolor        versionColumn bordercolor .79 .64 .22 1
+            }
+            mouseExit 
+            { 
+                setitemcolor        versionColumn bordercolor 0.2 0.3 0.5 0.5 
+            }        
+        }
+
+		itemDef 
+		{
+			name				Ping
+			group				grpTabs
+			text				@MENUS_PING
+			descText			@MENUS_SORT_BY_PING_TIME
+			type				ITEM_TYPE_BUTTON
+			textscale			0.5
+			style				WINDOW_STYLE_EMPTY
+			background			"gfx/menus/menu_blendbox3"	// Frame around button
+			rect				560 88 52 26
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			4					// center
+			textaligny			4
+			forecolor			1 1 1 .8
+			font				5
+			visible				1 
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+				uiScript		ServerSort 5
+				setitemcolor		grpTabs backcolor 0.6 0.6 0.6 1
+				setitemcolor		Ping backcolor 1 1 1 1 
+				setitemcolor		grpTabs forecolor 1 1 1 .8
+				setitemcolor		Ping forecolor 0.75 0.85 1 0.8
+				setitemcolor		grpColumn backcolor 0 0 0 0 ;
+				setitemcolor		pingColumn backcolor 0 0.2 0.35 .4 
+			}
+			mouseEnter 
+			{ 
+				setitemcolor		pingColumn bordercolor .79 .64 .22 1
+			}
+			mouseExit 
+			{ 
+				setitemcolor		pingColumn bordercolor 0.2 0.3 0.5 0.5 
+			}	  
+		}
+
+//----------------------------------------------------------------------------------------------
+//	HORIZONTAL SEPARATORS
+//----------------------------------------------------------------------------------------------
+		itemDef 
+		{
+			name				horizontalseparators11
+			rect				10 116 604 26 
+			style				WINDOW_STYLE_FILLED
+			border				0
+			backcolor			0 .4 .52 0.5
+			visible				1
+			decoration
+			mouseEnter 
+			{ 
+				setitemcolor		horizontalseparators11 backcolor 0 .65 .85 0.5
+			}
+			mouseExit 
+			{ 
+				setitemcolor		horizontalseparators11 backcolor 0 .4 .52 0.5
+			}  
+		}
+
+		itemDef 
+		{
+			name				horizontalseparators21
+			rect				10 142 604 26
+			style				WINDOW_STYLE_FILLED
+			border				0
+			backcolor			0 .28 .4 0.5
+			visible				1
+			decoration
+			mouseEnter 
+			{ 
+				setitemcolor		horizontalseparators21 backcolor 0 .65 .85 0.5
+			}
+			mouseExit 
+			{ 
+				setitemcolor		horizontalseparators21 backcolor 0 .28 .4 0.5
+			}  
+		}
+
+		itemDef 
+		{
+			name				horizontalseparators12
+			rect				10 168 604 26
+			style				WINDOW_STYLE_FILLED
+			border			0
+			backcolor			0 .4 .52 0.5
+			visible			1
+			decoration
+			mouseEnter 
+			{ 
+				setitemcolor		horizontalseparators12 backcolor 0 .65 .85 0.5
+			}
+			mouseExit 
+			{ 
+				setitemcolor		horizontalseparators12 backcolor 0 .4 .52 0.5
+			}  
+		}
+
+		itemDef 
+		{
+			name				horizontalseparators22
+			rect				10 194 604 26
+			style				WINDOW_STYLE_FILLED
+			border			0
+			backcolor			0 .28 .4 0.5
+			visible			1
+			decoration
+			mouseEnter 
+			{ 
+				setitemcolor		horizontalseparators22 backcolor 0 .65 .85 0.5
+			}
+			mouseExit 
+			{ 
+				setitemcolor		horizontalseparators22 backcolor 0 .28 .4 0.5
+			}  
+		}
+
+		itemDef 
+		{
+			name				horizontalseparators13
+			rect				10 220 604 26
+			style				WINDOW_STYLE_FILLED
+			border			0
+			backcolor			0 .4 .52 0.5
+			visible			1
+			decoration
+			mouseEnter 
+			{ 
+				setitemcolor		horizontalseparators13 backcolor 0 .65 .85 0.5
+			}
+			mouseExit 
+			{ 
+				setitemcolor		horizontalseparators13 backcolor 0 .4 .52 0.5
+			}  
+		}
+
+		itemDef 
+		{
+			name				horizontalseparators23
+			rect				10 246 604 26
+			style				WINDOW_STYLE_FILLED
+			border			0
+			backcolor			0 .28 .4 0.5
+			visible			1
+			decoration
+			mouseEnter 
+			{ 
+				setitemcolor		horizontalseparators23 backcolor 0 .65 .85 0.5
+			}
+			mouseExit 
+			{ 
+				setitemcolor		horizontalseparators23 backcolor 0 .28 .4 0.5
+			}  
+		}
+
+		itemDef 
+		{
+			name				horizontalseparators14
+			rect				10 272 604 26
+			style				WINDOW_STYLE_FILLED
+			border			0
+			backcolor			0 .4 .52 0.5
+			visible			1
+			decoration
+			mouseEnter 
+			{ 
+				setitemcolor		horizontalseparators14 backcolor 0 .65 .85 0.5
+			}
+			mouseExit 
+			{ 
+				setitemcolor		horizontalseparators14 backcolor 0 .4 .52 0.5
+			}  
+		}
+
+		itemDef 
+		{
+			name				horizontalseparators24
+			rect				10 298 604 26
+			style				WINDOW_STYLE_FILLED
+			border			0
+			backcolor			0 .28 .4 0.5
+			visible			1
+			decoration
+			mouseEnter 
+			{ 
+				setitemcolor		horizontalseparators24 backcolor 0 .65 .85 0.5
+			}
+			mouseExit 
+			{ 
+				setitemcolor		horizontalseparators24 backcolor 0 .28 .4 0.5
+			}  
+		}
+
+		itemDef 
+		{
+			name				horizontalseparators15
+			rect				10 324 604 26
+			style				WINDOW_STYLE_FILLED
+			border			0
+			backcolor			0 .4 .52 0.5
+			visible			1
+			decoration 
+			mouseEnter 
+			{ 
+				setitemcolor		horizontalseparators15 backcolor 0 .65 .85 0.5
+			}
+			mouseExit 
+			{ 
+				setitemcolor		horizontalseparators15 backcolor 0 .4 .52 0.5
+			}  
+		}
+
+		itemDef 
+		{
+			name				horizontalseparators25
+			rect				10 350 604 26
+			style				WINDOW_STYLE_FILLED
+			border			0
+			backcolor			0 .28 .4 0.5
+			visible			1
+			decoration
+			mouseEnter 
+			{ 
+				setitemcolor		horizontalseparators25 backcolor 0 .65 .85 0.5
+			}
+			mouseExit 
+			{ 
+				setitemcolor		horizontalseparators25 backcolor 0 .28 .4 0.5
+			}  	  
+		}
+
+//----------------------------------------------------------------------------------------------
+//	COLUMN LINES
+//----------------------------------------------------------------------------------------------
+		itemDef 
+		{
+			name				serverColumn
+			group				grpColumn
+			rect				9 115 185 260
+			style				WINDOW_STYLE_FILLED
+			border			1
+			backcolor			0 0 0 0
+			bordersize			1
+			bordercolor			0.2 0.2 0.5 0.5
+			visible			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				mapColumn
+			group				grpColumn
+			rect				196 115 120 260
+			style				WINDOW_STYLE_FILLED
+			border			1
+			backcolor			0 0 0 0
+			bordersize			1
+			bordercolor			0.2 0.2 0.5 0.5
+			visible			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				playerColumn
+			group				grpColumn
+			rect				318 115 59 260
+			style				WINDOW_STYLE_FILLED
+			border			1
+			backcolor			0 0 0 0
+			bordersize			1
+			bordercolor			0.2 0.2 0.5 0.5
+			visible			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				typeColumn
+			group				grpColumn
+			rect				379 115 99 260
+			style				WINDOW_STYLE_FILLED
+			border			1
+			backcolor			0 0 0 0
+			bordersize			1
+			bordercolor			0.2 0.2 0.5 0.5
+			visible			1
+			decoration
+		}
+
+		itemDef
+		{
+			name				versionColumn
+			group				grpColumn
+			rect				480 115 78 260
+			style				WINDOW_STYLE_FILLED
+			border			1
+			backcolor			0 0 0 0
+			bordersize			1
+			bordercolor			0.2 0.2 0.5 0.5
+			visible			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				pingColumn
+			group				grpColumn
+			rect				560 115 52 260
+			style				WINDOW_STYLE_FILLED
+			border			1
+			backcolor			0 0 0 0
+			bordersize			1
+			bordercolor			0.2 0.2 0.5 0.5
+			visible			1
+			decoration
+		}
+
+//----------------------------------------------------------------------------------------------
+//	SERVER LIST WINDOW
+//----------------------------------------------------------------------------------------------
+		itemDef 
+		{
+			name				serverlist
+			rect				10 112 620 264
+			type				ITEM_TYPE_LISTBOX
+			style				WINDOW_STYLE_FILLED
+			elementwidth			120
+			elementheight			26
+			font				5
+			textscale				0.4
+			textaligny			6
+			elementtype			LISTBOX_TEXT
+			feeder				FEEDER_SERVERS
+			outlinecolor			1 1 1 .25			//Highlight when item is selected.
+			visible				1
+			columns				6 0 40 180   185 40 104  318 5 64   379 20 100  480 20 78  560 20 47
+			mouseenter 
+			{ 
+				setitemcolor	serverlist bordercolor .79 .64 .22 1
+			}
+			mouseexit 
+			{ 
+				setitemcolor	serverlist bordercolor 0.2 0.3 0.5 0.5
+			}
+			doubleClick 
+			{ 
+
+				uiScript		checkpassword
+			//	uiScript		JoinServer 
+			//	close			joinserver
+				//open		forcealloc 
+			}
+			
+			// new listbox slider-thingy --eez
+			useNewSlider
+			noSliderButtons
+			floatingSlider
+			sliderBackground		"gfx/ui/mainsub_sliderbarVert"
+			foreground			"gfx/ui/mainsub_sliderbarVert"
+			sliderThumbW			15
+			sliderThumbH			45
+			sliderBackgroundH		290
+			sliderBackgroundW		15
+			sliderTop			124
+			sliderBottom			360
+		}
+
+		// DATE AND TIME	
+		itemDef 
+		{
+			name				refreshdate
+			ownerdraw			UI_SERVERREFRESHDATE
+			font				5
+			textscale				0.3
+			rect				10 376 285 20
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0		
+			textaligny			3
+			forecolor			.79 .64 .22 .7
+			visible				1
+			decoration 
+		}
+
+//----------------------------------------------------------------------------------------------
+// ADDITIONAL SCREENS BUTTONS
+//----------------------------------------------------------------------------------------------
+
+		// PASSWORD
+		//itemDef 
+		//{
+		//	name				passwordText
+		//	text				@MENUS_PASSWORD
+		//	descText			@MENUS_INPUT_PASSWORD
+		//	type				ITEM_TYPE_BUTTON
+		//	font				5
+		//	textscale				0.4
+		//	style				WINDOW_STYLE_FILLED
+		//	rect				10 402 120 20
+		//	textalign			ITEM_ALIGN_CENTER
+		//	textalignx			60		
+		//	textaligny			0
+		//	forecolor			1 1 1 .8
+		//	visible				1 
+		//	action 
+		//	{ 
+		//		play			"sound/interface/button1.wav" ;  
+		//		open			password_popmenu 
+		//}
+//}
+
+
+
+	
+
+
+//----------------------------------------------------------------------------------------------
+// VERY BOTTOM ROW BUTTONS
+//----------------------------------------------------------------------------------------------
+		// BACK BUTTON	
+		itemDef 
+		{
+			name				back
+			text				@MENUS_BACK
+			descText			@MENUS_BACKUP_ONE_MENU
+			type				ITEM_TYPE_BUTTON
+			font				5
+			textscale			.9
+			textstyle			0
+			style				WINDOW_STYLE_FILLED
+			rect				59 444 130 24  
+			textalign			1
+			textalignx			65
+			textaligny			-1
+			textalign			ITEM_ALIGN_CENTER
+			visible				1 
+			forecolor			1 1 1 .8
+			action 
+			{ 
+				play			"sound/interface/esc.wav" ; 
+				close			joinserver ; 
+				open			mainmenu	
+		}
+}
+
+		// EXIT button
+		itemDef 
+		{
+			name				exitgamebutton
+			group				othermain
+			text				@MENUS_EXIT
+			descText			@MENUS_LEAVE_JEDI_KNIGHT_II
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				255 444 130 24
+			font				5
+			textscale				.9
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			0
+			textalignx			65
+			textaligny			-1
+			forecolor			1 1 1 .8
+			visible				1	
+			action 
+			{ 
+				play			"sound/weapons/saber/saberoff.mp3"; 
+				close			all ; 
+				open			quitMenu 
+			}
+		}
+		
+		
+		// JOIN BUTTON
+		itemDef 
+		{
+			name				join_button
+			text				@MENUS_JOIN
+			descText			@MENUS_JOIN_CHOSEN_SERVER
+			type				ITEM_TYPE_BUTTON
+			font				5
+			textscale			.9
+			textstyle			0
+			style				WINDOW_STYLE_FILLED
+			rect				455 444 200 32
+			textalign			1
+			textalignx			65		
+			textaligny			-1
+			forecolor			1 1 1 .8
+			visible				1
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+				uiScript		checkpassword
+			//	uiScript		JoinServer
+			//	close			joinserver 
+			}
+		}
+
+
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

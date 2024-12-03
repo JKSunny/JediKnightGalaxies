@@ -1,0 +1,10 @@
+{
+	"name":			"Lightsaber_Crow",
+	"fullName":		"Crow",
+	"saberModel":		"models/weapons/lightsabers/Crow/model.glm",
+	"soundOn":		"sound/weapons/saber/saberon2.wav",
+	"soundLoop":		"sound/weapons/saber/saberhum4.wav",
+	"soundOff":		"sound/weapons/saber/saberoff2.wav",
+	"extraDisarmChance":	12,
+	"animSpeedScale":	1.05
+}

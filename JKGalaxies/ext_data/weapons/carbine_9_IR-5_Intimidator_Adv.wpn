@@ -1,0 +1,94 @@
+{
+    "name":             "@JKG_ITEMS_carbine_IR-5_Carbine_Adv",
+    "type":             "WP_BLASTER",
+    "variation":        9,
+    "classname":        "carbine_IR-5_Adv",
+    "description":      "@JKG_ITEMS_carbine_IR-5_Adv",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/IR-5_Carbine/viewmodel_adv.md3",
+        "worldmodel":       "models/weapons/IR-5_Carbine/model_adv.glm",
+        "hudicon":          "models/weapons/IR-5_Carbine/icon_adv",
+        "hudnaicon":        "models/weapons/IR-5_Carbine/icon_adv",
+        "selectsound":      "sound/weapons/select_carbine.wav",
+        
+//        "gunposition":      "8.0 -2.2 -7.0",
+        "gunposition":      "11.0 -3.3 -6",
+        "ironsightsposition": "15.0 0.0 -3.365",
+        "ironsightsfov": "70",
+		"barrelCount": "0",
+    
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_Yellow_small",
+            "firesound":    [
+                "sound/weapons/blasters/ir-5_1.mp3",
+                "sound/weapons/blasters/ir-5_2.mp3",
+                "sound/weapons/blasters/ir-5_3.mp3",
+                "sound/weapons/blasters/ir-5_4.mp3"
+            ],
+            "projectilefx": "blasters/shot_YellowGreen_small",
+            "miss":         { "impactfx": "weapons/blaster_impact_yellow_medium_fire" },
+            "hit":          { "impactfx": "blasters/yellow_flesh_impact" },
+            "deathfx": "blasters/shot_Yellow_vaporize",
+	    "displayName":  "Blaster"
+        },
+		
+		        "scope": {
+                "mask":     "models/weapons/e-11_rifle/scope_Mask"
+        }
+    },
+    
+    "stats": {
+        "slot":         1,
+        "reloadtime":   2500,
+        "flags":        [ "roll", "togglezoom" ],
+        "reloadmodifier": 0.7
+    },
+    
+    "firemode0": {
+        "damage":       8,
+        "ammocost":     1,
+        "firedelay":    60,
+        "range":        2800.0,
+        "recoil":       0.6,
+//        "splashrange":  3.0,
+        "spread":       0.3,
+        "projectilespeed": 4000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_BLASTER",
+        "splashmeansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_POWERPACK_M",
+	"ammodefault": "AMMO_POWERPACK_L",
+        "clipSize":              100,
+        "accuracy": {
+			"accuracyRating": 40,
+			"accuracyRatingPerShot": 4,
+			"msToDrainAccuracy": 60,
+			"maxAccuracyAdd": 80,
+			"sightsModifier": 0.4
+        },
+        "heatGenerated": 1.25,
+		"reloadClearHeat": 70,
+        "maxHeat": 50
+    },
+
+	
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "BOTH_RIFLERELOADB" },
+        "sights":        { "torso": "TORSO_WEAPONREADY3", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK3" },
+	"ready":	{ "torso": "BOTH_BASE_RIFLESTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_RIFLESHOOT" },
+	"sprint":	{ "torso": "BOTH_RIFLERUN" },
+        "sprintStyle": "2"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

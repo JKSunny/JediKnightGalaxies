@@ -1,0 +1,13 @@
+{
+	"name":             "Kyle Katarn's Lightsaber",
+	"internal":             "saber_kyle",
+	"itemtype":             "weapon",
+	"weapon":		"WP_SABER",
+	"variation":		"1",
+	"weight":		"5",
+	"tier":			5,
+	"cost":		"1350",
+	"xml":			"",
+	"itemIcon":		"models/weapons/lightsabers/icons/katarn.tga",
+	"itemDescription": "Kyle Katarn's lightsaber."
+}

@@ -1,0 +1,151 @@
+{
+    "name":             "@JKG_ITEMS_RW_Sterling",
+    "type":             "WP_CONCUSSION",
+    "variation":        0,
+    "classname":        "RW_Sterling",
+    "description":      "@JKG_ITEMS_RW_Sterling",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/Sterling/viewmodel.md3",
+        "worldmodel":       "models/weapons/Sterling/model.glm",
+        "hudicon":          "models/weapons/Sterling/icon_default",
+        "hudnaicon":        "models/weapons/Sterling/icon_default",
+        "selectsound":      "sound/weapons/select_carbine.wav",
+                
+        "gunposition":      "10.0 -2.0 -7.0",
+        "ironsightsposition": "13.0 0.0 -4.3",
+        "ironsightsfov": "70",
+		"barrelCount": "4",
+    
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "slugthrowers/muzzleflash",
+            "firesound":    [
+                "sound/weapons/slugthrowers/slug_amp1.mp3",
+                "sound/weapons/slugthrowers/slug_amp2.mp3",
+                "sound/weapons/slugthrowers/slug_amp3.mp3",
+                "sound/weapons/slugthrowers/slug_amp4.mp3"
+            ],
+            "projectilemodel": "models/ammo/quarrel_projectile.md3",
+            "projectilefx": "slugthrowers/slug_shot",
+            "miss":         { "impactfx": "slugthrowers/impactsmall" },
+            "hit":          { "impactfx": "weapons/slug_impact_flesh_blood" },
+	    "displayName":  "Automatic"
+        },
+        
+        "firemode1": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "slugthrowers/muzzleflash",
+            "firesound":    [
+                "sound/weapons/slugthrowers/slug1.mp3",
+                "sound/weapons/slugthrowers/slug2.mp3",
+                "sound/weapons/slugthrowers/slug3.mp3",
+                "sound/weapons/slugthrowers/slug4.mp3"
+            ],
+            "projectilemodel": "models/ammo/quarrel_projectile.md3",
+            "projectilefx": "slugthrowers/slug_shot",
+            "miss":         { "impactfx": "slugthrowers/impactsmall" },
+            "hit":          { "impactfx": "weapons/slug_impact_flesh_blood" },
+	    "displayName":  "Semi-auto"
+        }
+    },
+    
+    "stats": {
+        "slot":         1,
+        "reloadtime":   2000,
+        "flags":        [ "roll" ],
+        "reloadmodifier": 0.7
+    },
+    
+    "firemode0": {
+        "damage":
+        {
+            "damage": 16,
+            "buffs": [
+			{
+				"buff": "standard-bleed",
+				"duration": 3000
+			}
+			]
+        },  
+        "ballistic":    true,
+        "ammocost":     1,
+        "firedelay":    110,	// 550 RPM
+        "range":        40000.0,
+        "recoil":       1.8,
+        "spread":       0.5,
+        "projectilespeed": 13000.0,	// 9 x 19 mm Parabellum velocity 1300 ft/s
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_SLUGTHROWER",
+	"ammobase": "AMMO_SLUGS",
+	"ammodefault": "AMMO_SLUGS",
+        "clipSize":              30,
+        "accuracy": {
+        	"accuracyRating": 45,
+        	"accuracyRatingPerShot": 4,
+        	"msToDrainAccuracy": 55,
+        	"maxAccuracyAdd": 65,
+        	"crouchModifier": 0.9,
+        	"runModifier": 1.5,
+        	"sightsModifier": 0.9,
+        	"walkModifier": 1.3,
+        	"inAirModifier": 1.6
+        }
+    },
+	
+    "firemode1": {
+        "damage":
+        {
+            "damage": 16,
+            "buffs": [
+			{
+				"buff": "standard-bleed",
+				"duration": 3000
+			}
+			]
+        }, 
+        "ballistic":    true,
+        "ammocost":     1,
+        "firedelay":    350,
+        "firingtype":   "semi",
+        "range":        40000.0,
+        "recoil":       1.1,
+        "spread":       0.05,
+        "projectilespeed": 13000.0,	// 9 x 19 mm Parabellum velocity 1300 ft/s
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_SLUGTHROWER",
+	"ammobase": "AMMO_SLUGS",
+	"ammodefault": "AMMO_SLUGS",
+        "clipSize":              30,
+        "accuracy": {
+        	"accuracyRating": 90,
+        	"accuracyRatingPerShot": 4,
+        	"msToDrainAccuracy": 55,
+        	"maxAccuracyAdd": 65,
+        	"crouchModifier": 0.9,
+        	"runModifier": 1.5,
+        	"sightsModifier": 0.9,
+        	"walkModifier": 1.3,
+        	"inAirModifier": 1.6
+        }
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "BOTH_RIFLERELOADR" },
+        "sights":        { "torso": "TORSO_WEAPONREADY3", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK3" },
+	"ready":	{ "torso": "BOTH_BASE_RIFLESTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_RIFLESHOOT" },
+	"sprint":       { "torso": "BOTH_RIFLERUN" },
+        "sprintStyle": "17"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

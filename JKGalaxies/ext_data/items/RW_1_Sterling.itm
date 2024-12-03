@@ -1,0 +1,11 @@
+{
+	"name":             "@JKG_ITEMS_RW_Sterling",
+	"internal":             "RW_Sterling",
+	"itemtype":             "weapon",
+	"weapon":		"WP_CONCUSSION",
+	"variation":		"0",
+	"weight":		"7",
+	"xml":			"",
+	"itemIcon":		"models/weapons/Sterling/icon_default",
+	"itemDescription": "Designed by George William Patchett of Sterling Armaments Company during 1944 in a Galaxy Far Far Away, it fires ballistic slugthrowers at 550 rounds/min at an effective range of 200 metres."
+}

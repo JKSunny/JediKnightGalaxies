@@ -1,0 +1,14 @@
+{
+	"name":		"single_1",
+	"fullName":	"@MENUS_SINGLE_HILT1",
+	"saberModel":	"models/weapons2/saber_1/saber_1.glm",
+	"soundOn":	"sound/weapons/saber/saberon.wav",
+	"soundLoop":	"sound/weapons/saber/saberhum4.wav",
+	"soundOff":	"sound/weapons/saber/saberoff.wav",
+	"blades": {
+		"blade1": {
+			"length":	56,
+			"radius":	2
+		}
+	}
+}

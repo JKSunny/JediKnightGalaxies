@@ -1,0 +1,199 @@
+{
+    "name":             "@JKG_ITEMS_launcher_DC-15A_AntiArmor",
+    "type":             "WP_ROCKET_LAUNCHER",
+    "variation":        4,
+    "classname":        "launcher_DC-15A",
+    "description":      "@JKG_ITEMS_launcher_DC-15A_AntiArmor",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/dc-15a_rifle/viewmodel_aaa.md3",
+        "worldmodel":       "models/weapons/dc-15a_rifle/model_aaa.glm",
+        "hudicon":          "models/weapons/dc-15a_rifle/icon_aaa",
+        "hudnaicon":        "models/weapons/dc-15a_rifle/icon_aaa",
+        "selectsound":      "sound/weapons/select_h_launcher.wav",
+        
+        "indicators": {
+            "ammo":     [ "models/weapons/dc-15a_rifle/antiarmor_glow" ]
+        },
+        
+        "gunposition":      "10.0 -4.0 -8.0",
+        "ironsightsposition": "3.0 0.5 -6.0",
+        "ironsightsfov": "20",
+		"barrelCount": "3",
+   
+           "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_Blue_medium",
+            "firesound":    [
+                "sound/weapons/blasters/generic1.mp3",
+                "sound/weapons/blasters/generic2.mp3",
+                "sound/weapons/blasters/generic3.mp3",
+                "sound/weapons/blasters/generic4.mp3",
+                "sound/weapons/blasters/generic5.mp3",
+                "sound/weapons/blasters/generic6.mp3"
+            ],
+            "projectilefx": "blasters/shot_blue_small",
+            "miss":         { "impactfx": "weapons/blaster_impact_blue_medium_fire" },
+            "hit":          { "impactfx": "blasters/blue_flesh_impact" },
+            "deathfx": "blasters/shot_blue_vaporize",
+            "displayName":  "Repeater"
+        },
+        
+        "firemode1": {
+            "type":         "blaster",
+            
+            "firesound":    [
+                "sound/weapons/blasters/droideka1.mp3",
+                "sound/weapons/blasters/droideka2.mp3",
+                "sound/weapons/blasters/droideka3.mp3",
+                "sound/weapons/blasters/droideka4.mp3"
+            ],
+            "chargingfx":   "weapons/charge_samus",
+            "muzzlefx":     "blasters/muzzleflash_blue_big",
+            "projectilefx": "blasters/shot_Blue_Flare_big",
+            "miss":         { "impactfx": "weapons/blaster_impact_blue_huge_fire" },
+            "hit":          { "impactfx": "weapons/blaster_impact_blue_huge" },
+            "deathfx": "blasters/shot_bluegreen_vaporize",
+            "displayName":  "Heavy Blaster"
+        },
+   
+        "firemode2": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "slugthrowers/muzzleflash_big",
+            "firesound":    [
+                "sound/weapons/repeater/alt_fire.wav"
+            ],
+            "projectilemodel": "models/ammo/anti-armor_charge.md3",
+            "runsound":     "sound/weapons/slugthrowers/rocketlauncher_loop.wav",
+            "projectilefx": "explosives/shot_mortar",
+            "miss":         { "impactfx": "explosives/demomedium" },
+            "hit":          { "impactfx": "explosives/demomedium" },
+	        "displayName":  "Launcher"
+        },
+
+        "scope": {
+                "mask":     "models/weapons/dc-15a_rifle/scope_mask_aaa"
+        }
+    },
+    
+    "stats": {
+        "slot":         1,
+        "reloadtime":   2750,
+        "flags":        [ "knockback", "togglezoom" ],
+       "startzoomfov": 30.0,
+        "reloadmodifier": 0.5,
+        "speed":        0.8
+    },
+    
+    "firemode0": {
+        "damage":       12,
+        "ammocost":     1,
+        "firedelay":    75,
+        "firingtype":   "auto",
+        "range":        5800.0,
+        "recoil":       0.5,
+        "spread":       0.5,
+        "projectilespeed": 4000.0,
+        "projectileclass":"blaster_proj",
+        "meansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_POWERPACK_L",
+	"ammodefault": "AMMO_ION_POWERPACK_L",
+        "clipSize":              100,
+        "accuracy": {
+        	"accuracyRating": 60,
+        	"accuracyRatingPerShot": 4,
+        	"msToDrainAccuracy": 55,
+        	"maxAccuracyAdd": 70,
+        	"crouchModifier": 0.85,
+        	"runModifier": 1.6,
+        	"sightsModifier": 0.9,
+        	"walkModifier": 1.3,
+        	"inAirModifier": 1.8
+		},
+        "heatGenerated": 3
+    },
+    
+    "firemode1": {
+        "damage":       60,//50,
+        "maxchargetime":1500,
+        "chargedamage": 2.0,
+        "chargedelay":  1500,
+        "ammocost":     50,
+        "firedelay":    900,
+        "firingtype":   "semi",
+        "splashrange":  125,//50,
+        "range":        7000.0,
+        "recoil":       3.0,
+        "spread":       0.75,
+        "projectilespeed": 6000.0,
+        "projectileclass": "repeater_alt_proj",
+        "meansofdeath": "MOD_BLASTER",
+        "splashmeansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_POWERPACK_L",
+	"ammodefault": "AMMO_ION_POWERPACK_L",
+        "clipSize":              100,
+        "accuracy": {
+        	"accuracyRating": 50,
+        	"accuracyRatingPerShot": 10,
+        	"msToDrainAccuracy": 55,
+        	"maxAccuracyAdd": 155,
+        	"crouchModifier": 0.99,
+        	"runModifier": 1.6,
+        	"sightsModifier": 0.98,
+        	"walkModifier": 1.3,
+        	"inAirModifier": 1.8
+        	},
+        "heatGenerated": 15
+	},
+    
+    "firemode2": {
+        "damage":       75,//150,
+        "ballistic":    true,
+        "collisionsize":3.0,
+        "ammocost":     1,
+        "firedelay":    300,
+        "firingtype":   "semi",
+        "splashrange":  400,//200,
+        "range":        40000.0,
+        "recoil":       7.0,
+        "spread":       1.4,
+        "projectilespeed":2100.0,
+        "projectileclass":"rocket_proj",
+        "meansofdeath": "MOD_EXPLOSION",
+        "splashmeansofdeath": "MOD_EXPLOSION",
+	"ammobase": "AMMO_ANTIARMOR_CHARGE",
+	"ammodefault": "AMMO_ANTIARMOR_CHARGE",
+        "clipSize":              1,
+            "accuracy": {
+        "accuracyRating": 60,
+        "accuracyRatingPerShot": 0,
+        "msToDrainAccuracy": 1000,
+        "maxAccuracyAdd": 0,
+        "crouchModifier": 0.9,
+        "runModifier": 1.4,
+        "sightsModifier": 0.7,
+        "walkModifier": 1.1,
+        "inAirModifier": 1.8
+        }
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+//        "reload":       { "torso": "TORSO_DROPWEAP1" },
+        "reload":       { "torso": "BOTH_RIFLERELOADL" },
+        "sights":        { "torso": "TORSO_WEAPONREADY3", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK3" },
+	"ready":	{ "torso": "BOTH_BASE_RIFLESTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_RIFLESHOOT" },
+	"sprint":	{ "torso": "BOTH_RIFLERUN" },
+        "sprintStyle": "14"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

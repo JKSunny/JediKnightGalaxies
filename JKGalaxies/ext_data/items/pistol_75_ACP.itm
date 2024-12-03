@@ -1,0 +1,12 @@
+{
+	"name":             "@JKG_ITEMS_pistol_A200_ACP_Pistol",
+	"internal":             "pistol_ACP",
+	"itemtype":             "weapon",
+	"weapon":		"WP_BRYAR_PISTOL",
+	"variation":		"9",
+	"weight":		"3",
+	"cost":		"600",
+	"xml":			"xml/items/A 200.xml",
+	"itemIcon":		"models/weapons/A200_ACP_Pistol/icon_default",
+	"itemDescription": "Developed by Barrakan Arms as a pistol variant of the ACP Battlerifle, it has sacrificed some power for portability. While it remains popular among Trandoshans as a personal side arm, it has become favored among several bounty hunters."
+}

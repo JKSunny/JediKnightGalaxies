@@ -1,0 +1,89 @@
+{
+    "name":             "@JKG_ITEMS_pistol_PulseRevolver",
+    "type":             "WP_BRYAR_PISTOL",
+    "variation":        16,
+    "classname":        "pistol_PulseRevolver",
+    "description":      "@JKG_ITEMS_pistol_PulseRevolver",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/PulseRevolver/viewmodel.md3",
+        "worldmodel":       "models/weapons/PulseRevolver/model.glm",
+        "hudicon":          "models/weapons/PulseRevolver/icon_default",
+        "hudnaicon":        "models/weapons/PulseRevolver/icon_default",
+        "selectsound":      "sound/weapons/select_pistol.wav",
+		"barrelCount":	    "0",
+        
+        "gunposition":      	"12.0 -6.0 -7.0",
+        "ironsightsposition": 	"6.0 0.0 -4.4",
+        "ironsightsfov": "72",
+    
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_Blue_medium",
+            "firesound":    [
+                "sound/weapons/blasters/revolver_1.mp3",
+                "sound/weapons/blasters/revolver_2.mp3",
+                "sound/weapons/blasters/revolver_3.mp3",
+                "sound/weapons/blasters/revolver_4.mp3"
+            ],
+            "projectilefx": "blasters/shot_BluePurple_Ball_small",
+            "miss":         { "impactfx": "weapons/blaster_impact_blue_medium_fire" },
+            "hit":          { "impactfx": "blasters/blue_flesh_impact" },
+            "deathfx": "blasters/shot_BluePurple_vaporize"
+        }
+		
+    },
+    
+    "stats": {
+        "slot":         2,
+        "reloadtime":   1800,
+        "ammoIndex":         "powerpak",
+        "ammoOnSpawn":   48,
+        "ammoOnPickup":   12,
+        "clipSize":              6,
+        "flags":        [ "roll" ],
+        "reloadmodifier": 0.7
+    },
+    
+    "firemode0": {
+        "damage":       45,
+        "ammocost":     1,
+        "firedelay":    750,
+        "firingtype":   "semi",
+        "range":	4500.0,
+        "recoil":       2.8,
+        "spread":       0.1,
+        "projectilespeed": 4000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_PULSE",
+        "splashmeansofdeath": "MOD_PULSE",
+        "accuracy": {
+			"accuracyRating": 15,
+			"accuracyRatingPerShot": 5,
+			"msToDrainAccuracy": 55,
+			"maxAccuracyAdd": 75
+        },
+	"ammobase": "AMMO_AA_POWERPAK",
+	"ammodefault": "AMMO_AA_POWERPAK",
+        "clipSize":              6
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+//        "reload":       { "torso": "TORSO_DROPWEAP1" },
+        "reload":       { "torso": "BOTH_PISTOLRELOAD" },
+        "sights":        { "torso": "TORSO_WEAPONREADY2", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK2" },
+	"ready":	{ "torso": "BOTH_BASE_PISTOLSTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_PISTOLSHOOT" },
+	"sprint":	{ "torso": "BOTH_PISTOLRUN" },
+        "sprintStyle": "8"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

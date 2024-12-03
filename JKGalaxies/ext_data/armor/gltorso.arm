@@ -1,0 +1,42 @@
+{
+	"ref":		"gltorso",
+	"slot":		"torso",
+	"armor":		85,
+	"movemodifier":	0.95,
+
+	"visuals": {
+		"model":	"models/players/glightarmor/model.glm*default",
+		"modelGroup":	"glightarmor",
+
+		"armorOnSurfaces": [
+			"torso",
+			"r_arm",
+			"l_arm"
+		],
+
+		"bodyOffSurfaces": [
+			"torso",
+			"torso_holster",
+			"torso_strap",
+			"torso_bandolier",
+			"r_arm_shoulder",
+			"r_arm",
+			"r_arm_sleeve",
+			"l_arm",
+			"l_arm_shoulder",
+			"l_arm_sleeve",
+			"torso_body",
+			"l_arm_a",
+			"l_arm_b",
+			"l_arm_c",
+			"r_arm_a",
+			"r_arm_b",
+			"r_arm_c",
+			"torso_l_shoulder",
+			"torso_r_shoulder",
+			"torso_vest",
+			"torso_armor",
+			"torso_cowelbase"
+		]
+	}
+}

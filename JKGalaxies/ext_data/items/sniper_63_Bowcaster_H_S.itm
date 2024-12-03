@@ -1,0 +1,12 @@
+{
+	"name":             "@JKG_ITEMS_sniper_Bowcaster_Heavy_Scope",
+	"internal":             "sniper_Bowcaster_H_S",
+	"itemtype":             "weapon",
+	"weapon":		"WP_BOWCASTER",
+	"variation":		"3",
+	"weight":		"18",
+	"cost":		"1700",
+	"xml":			"",
+	"itemIcon":		"models/weapons/bowcaster_heavy/icon_scope",
+	"itemDescription": "A modern version of ancient Wookiee Crossbows, this heavy weapon is much more powerful than typical blasters. It requires great strength to wield effectively. This long range sniper configuration uses a scope, but is also effective at short range."
+}

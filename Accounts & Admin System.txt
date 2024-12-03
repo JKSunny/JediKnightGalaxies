@@ -1,0 +1,164 @@
+This will serve as documentation for JKG's admin system, for the time being.
+The system is currently a WIP.
+
+----------------------------------
+The "God" admin
+----------------------------------
+
+Each JKG server by default has a "God" admin that has the highest (and default) rank. This rank can do every action that is normally available by an admin.
+The default username/password for this admin is as follows:
+
+username: gaia
+password: password
+
+----------------------------------
+Logging In/Out
+----------------------------------
+
+To log in, simply type (in chat):
+
+/login <username> <password>
+
+The username and password are case sensitive.
+To log out, simply type (in chat):
+
+/logout
+
+----------------------------------
+Changing your password
+----------------------------------
+
+Since using the default configuration is a bad idea (since literally anyone can log into the God account, including evil users, if you leave the default password), you'll want to change passwords.
+You can change the password using this command:
+
+/changepassword password <old pass> <new pass>
+
+Bear in mind that password fields are case-sensitive.
+
+----------------------------------
+Saved data
+----------------------------------
+
+All of the saved data about the server is stored in <fs_homepath>/server. Make note of this.
+All of the files are in plaintext/JSON, so you can edit the files by hand if you do not feel like hopping onto the server. Changes to these files require a server restart to take effect.
+
+----------------------------------
+Status
+----------------------------------
+
+To see your basic account information, do /admprofile.
+
+To see all clients information, such as admin status and client numbers, do /admstatus
+
+----------------------------------
+Adding and deleting admins
+----------------------------------
+
+This is done through these commands:
+
+/admnewaccount <username> <password> <rank>
+/admdeleteaccount <username>
+
+You must have the proper permissions to do this.
+
+----------------------------------
+Creating and deleting ranks
+----------------------------------
+
+Simply put,
+
+/admrank create <rank name>
+/admrank delete <rank name> [rank to replace]
+If a rank is in use, you will need to specify the "rank to replace" arg. This will cause any admins using it to be promoted/demoted to that rank.
+
+----------------------------------
+List admins/ranks/powers
+----------------------------------
+
+To list all online admins:
+
+/admlist online
+
+To list all admin accounts + rank (prints to console):
+
+/admlist admins
+
+To list all ranks (prints to console):
+
+/admlist ranks
+
+To list what your rank can do, type:
+
+/admlist powers
+
+----------------------------------
+Altering rank powers
+----------------------------------
+
+Here's where the magic begins: You can alter rank powers ingame, and make them custom for each user. 
+
+First you'll need to know the way that permissions work.
+You can list all the permissions in the system by doing:
+
+/admlist permissions
+
+You can list what permissions a rank has by doing:
+
+/admrank inspect <rank>
+
+Alright, now lets get on to the meat and potatoes here. A rank's permissions are fairly straight-forward. For instance,
+can-list-powers
+refers to /admlist powers. Likewise, can-puppet refers to /admpuppet. 
+There's a special permission called use-cheats, and that allows that rank to use cheats.
+
+Therefore, to add permissions to a rank, all you have to do is this:
+
+/admrank addpermission <rank> <permission>
+
+And to delete permissions, all you have to do is this:
+
+/admrank deletepermission <rank> <permission>
+
+----------------------------------
+Changing another admin's rank/password
+----------------------------------
+
+For rank:
+
+/admalter <username> rank <new rank>
+
+For password:
+
+/admalter <username> password <newpass>
+
+----------------------------------
+Messaging
+----------------------------------
+
+Global messaging:
+
+/admsay <message>
+
+Private messaging:
+
+/admtell <client name/number> <message>
+
+----------------------------------
+Building/Map Construction
+----------------------------------
+
+You can construct maps using a few of the standard Lugormod commands. JKG does not have the same ents as LMD, and JKG can have additional ents which can be coded in Lua (and be based on the map, too!), so keep this in mind.
+
+Commands:
+
+/bPlace <entity classname> <Z offset> [flags]
+
+For more information about the flags, see GTK Radiant for more information.
+
+/bDelent [entity number]
+
+If no entity number is provided, it will delete the target that you are looking at.
+
+/bShowSpawnVars [entity number]
+/bEntList
+/bRotate [entity number] <Pitch> <Yaw> <Roll>

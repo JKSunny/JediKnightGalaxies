@@ -1,0 +1,12 @@
+{
+	"name":             "@JKG_ITEMS_rifle_E-11_Rifle",
+	"internal":             "rifle_E-11",
+	"itemtype":             "weapon",
+	"weapon":		"WP_DISRUPTOR",
+	"variation":		"0",
+	"weight":		"5",
+	"cost":		"1300",
+	"xml":			"",
+	"itemIcon":		"models/weapons/e-11_rifle/icon_default",
+	"itemDescription": "Standard-issue for Imperial Stormtroopers the E-11 was an iconic weapon of the Empire. It came equipped with a simple electroscope. It had considerable stopping fire and a high rate of fire."
+}

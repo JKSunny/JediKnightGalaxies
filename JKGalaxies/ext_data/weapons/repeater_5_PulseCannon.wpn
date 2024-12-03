@@ -1,0 +1,145 @@
+{
+    "name":             "@JKG_ITEMS_repeater_PulseCannon",
+    "type":             "WP_REPEATER",
+    "variation":        5,
+    "classname":        "repeater_pulse",
+    "description":      "@JKG_ITEMS_repeater_PulseCannon",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/PulseCannon/viewmodel.md3",
+        "worldmodel":       "models/weapons/PulseCannon/model.glm",
+        "hudicon":          "models/weapons/PulseCannon/icon_default",
+        "hudnaicon":        "models/weapons/PulseCannon/icon_default",
+        "selectsound":      "sound/weapons/select_repeater.wav",
+        
+        "indicators": {
+            "ammo":         [ "models/weapons/PulseCannon/numbers3", "models/weapons/PulseCannon/numbers2" ],
+            "firemode":     "models/weapons/PulseCannon/firemode"
+        },
+        
+        "gunposition":      "10.0 -5.0 -7.0",
+        "ironsightsposition": "5.0 0.0 -6.0",
+        "ironsightsfov": "70",
+		"barrelCount": "3",
+        
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash2_Blue_medium",
+            "firesound":    [
+                "sound/weapons/blasters/plasmacannon1.mp3",
+                "sound/weapons/blasters/plasmacannon2.mp3",
+                "sound/weapons/blasters/plasmacannon3.mp3",
+                "sound/weapons/blasters/plasmacannon4.mp3"
+            ],
+            "projectilefx": "blasters/shot_BluePurple_Ball_medium",
+            "miss":         { "impactfx": "weapons/blaster_impact_blue_big_fire" },
+            "hit":          { "impactfx": "weapons/blaster_impact_blue_big" },
+            "deathfx": "blasters/shot_BluePurple_vaporize",
+	    "displayName":  "Repeater"
+        },
+        
+        "firemode1": {
+            "type":         "blaster",
+            
+            "firesound":    [
+                "sound/weapons/blasters/plasmacannon1.mp3",
+                "sound/weapons/blasters/plasmacannon2.mp3",
+                "sound/weapons/blasters/plasmacannon3.mp3",
+                "sound/weapons/blasters/plasmacannon4.mp3"
+           ],
+            "chargingfx":   "weapons/laser_blue",
+            "muzzlefx":     "blasters/muzzleflash2_Blue_big",
+            "projectilefx": "blasters/shot_BluePurple_Ball_big",
+            "miss":         { "impactfx": "weapons/blaster_impact_blue_huge_fire" },
+            "hit":          { "impactfx": "weapons/blaster_impact_blue_huge" },
+            "deathfx": "blasters/shot_BluePurple_vaporize",
+	    "displayName":  "Blast"
+        }
+    },
+    
+    "stats": {
+        "slot":         1,
+        "reloadtime":   2900,
+        "reloadmodifier": 0.7,
+        "speed":        0.9
+    },
+    
+    "firemode0": {
+        "damage":       28,
+        "ammocost":     1,
+        "firedelay":    150,
+        "firingtype":   "auto",
+        "range":        4200.0,
+        "recoil":       1.6,
+        "spread":       0.8,
+        "projectilespeed": 3000.0,
+        "projectileclass":"blaster_proj",
+        "meansofdeath": "MOD_PULSE",
+	"ammobase": "AMMO_PB10_POWERCELL",
+	"ammodefault": "AMMO_PB10_POWERCELL",
+        "clipSize":              75,
+        "accuracy": {
+        	"accuracyRating": 63,
+        	"accuracyRatingPerShot": 2,
+        	"msToDrainAccuracy": 72,
+        	"maxAccuracyAdd": 75,
+        	"crouchModifier": 0.9,
+        	"runModifier": 1.5,
+        	"sightsModifier": 0.88,
+        	"walkModifier": 1.2,
+        	"inAirModifier": 1.7
+        },
+        "heatGenerated": 3
+    },
+    
+    "firemode1": {
+        "damage":       20,//36,
+//        "maxchargetime":1500,
+//        "chargedamage": 2.0,
+//        "chargedelay":  1500,
+        "ammocost":     2,
+        "firedelay":    450,
+        "firingtype":   "semi",
+        "splashrange":  100,//40,
+        "range":        5400.0,
+        "recoil":       3.5,
+        "spread":       0.8,
+        "projectilespeed": 4000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_PULSE",
+        "splashmeansofdeath": "MOD_PULSE",
+	"ammobase": "AMMO_PB10_POWERCELL",
+	"ammodefault": "AMMO_PB10_POWERCELL",
+        "clipSize":              75,
+        "accuracy": {
+        	"accuracyRating": 70,
+        	"accuracyRatingPerShot": 7,
+        	"msToDrainAccuracy": 72,
+        	"maxAccuracyAdd": 65,
+        	"crouchModifier": 0.92,
+        	"runModifier": 1.6,
+        	"sightsModifier": 0.9,
+        	"walkModifier": 1.3,
+        	"inAirModifier": 1.8
+        },
+        "heatGenerated": 3.5
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "BOTH_RIFLERELOADB" },
+        "sights":        { "torso": "TORSO_WEAPONREADY3", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK3" },
+	"ready":	{ "torso": "BOTH_BASE_RIFLESTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_RIFLESHOOT" },
+	"sprint":       { "torso": "BOTH_RIFLERUN" },
+        "sprintStyle": "2"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

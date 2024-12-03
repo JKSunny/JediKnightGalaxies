@@ -1,0 +1,19 @@
+// Gang Wars team definition
+// File by Futuza
+// (c) 2019 Jedi Knight Galaxies
+
+name "^7Raiders"
+longname "^7Tusken Raiders"
+joinstring "^7 has joined the Tusken Raiders."
+toomanystring "^7Too many Raiders!"
+leadstring "^7The Tusken Raiders have driven the enemy to the ground"
+menustring "Raiders"
+flagtakenstring "^7The Tusken Raiders have seized the flag!"
+flagreturnedstring "^7The Tusken Raiders have reclaimed their flag."
+flagcapturedstring "^7The Tusken Raiders have captured the flag!"
+reference "tusks"
+modelstore "tusken/default,weequay/default,chiss/default,rodian/default,reelo/default,"
+defaultModel "tusken/default,"
+useTeamColors "0"
+icon "sprites/tusks"
+teamColor "{210,114,30,255}"

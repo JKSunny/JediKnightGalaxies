@@ -1,0 +1,607 @@
+# JEDI KNIGHT GALAXIES: ext_data
+
+Jedi Knight Galaxies is easily the most moddable mod for Jedi Academy in existence. Part of this is due to the new systems we implemented with the ext_data files. Almost all of them follow JSON-like syntax (you can use c-style comments).
+
+## TABLE OF CONTENTS
+
+1. Understanding the data structures
+2. Understanding treasure classes
+3. Global tables
+4. Item fields
+5. Armor fields
+6. Weapon fields
+7. Ammo fields
+8. Jetpack fields
+9. Teams ("Gang Wars") fields
+10. Lightsabers - Hilts and Stances
+
+
+## UNDERSTANDING THE DATA STRUCTURES
+
+Note that in this document we are talking about the JSON files only. That is, we are only talking about the stuff in the following directories:
+
+- ammo
+- armor
+- gangwars
+- hilts
+- items
+- jetpacks
+- stances
+- tables
+- treasure
+- weapons
+
+The other directories (MP, vehicles, sabers, NPCs) are files that are included by the base game. Those are deprecated and will be replaced later on.
+
+Fields have a type associated with them:
+ - integer: means that this can only be whole numbers, -2billion to 2billion
+ - float: means that this can be decimal numbers
+ - boolean: means that this can be only true or false
+ - string: means that this can have words, letters, etc, enclosed in quotation marks ""
+ - array of (type): means that this contains multiple values
+ - object: a JSON object which has further values below it
+
+Fields are not case sensitive.
+If a string field starts with a @, that means it will be looked for in the .str files. For instance @JKG_INVENTORY_MOD_UNKNOWN will be looked for as:
+ - jkg.str, looking for INVENTORY_MOD_UNKNOWN
+ - jkg_inventory.str, looking for MOD_UNKNOWN
+ - jkg_inventory_mod.str, looking for UNKNOWN
+
+## UNDERSTANDING TREASURE CLASSES
+
+Treasure classes are a form of randomization for items. Vendors, treasure chests, and NPCs are (or will) be hooked up to use them.
+
+Each treasure class file (in /treasure/) has a series of treasure classes in them, under the object "classes". There are a few important fields in the class:
+
+ - numberPicksMin (integer): When this treasure class is used, the minimum number of items that will be picked
+ - numberPicksMax (integer): When this treasure class is used, the maximum number of items that will be picked
+ - uniquePicks (boolean, optional): If true, this treasure class will not pick two of the same item
+ - picks (object): The list of items or treasure classes to pick
+
+Note that if uniquePicks is true, the total number of objects that this treasure class can pick MUST exceed numberPicksMax, otherwise the server will crash!
+
+Picks is a series of fields that have integer values associated with them. The field names can point to either internal item names, or other treasure classes. Again, be careful! If you loop back to a treasure class, it is possible to crash the server!
+
+So how do we evaluate the odds of getting an item? Well, you can use the `tceval` command ingame, which will "drop" items in the treasure class and calculate the odds for you using empirical analysis. But this is best shown via example:
+
+Let's say we have a treasure class, "myclass". It has two picks: "pistol" with odds 1, and "grenade" with odds 3. Pistol has a 1/4 chance of dropping, and Grenade has a 3/4 chance of dropping. The numerator is the odds as listed in the field, and the denominator is the total odds added up.
+
+With nested treasure classes, this gets a bit more complicated. Let's have another treasure class, "myfancyclass". It has "myclass" with odds 2, and "rifle" with odds 2. The rifle has a 50% chance of dropping, and it has a 50% chance to pick from "myclass". That means in total, Pistol has a 1/8 chance of dropping, and grenades have a 3/8 chance of dropping, while Rifle has a 4/8 chance of dropping.
+
+
+## GLOBAL TABLES
+
+### ammo.json
+Not used as of 1.3.0.
+
+### buffs.json
+Defines buffs. Buffs can be given by weapons, or through Lua scripts. Each ent can have a total of 16 buffs on it at once, or 16 stacks of one buff.
+
+Each object, whose name is the buff linkage (example, "standard-fire": {} can be linked to with "standard-fire"), has the following fields:
+
+ - category (string): Defines a category for this buff.
+ - canceling (object): Defines data about how this buff cancels out other buffs and vice versa. Contains the following fields:
+  - priority (integer): Defines a priority for this buff. Higher priority buffs cancel out buffs with lower priority.
+  - noBuffStack (boolean): If true, this buff cannot stack multiple times. It will extend the duration if applied repeatedly.
+  - noCategoryStack (boolean): If true, this buff will not stack against another buff in the same category. It will remove all buffs in the same category who have lower priority.
+  - waterRemoval (boolean): If true, swimming in water will remove the buff.
+  - rollRemoval (boolean): If true, rolling removes this buff.
+  - shieldRemoval (boolean): If true, if an active shield is equipped (with at least 1 charge) will remove this buff.
+  - filterRemoval (boolean): If true, if armor with the filter property is equipped will remove this buff.
+  - cancelOther (array of objects): Cancels out buffs in other categories when this buff is applied. Each object in this array contains the following data:
+   - category (string): The category to cancel out.
+   - priority (integer): Won't cancel anything in this category unless this priority number is >= that buff's priority number.
+ - damage (object): Defines data about damage for the buff. Contains the following fields:
+  - damage (integer): How much damage to do each tick. Use negative values for healing.
+  - percentage (boolean): If true, damage is interpreted as a % of current health to inflict, rather than as a hard number (eg: 25 would do 25% of the target's current health).  The range must be between (+/-)1-100% to be valid.
+  - means (string/special): The means of damage/damage type of the damage to do.
+  - damageRate (integer): How many milliseconds between damage applications.
+ - passive (object): Defines data about passive stat bonuses that this buff provides. Contains the following fields:
+  - maxstacks(unsigned int): If greater than 0, the movemodifier can be changed.  eg: setting it to 3, would allow the movemodifier to be stackable up to 3x.  Setting to 1 allows the effect to apply only once.  Default is 0.
+  - movemodifier(float): How much the debuff should modifiy overall movement speed by.  eg: 0.8 slows down by 20%, while 1.5 increaes speed by 50%.  Default is 1.0.  maxstacks must be greater than 0, for movemodifier to be applied. 
+  - knockdown(boolean): If true, when the debuff is first applied, the player will be knocked down and fall on their face (only applies once).  Default: false.
+  - empstaggered(boolean): If true, your electronics are disabled/shorting out.  eg: Jetpacks are shut off.  Default: false.
+  - resistant(boolean): If true, incoming damage is reduced by 50%.  Default: false.
+  - pmove (string/special): Overrides the movement type while this buff is applied. Can be one of the following:
+   * PM_NORMAL - Regular movement
+   * PM_JETPACK - Jetpack movement
+   * PM_FLOAT - Zero gravity movement (eg: grip)
+   * PM_NOCLIP - Noclipping
+   * PM_SPECTATOR - Spectator movement
+   * PM_DEAD - Dead movement
+   * PM_FREEZE - Frozen movement
+   * PM_INTERMISSION - Intermission movement
+   * PM_LOCK - Fully stop all motion whatsoever, including turning, nearly identical to PM_FREEZE
+   * PM_NOMOVE - Player cannot move or fire weapons, but can still move camera, torso twist, aim etc.
+ - visuals (object): Contains visual data about the buff. Contains the following fields:
+  - efx (object): Contains information about fullbody effects on the player. Contains the following fields:
+   - effect (string): The EFX file to play
+   - bolt (string): Which bone to bolt the effect to
+   - debounce (integer): How many milliseconds between playing the effect
+  - shader (object): Contains information about fullbody shader effects applied to the player. Contains the following fields:
+   - shader (string): The shader to apply to the player.
+   - shaderRGBA (array of integer): The RGBA (red/green/blue/alpha transparency) of the shader applied.
+   - shaderLen (integer): How many milliseconds to play the fullbody effect for.
+
+### constants.json
+Defines several constants. These could be cvars, but I decided not to, in order to keep the cvar space empty.
+
+ - baseJumpHeight (float): Controls how high players jump
+ - baseJumpVelocity (float): Controls how fast players jump
+ - baseForceJumpLevel (float): Controls what level of Force Jump players have by default. This will be deprecated in the future.
+ - baseJumpTapHeight (float): Controls how high players jump with a simple tap of the spacebar.
+ - baseJumpTapVelocity (float): Controls how high players jump with a simple tap of the spacebar.
+ - walkingSpeed (float): Controls how fast players move when they are walking (not running, not sprinting)
+ - ironsightsMoveSpeed (float): Controls how fast players move when they are using ironsights
+ - blockingModeMoveSpeed (float): Controls how fast players move when they are using sabers in Blocking or Projectile Blocking mode.
+
+The following modify movement speed
+ - backwardsSpeedModifier (float): Modifies the player's speed when they are walking backwards.
+ - strafeSpeedModifier (float): Modifies the player's speed when they are moving side-to-side.
+ - baseSpeedModifier (float): Modifies the run speed.
+ - walkSpeedModifier (float): Modifies the walk speed.
+ - minimumSpeedModifier (float): Adds up the modifiers. If all of the modifiers fall below this value, they are capped to being this.
+ - sprintSpeedModifier (float): Modifies the sprint speed
+ - backwardsDiagonalSpeedModifier (float): Modifies the backwards, diagonal movement speed. 
+
+ - stamina(object):
+  - lossFromRolling (integer): How much stamina is lost from rolling.
+  - lossFromPunching (integer): How much stamina is lost from punching.
+  - lossFromKicking (integer): How much stamina is lost from kicking.
+  - lossFromJumping (integer): How much stamina is lost from tapping the jump button.
+  - minSprintThreshold (integer): The minimum amount of stamina that is needed to start sprinting.
+  - minRollThreshold (integer): The minimum amount of stamina that is needed to roll.
+  - minJumpThreshold (integer): The minimum amount of stamina that is needed to jump.
+  - minPunchThreshold (integer): The minimum amount of stamina that is needed to punch.
+  - minKickThreshold (integer): The minimum amount of stamina that is needed to kick.
+
+### crystals.json
+Contains all of the lightsaber crystals that are usable by hilts.
+Currently this file is incomplete.
+
+### meansOfDamage.json
+Contains all of the information about damage types in the game.
+New damage types are able to be added without issue, but beware removing any damage types because some are required to be there by code. Generally you should add new ones to the end of the file to avoid any issues.
+
+It contains a series of means of damage, each one has the following fields:
+
+ - inventoryName (string): The name of the damage type as it appears on weapons which deal that type of damage.
+ - hitmarkerExplosives (boolean): If true, this damage type will not show a hitmarker when attacking deployed explosives.
+ - disintegrate (boolean): If true, this damage type will disintegrate people when it kills them.
+
+ - modifiers (object):
+  - dodgeable (boolean): If true, this damage type may be reduced with an evade skill (eg: rolling)
+  - ignoreArmor (boolean): If true, this damage type ignores armor
+  - ignoreShield (boolean): If true, this damage type ignores shields
+  - isEMP (boolean): If true, this damage type can trigger special EMP effects, such as disabling jetpacks.  These effects are defined in game\g_combat.cpp within the G_Damage() function.  These only occur if the target actually takes damage (if a shield protects the target nothing is triggered).
+  - armor (float, default 1.0): Controls how much damage this type does against armor
+  - shield (float, default 1.0): Controls how much damage this type does against shields
+  - organic (float, default 1.0): Controls how much damage this type does against soft targets
+  - droid (float, default 1.0): Controls how much damage this type does against droids
+
+ - dismemberment (object):
+  - canDismember (boolean): If true, this damage type can dismember people.
+  - blowChunks (boolean): If true, when this damage type lands a killing blow, it will completely dismember people
+
+ - killfeed (object):
+  - killMessage (string): The message that is displayed when killing someone with this damage type
+  - deathMessage (string): The message that is displayed when someone is killed with this damage type (no owner)
+  - suicideMessage (string): The message that is displayed when someone kills themselves with this damage type
+  - suicideMessageMale (string): The message that is displayed when a male character kills themselves with this damage type
+  - suicideMessageFemale (string): The message that is displayed when a female character kills themselves with this damage type
+  - suicideMessageNeuter (string): The message that is displayed when a gender-neutral character kills themselves with this damage type
+
+ - plums (object):
+  - hide (boolean): If true, damage numbers will not show up for this damage type
+  - damageColor (array of float): RGB color of damage numbers when a target is damaged by this damage type
+  - lowDamageColor (array of float): RGB color of damage numbers when a target is barely damaged (< 25% of base damage) by this damage type
+  - shieldDamageColor (array of float): RGB color of damage numbers when a target's shields are damaged by this damage type
+
+
+## ITEM FIELDS
+
+Everything that can be used by the player is an item. The exception is ammo items, which are converted into ammo that the player can use.
+
+Each .itm file contains one item, which can have the following fields:
+
+ - name (string): The display name of this item as it appears on the inventory and shop menus.
+ - internal (string): The internal code reference of this item, used in treasure classes and scripting.
+ - id (integer): Assigns a specific internal item ID number to this item. Not recommended to use this except in special circumstances.
+ - itemIcon (string): The item icon shader as it appears in the inventory
+ - itemtype (special): The type of the item. Can be the following: armor, weapon, clothing, consumable, shield, jetpack, ammo, tool.
+ - tier (integer): Which tier of item the item is (0 - scrap, 1 - common, 2 - refined, 3 - elite, 4 - superior, 5 - legendary). Default: Common
+ - weight (float): Unused, cannot be less than 0.    Default: 1.0
+ - cost (integer): How much the item costs from the vendor.  Default: 100
+ - maxStack (integer): How many of this item can be carried in a stack.
+ - tradeable (boolean): If true, the item can be traded/sold/etc.  Not yet fully implemented.  Default: true. (Note: defaults to true if tier is 5)
+ - segregated (boolean): If true, the item does not show up/take up space in the normal inventory (for things like quest items etc).  Default: false.
+ - droppable (boolean): If true, the item can be dropped/destroyed.  Not yet fully implemented.  Default: true ((Note: defaults to true if tier is 5)
+ - itemDescription (string): A description of the item up to 250 characters in length.  Longer descriptions are forcibly truncated.
+
+The following contains information specific to WEAPON items:
+
+ - weapon (integer): The base weapon number
+ - variation (integer): The variation number
+
+The following contains information specific to AMMO items:
+
+ - ammoclass (string): The ammo type
+ - ammoquantity (integer): How much ammo is given to the player upon purchasing / acquiring this item.
+
+The following contains information specific to ARMOR items:
+
+ - armor (string): The reference to the armor file
+
+The following contains information specific to CONSUMABLE items:
+
+ - consumeScript (string): The name of the Lua script to run when this item gets consumed.
+ - consumeAmount (string): The number to consume when consuming.
+ - partHealthReq (boolean, default false): if set to true, the item can only be consumed if hp < maxhealth
+ - partStaminaReq (boolean, default false): if set to true, the item only be consumed if stamina < maxstamina
+
+The following contains information specific to SHIELD items:
+
+ - capacity (integer, default 25): How much shield this item has when equipped
+ - cooldown (integer, default 10000): How long, in milliseconds, between the last time the shield was hit and when it will start recharging.
+ - regenrate (integer, default 100): How long, in milliseconds, it takes for the shield to recharge one unit.
+ - rechargeSoundEffect (string): The sound effect that is played when the shield starts recharging.
+ - brokenSoundEffect (string): The sound effect that is played when the shield loses all of its charge
+ - equippedSoundEffect (string): The sound effect that is played when the shield is equipped to the ACI.
+
+The following contains information specific to JETPACK items:
+
+ - jetpack (string): The reference to the jetpack
+
+
+## ARMOR FIELDS
+
+Each .arm file contains data for one piece of armor. They have the following fields:
+
+ - ref (string): The internal name of this armor
+ - slot (special): Which "slot" this armor belongs to. Can be: head, neck, torso, robe, legs, gloves, boots, shoulder, implant
+ - ehp (integer): "Effective Hit Points" for this piece of armor. Example, if the player's base health pool is 100 hit points, and this piece of armor provides 100 ehp, it is equivalent to a 50% reduction in damage. If EHP is 200, it's equivalent to a 66% reduction in damage.
+ - hp (integer): How much to increase the player's total health pool by when this piece of armor is equipped.
+ - stamina (interger): How much to increase the player's total stamina/forcePower pool by when this piece of armor is equipped (note this feature is incomplete).
+ - filter (boolean): If true, the armor has a filter that protects the wearer from toxins.
+ - movemodifier (float): How much to modify a player's movement speed by with their equipped armor. This is subject to movement modifiers (see constants.json, above)
+ - visuals (object): Contains the following fields:
+  - equippedSound (string): The sound that is played when the piece of armor is equipped.
+  - model (string): Which player model to use for the appearance. Anything after the * is the skin name.
+  - modelGroup (string): Optimization. Group pieces of armor which use the same model and skin combo for better performance.
+  - motionBone (string): Not used.
+  - armorOnSurfaces (array of string): Which surfaces to turn on on the armor model.
+  - bodyOffSurfaces (array of string): Which surfaces to turn off on the player model.
+
+
+## WEAPON FIELDS
+
+Each .wpn file contains one weapon each. Weapons are found by their base id/variation id pair. For instance, all rifles belong to the Rifle base type, but the E-11 has a unique variation id associated with it. Some behavior is hardcoded based on the base ID.
+
+Each .wpn file contains the following fields:
+
+ - name (string): The display name of this weapon. Appears when cycling through weapons on the ACI.
+ - description (string): Not used.
+ - classname (string): The spawned entity name of the weapon.
+ - type (special): The base type of this weapon. Can be WP_NONE, WP_STUN_BATON, WP_MELEE, WP_SABER, WP_BRYAR_PISTOL, WP_BLASTER_PISTOL, WP_BLASTER, WP_DISRUPTOR, WP_BOWCASTER, WP_REPEATER, WP_DEMP2, WP_FLECHETTE, WP_ROCKET_LAUNCHER, WP_THERMAL, WP_TRIP_MINE, WP_DET_PACK, WP_CONCUSSION, WP_BRYAR_OLD, WP_EMPLACED_GUN, or WP_TURRET.
+ - variation (integer): The variation number for this weapon.
+
+ - stats (object): Contains the following fields:
+  - reloadtime (integer): How long this weapon takes to reload.
+  - flags (array of special): Can contain the following: cookable, knockback, roll, zoom, and togglezoom. Cookable means that the weapon is cookable like a grenade. Knockback means that the weapon does knockback. Roll means that the player can roll while holding this weapon. Zoom means that the ADS uses a scopemask to zoom in continuously, like the base JA disruptor. Togglezoom means that the ADS does not have variable zoom.
+  - speed (float): How much to multiply the speed by while this weapon is equipped.
+  - reloadmodifier (float): How much to multiply the speed by while this weapon is reloading.
+  - swaptime (integer): How many milliseconds it takes to stow this weapon away while switching weapons.  Default: 300.
+  - startzoomfov (float): The beginning FOV of the zoom.
+  - endzoomfov (float): The ending FOV of the zoom.
+  - zoomtime (integer): If continuous zoom is used, this is how long in milliesconds it takes to go from start to end FOV.
+  - ironsightsTime (integer): How many milliseconds it takes to go into/out of ironsights.
+
+The .wpn file contains one field for each firing mode, starting with 0.
+ - firemode%i (object): Contains the following fields:
+  - damage (special): If this is a number, this is the base damage that this weapon does. Otherwise, it is treated as an object with the following fields:
+   - damageradius (object): Contains the following fields:
+    - start (float): The starting damage radius
+    - end (float): The ending damage radius
+    - parm (integer): Parameter supplied to the function.
+    - falloff (special): Describes how the damage is applied to targets within the radius. Can be constant, linear, or gaussian.
+    - function (special): Describes how the damage radius is applied over time. Can be linear, nonlinear, clamp, wave, or constant.
+   - duration (integer): How long the damage area stays alive for, in milliseconds.
+   - delay (integer): How long before the damage area is applied, in milliseconds.
+   - damage (integer): How much damage is applied to targets who stand in the damage area.
+   - damagedelay (integer): How long before applying damage, in milliseconds.
+   - penetration (special): If this field is 3, it can damage through walls. Otherwise it does not.
+   - buffs (array of object): Applies buffs to the target when this damage is applied. Each object in the array contains the following fields:
+    - buff (string): The name of the buff to apply.
+    - duration (integer): How long (in milliseconds) to apply the buff for.
+    - intensity (float): Not used.
+   - flags (array of string): Adds extra flags to the damage which specify how to apply it. The strings in this array can be one of the following:
+    * DAMAGE_NORMAL: No effect.
+    * DAMAGE_RADIUS: No effect.
+    * DAMAGE_NO_SHIELD: Ignores shields
+    * DAMAGE_NO_KNOCKBACK: Does not do knockback
+    * DAMAGE_NO_PROTECTION: Weapon can ignore godmode and other forms of protection
+    * DAMAGE_NO_HIT_LOC: Weapon ignores armor, and is not affected by location based modifiers
+    * DAMAGE_NO_DISMEMBER: Weapon cannot dismember
+  - secondarydamage (special): Applies a second damage area on top of the original damage. This is an object with fields identical to `damage`.
+  - grenade (boolean): If true, this firemode behaves (ballistically) like a grenade.
+  - grenadeBounces (boolean): If true, grenades fired with this firing mode will bounce.
+  - ballistic (boolean): If true, and this is not a hitscan weapon, the projectile will be affected by ballistic drop.
+  - bounces (integer): The number of times that this firing mode will bounce.
+  - hitscan (boolean): If true, this firing mode behaves like a hitscan weapon would.
+  - projectiles (integer, capped at 127): The number of projectiles fired by this firing mode.
+  - collisionsize (float): How large the projectile is.
+  - ammocost (integer): How much ammo to use up by firing this firing mode.
+  - clipsize (integer): How much ammo this firing mode's clip contains. Do not change the clip size for different firing modes, unless they use a different base ammo type.
+  - maxchargetime (integer): How much time (in milliseconds) that the player is allowed to charge their weapon for.
+  - chargedamage (float): How much to multiply the damage by when at full charge.
+  - chargedelay (integer): How long to wait between ammo subtractions while charging, in milliseconds
+  - chargesubtract (integer): How much ammo to subtract while charging, per chargedelay
+  - firingtype (special): Can be auto, semi, or burst.
+  - shotsperburst (integer): How many shots are fired per burst. Should be 0 for full automatic weapons, 1 for semi automatic, and higher for more shots in a burst.
+  - burstshotdelay (integer): How many milliseconds between firing each round in a burst.
+  - firedelay (integer): How long the player waits (in milliseconds) before firing each round.
+  - range (float): How long the projectile shot by the weapon goes (or the hitscan line traces for), in map units.
+  - splashrange (float): For non-complex damage areas, this details how far to spread the damage.
+  - recoil (float): How much to tilt the camera when a player shoots this firing mode.
+  - heatGenerated (float, default 0): How much heat is generated when this weapon fires. When your "heat" value exceeds maxHeat, you cannot fire this weapon anymore.
+  - maxHeat (integer, default 100): If your heat exceeds this value, you cannot fire any more.
+  - heatThreshold (interger, default: 75% of maxHeat): Once your maxHeat is hit, you cannot fire until the weapon has cooled to a value less than this threshold.
+  - reloadClearHeat (integer, default 50, range 0-100): Represents how much heat (percentage) should be cleared if you reload the weapon.  eg: 75 = 75% of the heat is cleared.
+  - accuracy (object): Contains the following fields:
+   - accuracyRating (float, default 32): How far apart each shot can be (maximum) at roughly 100 map units distance. This is the base value.
+   - crouchModifier (float, default 0.8): How much to multiply the overall accuracy rating while crouching.
+   - runModifier (float, default 2.0): How much to multiply the overall accuracy rating while running.
+   - sightsModifier (float, default 0.2): How much to multiply the overall accuracy rating while aiming down the sights.
+   - walkModifier (float, default 1.55): How much to multiply the overall accuracy rating by while walking.
+   - inAirModifier (float, default 3.0): How much to multiply the overall accuracy rating by while in air.
+   - accuracyRatingPerShot (integer, default 2): How much to add to the accuracy rating, per shot. This adds on to the base value.
+   - msToDrainAccuracy (integer, default 200): How many milliseconds before removing 1 added on accuracy rating.
+   - maxAccuracyAdd (integer, default 128): How much added accuracy rating can exist while in this firing mode.
+  - projectilespeed (float): How fast the projectile moves
+  - projectileclass (string): What the spawned projectile's classname is
+  - meansofdeath (special): The damage type of this weapon. Connects to a field in meansOfDamage.json
+  - ACPRatio (float, default 0.5): If meansofdeath is MOD_ACP this option is also available.  It determines which portion of the ACP damage impacts on the shield/vs what bypasses it. eg: 0.4 == 40% direct dmg, 60% shield damage. Range: 0.0 - 1.0.
+  - splashmeansofdeath (special): The damage type of this weapon, when splash damage is applied. Connects to a field in meansOfDamage.json
+  - useQuantity (boolean): If true, this fire mode deducts one from the item stack quantity when shooting. Used for grenades mostly.
+  - ammoBase (string): Points to an ammo type. This firemode can use anything that is based on this ammo type.
+  - ammoDefault (string): Points to an ammo type. This firemode gives this ammo when purchased.
+
+
+ - saberdata (object): Contains the following fields:
+  - hilt (string): The hilt associated with this saber weapon.
+  - crystal (string): The default crystal that is installed in this crystal.
+
+ - playeranims (object): Contains the following fields:
+  - ready (special): Contains the following fields:
+   - torso (string): Refers to an animation in the skeleton to apply to the torso region. 
+   - legs (string): Refers to an animation in the skeleton to apply to the legs region.
+  - firing (special): Contains the same fields as `ready`. Used when firing the weapon.
+  - reload (special): Contains the same fields as `ready`. Used when reloading the weapon.
+  - backwardWalk (special): Contains the same fields as `ready`. Used when walking backwards with the weapon.
+  - forwardWalk (special): Contains the same fields as `ready`. Used when walking forwards with the weapon. 
+  - crouchWalk (special): Contains the same fields as `ready`. Used when walking forwards and crouching with the weapon.
+  - crouchWalkBack (special): Contains the same fields as `ready`. Used when walking backwards and crouching with the weapon. 
+  - jump (special): Contains the same fields as `ready`. Used when jumping with the weapon.
+  - land (special): Contains the same fields as `ready`. Used when landing with the weapon. 
+  - run (special): Contains the same fields as `ready`. Used when running with the weapon.
+  - sprint (special): Contains the same fields as `ready`. Used when sprinting with the weapon.
+  - sights (special): Contains the same fields as `ready`. Used when aiming down the sights with the weapon.
+  - sightsFiring (special): Contains the same fields as `ready`. Used when aiming down the sights with the weapon and firing. 
+  - sprintStyle (integer/special): Determines what sprinting animation to use in first person when sprinting with the weapon. Consult this for more information:
+   - 0 = None
+   - 1 = Lowered, no sway.
+   - 2 = Lowered, slight sway.
+   - 3 = Lowered, heavy sway.
+   - 4 = To the side, no sway.
+   - 5 = To the side, slight sway.
+   - 6 = To the side, heavy sway.
+   - 7 = Raised up, no sway.
+   - 8 = Raised up, slight sway.
+   - 9 = Raised up, heavy sway.
+   - 10 = Angled down, no sway.
+   - 11 = Angled down, slight sway.
+   - 12 = Angled down, heavy sway.
+   - 13 = To the side and raised up, no sway.
+   - 14 = To the side and raised up, slight sway.
+   - 15 = To the side and raised up, heavy sway.
+   - 16 = To the side and raised slightly up, no sway.
+   - 17 = To the side and raised slightly up, slight sway.
+   - 18 = To the side and raised slightly up, heavy sway.
+
+ - visual (object): Contains the following fields:
+  - worldmodel (string): The model when equipped by a player or on the ground. Should only be a GLM model.
+  - viewmodel (string): The model as seen in first person. Can be a GLM or MD3 model.
+  - hudicon (string): Not used.
+  - hudnaicon (string): Not used.
+  - selectsound (string): The sound this weapon makes when it is equipped.
+  - indicators (object): Contains the following fields:
+   - ammo (array of string): Indicates that this weapon has first person ammo indicators. Will override the properties in the `leds` field. The first shader is the 100 digit, the second shader is the 10 digit, and the third shader is the 1 digit. Each shader should have 10 animmap frames. Frame 0 is 0, Frame 1 is 1, etc.
+   - leds (array of string): Indicates that this weapon has first person cooking indicators. The strings refer to shaders on the weapon to point to for cooking. For example, the first shader will fire off first, and then the second, as the player is cooking the grenade.
+   - firemode: The shader that is used to indicate the firing mode in first person, if this weapon has a firemode indicator. The number of frames in the shader animmap should match the number of firing modes.
+  - gunposition (string): X/Y/Z coordinates of where the gun should be in first person.
+  - ironsightsPosition (string): X/Y/Z coordinates of where the gun should be in first person while aiming down the sights.
+  - ironsightsFov (float): The FOV to go to when in ironsights.
+  - scope (object): Contains the following fields:
+   - startsound (string): The sound to play when starting to zoom.
+   - stopsound (string): The sound to play when cutting out of zoom.
+   - looptime (integer): The number of time (in milliseconds) before playing another loop sound effect.
+   - loopsound (string): The sound to play when zooming, each looptime.
+   - mask (string): The scope mask. Drawn when zooming.
+  - barrelCount (integer): The number of _barrel MD3s to add on top of the model. Barrels will animate when firing.
+  - firemode%i (object): There are one of these for each firing mode. Contains the following fields:
+   - type (special): Can be grenade, blaster, tripmine, or detpack.
+   - displayName (string): The name of the firing mode as it appears on the HUD.
+   - crosshairShader (string): The shader to override the crosshair to when in this firing mode.
+   - switchToSound (string): The sound to play when switching to this firing mode.
+   - animType (special/integer): How to angle the weapon while in this firing mode. Can be one of the following: 0 (no tilt), 1 (tilted up), 2 (tilted to the right)
+   - overrideIndicatorFrame (integer): What frame to set the firemode indicator to, if this weapon has one.
+   - displayExplosive (boolean): Not used.
+   - muzzlelightintensity (float): When this fire mode fires, how much light to give off.
+   - muzzlelightcolor (string): When this fire mode fires, what color the light should be when firing.
+   - chargingfx (string): The FX used when charging the weapon.
+   - muzzlefx (string): The FX used when firing the weapon in this firing mode.
+   - firesound (special): Can either be one sound effect, or an array of sound effects, as a string.
+   - tracelineshader (string): If this weapon is hitscan, this is the shader to draw for the hitscan.
+   - minsize (float): If this weapon is hitscan, this is how small the hitscan can be, minimum.
+   - maxsize (float): If this weapon is hitscan, this is how large the hitscan can be, maximum.
+   - lifetime (float): If this weapon is hitscan, this is how long the hitscan shows up onscreen.
+   - chargingsound (string): What sound effect to use when charging, if this fire mode charges.
+   - projectilemodel (string): The model used for the projectile, if it is not hitscan.
+   - projectilefx (string): The FX to render for the projectile, if it is not hitscan.
+   - runsound (string): The sound effect to loop on the projectile, if it is not hitscan.
+   - lightintensity (float): The amount of light the projectile gives off, if it is not a hitscan firing mode.
+   - lightcolor (string): The color of light to give off, if it is not a hitscan firing mode.
+   - deathfx (string): The FX to play when the missile runs out of range.
+   - miss (object): Contains the following fields:
+    - sticksound (string): If this is "detpack" or "tripmine", the sound effect to play when hitting the wall.
+    - impactfx (string): If this is NOT "detpack" or "tripmine", the effect to play when hitting a wall.
+    - shockwavefx (string): If this is NOT "detpack" or "tripmine", the secondary effect (if present) to play when hitting a wall.
+   - hit (object): Contains the following fields:
+    - impactfx (string): The effect to play when hitting a player.
+    - shockwavefx (string): The secondary effect to play when hitting a player.
+   - deflectedfx (string): The effect to play when this projectile is deflected by a lightsaber.
+   - bouncesound (special): Either an array of strings, or a string representing which sound to play when bouncing off of a surface.
+   - g2model (string): The model to display for "detpack" or "tripmine" types.
+   - g2radius (string): Unknown.
+   - explodefx (string): Explode effect for "tripmine" or "detpack" types.
+   - armsound (string): The sound to make when arming a "tripmine" or "detpack" type. 
+
+ - weaponanims (object): Not used.
+
+
+## AMMO FIELDS
+
+.ammo files can contain multiple types of ammo. Ammo can be based on other types of ammo. Usually a weapon will require a base type, but supplies either the same base type of ammo by default, or a different one which is more specialized for it.
+
+In these files, there is a special kind of type called a complexAmmo type. complexAmmo comes in two varieties: complexAmmoFloat (for floating point/decimal values) and complexAmmoInteger (for integer values)
+complexAmmo are an object with the following fields:
+ - set (either integer or float): If present, sets the override to some specific value.
+ - add (either integer or float): If present, either adds to the value (if positive) or subtracts (if negative)
+ - multiply (float): If present, multiplies the value by a specific amount.
+
+Here is an example of how complexAmmo types look in the files:
+```
+	"damage": {
+		"add": 5
+	}
+```
+This example would add 5 extra damage to each shot by the weapon. If we used "set" instead of "add", it would set the damage to 5. If we used "multiply" instead of "add", it would multiply the damage by 5.
+
+Each object in the ammo file is the linkage name for it, and they can contain the following fields:
+
+ - shortname (string): The short name of the ammo, to show on the HUD.
+ - basedOn (string, optional): The ammo that this type is based on.
+ - max (integer): Maximum amount that the player can carry.
+ - pricePerUnit (float): Number of credits that one of these is worth.
+ - overrides (object): Each of the fields in this section overrides the values of the weapon.
+  - means (string): Sets the means of damage on the weapon.
+  - splashmeans (string): Sets the splash means of damage on the weapon.
+  - damage (complexAmmoInteger): Overrides the damage done.
+  - projectiles (complexAmmoInteger): Overrides the projectile count.
+  - splashRange (complexAmmoFloat): Overrides the splash radius.
+  - collisionSize (complexAmmoFloat): Overrides the projectile size.
+  - recoil (complexAmmoFloat): Overrides the recoil.
+  - knockback (complexAmmoFloat): Overrides the weapon's knockback as it affects the player shooting it.
+  - accuracyRatingBase (complexAmmoInteger): Overrides the weapon's base accuracy rating.
+  - accuracyRatingPerShot (complexAmmoInteger): Overrides the weapon's accuracy per shot
+  - ammocost (complexAmmoInteger): Overrides the amount of ammo that is used by firing the weapon.
+  - fireDelay (complexAmmoInteger): Overrides the fire rate. (lower = faster firing)
+  - bounces (complexAmmoInteger): Overrides the number of times that the weapon can bounce.
+  - buffs (special): Allows you to override buffs in an ammo type. See the Buff Fields below for more information. 
+  - hitscan (integer): If 1, this ammo type converts the weapon into a hitscan weapon.
+  - speed (complexAmmoFloat): The projectile speed of the weapon.
+  - usesGravity (integer): If 1, this ammo type makes projectiles use gravity. If 0, the weapon fires in a straight line.
+  - visuals (object): Overrides the visual effects on the weapon. Contains the following field:
+   - crosshairShader (string): Overrides the crosshair shader that is in use.
+   - fire (object): Overrides properties of the firing effects of the weapon. Contains the following fields:
+    - muzzleLightIntensity (complexAmmoFloat): Modifies how large the dynamic light effect is that plays when the weapon fires.
+    - muzzleLightColor (array of float): Sets the color of the dynamic light effect that plays when the weapon is fired.
+    - chargingEffect (string): Sets the muzzle effect that plays while the weapon is charging.
+    - muzzleEffect (string): Sets the muzzle effect that plays when the weapon is fired.
+    - fireSound (array of string): Sets the sound effect of the weapon when it is fired. Randomly plays from one of the sound effects.
+   - traceline (object): Overrides properties of traceline effects that play when the weapon fires. Only used on hitscan firing modes. Contains the following fields:
+    - shader (string): Overrides the shader that shows as the traceline effect.
+    - minSize (complexAmmoFloat): Overrides the traceline effect minimum size.
+    - maxSize (complexAmmoFloat): Overrides the traceline effect maximum size.
+    - lifeTime (complexAmmoInteger): Overrides the traceline lifespan.
+   - projectile (object): Overrides properties of the projectile effects from the weapon. Only used on non-hitscan firing modes. Contains the following fields:
+    - model (string): Overrides the model that is used on the projectile.
+    - effect (string): Overrides the effect that is played on the projectile.
+    - runSound (string): Overrides the sound effect that plays on the projectile
+    - lightIntensity (complexAmmoFloat): Overrides the size of the dynamic light that shows up on the projectile.
+    - lightColor (array of float): Overrides the color of the light that shows on the projectile.
+    - deathfx (string): Overrides the effect that plays when the projectile impacts on something that's not a player/entity (such as a wall).
+    - miss (string): Overrides the effect that plays when the projectile falls out of range.
+    - hit (string): Overrides the effect that plays when the projectile hits someone.
+    - deflect (string): Overrides the effect that plays when the projectile is deflected by a lightsaber.
+
+Buff Field:
+You can alter what buffs an ammo type inflicts upon its target.
+Note that weapons can inflict a maximum of 8 buffs at a time on a target. Likewise, players can only have 8 buffs active at a time on them.
+The "buffs" field is an array of Buff objects, each one having the following fields:
+ - buff (string/buff reference): The name of the buff to affect.
+ - remove (boolean): If true, this removes the specified buff.
+ - addbuff (boolean): If true, this adds the specified buff.
+ - duration (complexAmmoInteger): Overrides the buff's duration.
+ - intensity (complexAmmoFloat): Overrides the buff's intensity.
+
+## JETPACK FIELDS
+
+Each .jet file contains information about one jetpack. The "ref" field links this .jet file to a .itm. Jetpacks need to be equipped or unequipped by the player. Each .jet contains the following fields:
+
+ - ref (string): The reference name of this jetpack.
+ - fuelCapacity (integer): The maximum amount of fuel that this jetpack can carry.
+ - fuelConsumption (float): How fast to consume fuel. DO NOT set this to 0.
+ - thrustConsumption (float): How fast to consume fuel while thrusting DO NOT set this to 0.
+ - fuelRegeneration (float): How fast to regenerate fuel. DO NOT set this to 0.
+ - movement (object): Contains the following fields:
+  - thrustAllowed (boolean): Whether or not the jetpack is allowed to use thrust.
+  - fwdThrustAllowed (boolean): Whether the jetpack is allowed to use forward thrust (sprinting)
+  - hoverGravity (float): How much to move the player while in air. Defaults to -1.0.
+  - forwardMove (float): How much to multiply the forward movement by.
+  - backMove (float): How much to multiply the backward movement by.
+  - sideMove (float): How much to multiply the side movement by.
+  - downMove (float): How much to multiply the downward movement speed by.
+  - thrustFwd (float): How much to multiply the forward movement speed by while thrusting (but not in sprint-thrusting)
+  - thrustBack (float): How much to multiply the backward movement speed by while thrusting
+  - thrustSide (float): How much to multiply the side movement speed by while thrusting
+  - thrustUp (float): How much to multiply the upward movement speed by while thrusting.
+  - fwdThrustAmt (float): How much to multiply the forward speed by while thrusting.
+ - visuals (object): Contains the following fields, only visible on the client.
+  - modelName (string): The model of the jetpack
+  - effectBolts (array of string): The name of the bones on the model to bolt the effects onto.
+  - hoverEffect (string): The flame effect to play while hovering
+  - thrustEffect (string): The flame effect to play while thrusting.
+  - jetEffect (string): Not used.
+  - idleSound (string): The sound effect to loop while idling.
+  - thrustSound (string): The sound effect to loop while thrusting.
+  - activateSound (string): The sound effect to play when activating the jetpack.
+  - deactivateSound (string): The sound effect to play when deactivating the jetpack.
+
+
+## TEAMS ("GANG WARS") FIELDS
+
+Originally we planned for a system called Gang Wars where players would have to fight for their gang. More generally, it's the system of overrides for teams on a map, kind of like what Movie Battles has for its siege teams.
+
+Note that these files do NOT use JSON. 
+
+ - name (string): The name of the team
+ - reference (string): The name of the team, referenced internally by the mapmaker.
+ - icon (string): The icon that appears above teammates' heads.
+ - useTeamColors (integer): Whether or not to force players to use red/blue skins, instead of using the model store.
+ - joinstring (string): The string that shows up when a player joins this team.
+ - leadstring (string): The string that shows up on the scoreboard when this team is winning.
+ - longname (string): A longer name for the team
+ - menujoinstring (string): The name as it appears on the join game menu.
+ - menustring (string): An extremely short name for the team
+ - toomanystring (string): The string that shows up when the team has too many players to join it.
+ - flagtakenstring (string): The string that shows up when this team steals a flag (CTF mode)
+ - flagreturnedstring (string): The string that shows up when this team has returned a flag (CTF mode) 
+ - flagcapturedstring (string): The string that shows up when this team has captured a flag (CTF mode)
+ - teamColor (string): RGB color for the team on the scoreboard. Formatted like: {RRR,GGG,BBB,AAA} where R is 0-255 red, B is 0-255 blue, G is 0-255 green, and A is 0-255 transparency (alpha)
+ - modelstore (string): A full list of player models that this team is allowed to play as, with commas in between each player model.
+ - defaultModel (string): The default model that a player is given.
+
+
+## LIGHTSABERS - HILTS AND STANCES
+To be completed at a later date.

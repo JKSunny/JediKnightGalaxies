@@ -1,0 +1,120 @@
+{
+    "name":             "@JKG_ITEMS_sniper_Drsln_SlugRifle_Scope",
+    "type":             "WP_BOWCASTER",
+    "variation":        6,
+    "classname":        "sniper_Dressy",
+    "description":      "@JKG_ITEMS_sniper_Drsln_SlugRifle_Scope",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/Drsln_SlugRifle/viewmodel_s.md3",
+        "worldmodel":       "models/weapons/Drsln_SlugRifle/model_s.glm",
+        "hudicon":          "models/weapons/Drsln_SlugRifle/icon_s",
+        "hudnaicon":        "models/weapons/Drsln_SlugRifle/icon_s",
+        "selectsound":      "sound/weapons/select_carbine.wav",
+                
+        "gunposition":      "9.0 -4.5 -7.0",
+        "ironsightsposition": "8.0 0.0 -3.7",
+        "ironsightsfov": "10",
+		"barrelCount": "3",
+    
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "slugthrowers/muzzleflash",
+            "firesound":    [
+                "sound/weapons/slugthrowers/slugrifle1.mp3",
+                "sound/weapons/slugthrowers/slugrifle2.mp3",
+                "sound/weapons/slugthrowers/slugrifle3.mp3",
+                "sound/weapons/slugthrowers/slugrifle4.mp3"
+            ],
+            "projectilemodel": "models/ammo/quarrel_projectile.md3",
+            "projectilefx": "slugthrowers/slug_shot",
+            "miss":         { "impactfx": "slugthrowers/impactsmall" },
+            "hit":          { "impactfx": "weapons/slug_impact_flesh_blood" }
+        },
+        
+        "firemode1": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "slugthrowers/muzzleflash",
+            "firesound":    [
+                "sound/weapons/slugthrowers/slugrifle1.mp3",
+                "sound/weapons/slugthrowers/slugrifle2.mp3",
+                "sound/weapons/slugthrowers/slugrifle3.mp3",
+                "sound/weapons/slugthrowers/slugrifle4.mp3"
+            ],
+            "projectilemodel": "models/ammo/quarrel_projectile.md3",
+            "projectilefx": "slugthrowers/slug_shot",
+            "miss":         { "impactfx": "slugthrowers/impactsmall" },
+            "hit":          { "impactfx": "weapons/slug_impact_flesh_blood" }
+        },
+
+        "scope": {
+                "mask":     "models/weapons/drsln_slugrifle/scope_mask"
+        }
+    },
+    
+    "stats": {
+        "slot":         1,
+        "reloadtime":   2300,
+        "ammoIndex":         "7.92slugs",
+        "ammoOnSpawn":   120,
+        "ammoOnPickup":   24,
+        "flags":        [ "roll", "togglezoom" ],
+        "startzoomfov": 20.0,
+        "reloadmodifier": 0.7
+    },
+    
+    "firemode0": {
+	"damage": {
+		"damage": 75,
+		"buffs": [
+			{
+				"buff": "standard-bleed",
+				"duration": 4000
+			}
+		]
+	},
+        "ballistic":    true,
+        "ammocost":     1,
+        "firedelay":    1500,
+        "firingtype":   "semi",
+        "range":        40000.0,
+        "recoil":       1.5,
+        "spread":       0.0,
+        "projectilespeed": 26000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_SLUGTHROWER",
+	"ammobase": "AMMO_MAUSER",
+	"ammodefault": "AMMO_MAUSER",
+        "clipSize":              12,
+        "accuracy": {
+        	"accuracyRating": 25,
+        	"accuracyRatingPerShot": 6,
+        	"msToDrainAccuracy": 135,
+        	"maxAccuracyAdd": 115,
+        	"crouchModifier": 0.6,
+        	"runModifier": 1.6,
+        	"sightsModifier": 0.25,
+        	"walkModifier": 1.4,
+        	"inAirModifier": 1.8
+        }
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "BOTH_RIFLERELOADL" },
+        "sights":        { "torso": "TORSO_WEAPONREADY3", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK3" },
+	"ready":	{ "torso": "BOTH_BASE_RIFLESTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_RIFLESHOOT" },
+	"sprint":	{ "torso": "BOTH_RIFLERUN" },
+        "sprintStyle": "5"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

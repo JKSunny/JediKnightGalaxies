@@ -1,0 +1,12 @@
+{
+	"name":             "@MENUS_SINGLE_HILT2",
+	"internal":             "saber_retaliator",
+	"itemtype":             "weapon",
+	"weapon":		"WP_SABER",
+	"variation":		"8",
+	"weight":		"15",
+	"tier":			4,
+	"cost":		"1250",
+	"xml":			"",
+	"itemIcon":		"models/weapons/lightsabers/icons/retaliator.tga"
+}

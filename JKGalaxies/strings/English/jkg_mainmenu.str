@@ -1,0 +1,581 @@
+// Note to translators:
+// If a sentence is the same in your language then please change it to "#same"
+//
+// eg:
+// LANG_ENGLISH  "HALT"
+// LANG_GERMAN   "#same"
+//
+// (This is so we can tell which strings have been signed-off as ok to be the same words for QA
+//  and because we do not store duplicate strings, which will then get exported again next time
+//  as being untranslated.)
+//
+VERSION             "1"
+CONFIG              "W:\bin\stringed.cfg"
+FILENOTES           "Text for the main menu"
+
+// Main Menu, with some reusables
+
+REFERENCE           PLAY
+LANG_ENGLISH        "Play_"
+
+REFERENCE           PLAY_DESC
+LANG_ENGLISH        "Jump in a JKG:VS game right away"
+
+REFERENCE           CHARACTER
+LANG_ENGLISH        "Character_"
+
+REFERENCE           CHARACTER_DESC
+LANG_ENGLISH        "Customize your appearance"
+
+REFERENCE           CONFIGURE
+LANG_ENGLISH        "Configure_"
+
+REFERENCE           CONFIGURE_DESC
+LANG_ENGLISH        "Setup your settings and controls"
+
+REFERENCE           CREDITS
+LANG_ENGLISH        "Credits_"
+
+REFERENCE           EXIT
+LANG_ENGLISH        "Exit_"
+
+REFERENCE           QUIT
+LANG_ENGLISH        "Exit JKG:Versus?"
+
+REFERENCE           YES
+LANG_ENGLISH        "Yes_"
+
+REFERENCE           NO
+LANG_ENGLISH        "No_"
+
+
+// Setup Menus
+
+REFERENCE           BLANK
+LANG_ENGLISH        " "
+
+REFERENCE           GRAPHICS
+LANG_ENGLISH        "Graphics_"
+
+REFERENCE           VIDCONFIG
+LANG_ENGLISH        "Video Configuration"
+
+REFERENCE           AUDIO
+LANG_ENGLISH        "Audio_"
+
+REFERENCE           ADJVOLSETS
+LANG_ENGLISH        "Adjust volume settings"
+
+REFERENCE           CONTROLS
+LANG_ENGLISH        "Controls_"
+
+REFERENCE           CONFIGINPUTS
+LANG_ENGLISH        "Configure input from keyboard, \nmouse and optional controller"
+
+REFERENCE           OPTIONS
+LANG_ENGLISH        "Options_"
+
+REFERENCE           SETUPGAMESETS
+LANG_ENGLISH        "Setup game settings"
+
+REFERENCE           BACKTOMAIN
+LANG_ENGLISH        "Back to main menu"
+
+
+REFERENCE           VIDSETS
+LANG_ENGLISH        "-Video Settings-"
+
+REFERENCE           VIDPRESETS
+LANG_ENGLISH        "Video presets"
+
+REFERENCE           DISPLAYRES
+LANG_ENGLISH        "Display resolution"
+
+REFERENCE           CUSTOM_ENTERBELOW
+LANG_ENGLISH        "Custom (enter below)"
+
+REFERENCE           320_X_240
+LANG_ENGLISH        "320 x 240"
+
+REFERENCE           400_X_300
+LANG_ENGLISH        "400 x 300"
+
+REFERENCE           512_X_386
+LANG_ENGLISH        "512 x 386"
+
+REFERENCE           OTHER_X
+LANG_ENGLISH        "(Other) _ _ _ _ x _ _ _ _"
+
+REFERENCE			FIT_TO_DESKTOP
+LANG_ENGLISH		"Fit to desktop"
+
+REFERENCE           FULLSCREEN
+LANG_ENGLISH        "Full screen"
+
+REFERENCE           ENABLED
+LANG_ENGLISH        "Enabled"
+
+REFERENCE           DISABLED
+LANG_ENGLISH        "Disabled"
+
+REFERENCE           COLORBITS
+LANG_ENGLISH        "Color depth"
+
+REFERENCE           LODBIAS
+LANG_ENGLISH        "Geometric detail"
+
+REFERENCE           LODSCALE
+LANG_ENGLISH        "Level of detail distance"
+
+REFERENCE			LODCURVEERROR
+LANG_ENGLISH		"Patch detail"
+
+REFERENCE           NEAR
+LANG_ENGLISH        "Near"
+
+REFERENCE           NORMAL
+LANG_ENGLISH        "Normal"
+
+REFERENCE           FAR
+LANG_ENGLISH        "Far"
+
+REFERENCE           PICMIP_DETAIL
+LANG_ENGLISH        "Texture detail"
+
+REFERENCE           TEXTUREBITS_QUALITY
+LANG_ENGLISH        "Texture quality"
+
+REFERENCE           TEXTUREMODE_MIPMAPS
+LANG_ENGLISH        "Mipmap texture filter"
+
+REFERENCE           SHOWDETAIL
+LANG_ENGLISH        "Display detail shaders"
+
+REFERENCE           SHOW
+LANG_ENGLISH        "Show"
+
+REFERENCE           HIDE
+LANG_ENGLISH        "Hide"
+
+REFERENCE           COMPRESSTEXTURES
+LANG_ENGLISH        "Compress textures"
+
+REFERENCE           VIDEOSYNC
+LANG_ENGLISH        "V-Sync"
+
+REFERENCE           APPLYCHANGES
+LANG_ENGLISH        "Apply Changes_"
+
+REFERENCE           MORESETTINGS
+LANG_ENGLISH        "More Settings_"
+
+REFERENCE           RESTART_TITLE
+LANG_ENGLISH        "-Changes Requiring Restart-"
+
+REFERENCE           YOU_HAVE_MADE_CHANGES
+LANG_ENGLISH        "You have made changes"
+
+REFERENCE           TO_THE_VIDEO_SETTINGS
+LANG_ENGLISH        "to the video settings."
+
+REFERENCE           APPLY
+LANG_ENGLISH        "Apply_"
+
+REFERENCE           DISCARD
+LANG_ENGLISH        "Discard_"
+
+
+REFERENCE           MOREGRAPHICS
+LANG_ENGLISH        "-Additional Graphics-"
+
+REFERENCE           GAMMA
+LANG_ENGLISH        "Gamma"
+
+REFERENCE           ADJUSTGAMMA
+LANG_ENGLISH        "Adjust gamma until the number 6 is barely visible."
+
+REFERENCE           ANISOTROPIC
+LANG_ENGLISH        "Anisotropic filtering"
+
+REFERENCE           PPEFFECTS
+LANG_ENGLISH        "Post-processing effects"
+
+REFERENCE           DYNAMICGLOW
+LANG_ENGLISH        "Dynamic glow"
+
+REFERENCE           DYNAMICLIGHT
+LANG_ENGLISH        "Dynamic light"
+
+REFERENCE           SHADOWS
+LANG_ENGLISH        "Shadows"
+
+REFERENCE           LIGHTFLARES
+LANG_ENGLISH        "Light flares"
+
+REFERENCE           WALLMARKS
+LANG_ENGLISH        "Wall marks"
+
+REFERENCE           FOV
+LANG_ENGLISH        "Field of View"
+
+REFERENCE           FOV80
+LANG_ENGLISH        "80"
+
+REFERENCE           FOV90
+LANG_ENGLISH        "90"
+
+REFERENCE           FOV95
+LANG_ENGLISH        "95"
+
+REFERENCE           SHOWDRIVERINFO
+LANG_ENGLISH        "Show driver info"
+
+REFERENCE           BACK
+LANG_ENGLISH        "Back_"
+
+
+REFERENCE           SOUNDSETS
+LANG_ENGLISH        "-Sound Settings-"
+
+REFERENCE           EFFECTSVOL
+LANG_ENGLISH        "Effects Volume"
+
+REFERENCE           MUSICVOL
+LANG_ENGLISH        "Music Volume"
+
+REFERENCE           VOICEVOL
+LANG_ENGLISH        "Voice Volume"
+
+REFERENCE           SNDSEPARATION
+LANG_ENGLISH        "Sound Separation"
+
+REFERENCE           SETSHOWMANYSOUNDS
+LANG_ENGLISH        "Sets how many sounds can be \nheard simultanesously"
+
+REFERENCE           SNDQUALITY
+LANG_ENGLISH        "Sound Quality"
+
+REFERENCE           TRADECLARITY
+LANG_ENGLISH        "Trade clarity in sound for performance"
+
+
+REFERENCE           GAMEOPTS
+LANG_ENGLISH        "-Game Options-"
+
+REFERENCE           CROSSHAIR
+LANG_ENGLISH        "Crosshair"
+
+REFERENCE           CROSSHAIR1
+LANG_ENGLISH        "DC-17m"
+
+REFERENCE           CROSSHAIR2
+LANG_ENGLISH        ""A"200"
+
+REFERENCE           CROSSHAIR3
+LANG_ENGLISH        "DLT-19"
+
+REFERENCE           CROSSHAIR4
+LANG_ENGLISH        "DC-15A"
+
+REFERENCE           CROSSHAIR5
+LANG_ENGLISH        "LT-60"
+
+REFERENCE           CROSSHAIR6
+LANG_ENGLISH        "Bowcaster"
+
+REFERENCE           CROSSHAIR7
+LANG_ENGLISH        "Dresselian"
+
+REFERENCE           CROSSHAIR8
+LANG_ENGLISH        "DE-10"
+
+REFERENCE           CROSSHAIR9
+LANG_ENGLISH        "E-11"
+
+REFERENCE           IFF
+LANG_ENGLISH        "Identify Friend/Foe"
+
+REFERENCE           ALWAYSRUN
+LANG_ENGLISH        "Always run"
+
+REFERENCE           FOOTSTEPS
+LANG_ENGLISH        "Footsteps"
+
+REFERENCE           VIEWSWAY
+LANG_ENGLISH        "View swaying"
+
+REFERENCE           DEFERMODELLOADING
+LANG_ENGLISH        "Defer player models \nloading until death"
+
+REFERENCE           FORCEMODELS
+LANG_ENGLISH        "Force all player \nmodels to yours"
+
+REFERENCE           DEFAULTMISSINGMODEL
+LANG_ENGLISH        "Default model for \nmissing player models"
+
+REFERENCE           MALE
+LANG_ENGLISH        "(male)"
+
+REFERENCE           FEMALE
+LANG_ENGLISH        "(female)"
+
+REFERENCE           DISPLAYTEAMSTATS
+LANG_ENGLISH        "Display team status"
+
+REFERENCE           DISPLAYKILLMSG
+LANG_ENGLISH        "Display Kill messages"
+
+REFERENCE           AUTORELOAD
+LANG_ENGLISH        "Automatically reload \nweapon when empty"
+
+REFERENCE           DISMEMBERMENT
+LANG_ENGLISH        "Body dismemberment"
+
+REFERENCE           FULL
+LANG_ENGLISH        "Full"
+
+REFERENCE           PARTIAL
+LANG_ENGLISH        "Partial"
+
+REFERENCE           RARE
+LANG_ENGLISH        "Rare"
+
+REFERENCE           RAGDOLL
+LANG_ENGLISH        "Ragdoll body physics"
+
+
+REFERENCE           CONFIGCONTROLS
+LANG_ENGLISH        "-Configure Controls-"
+
+REFERENCE           NEXTSET
+LANG_ENGLISH        "Next set_"
+
+REFERENCE           PREVSET
+LANG_ENGLISH        "Previous set_"
+
+
+REFERENCE           MOUSE
+LANG_ENGLISH        "Mouse_"
+
+REFERENCE           ENABLEFREELOOK
+LANG_ENGLISH        "Enable free look"
+
+REFERENCE           SENSITIVITY
+LANG_ENGLISH        "Sensitivity"
+
+REFERENCE           INVERTYAXIS
+LANG_ENGLISH        "Invert Y axis"
+
+REFERENCE           SMOOTHMOUSE
+LANG_ENGLISH        "Smooth mouse"
+
+REFERENCE           CONTROLLER
+LANG_ENGLISH        "Controller_"
+
+REFERENCE           ENABLEJOYSTICK
+LANG_ENGLISH        "Enable joystick/\ngame controller"
+
+REFERENCE           THRESHOLD
+LANG_ENGLISH        "Threshold"
+
+REFERENCE           XAXISASBUTTONS
+LANG_ENGLISH        "X axis as buttons"
+
+REFERENCE           YAXISASBUTTONS
+LANG_ENGLISH        "Y axis as buttons"
+
+
+REFERENCE           FORWARD
+LANG_ENGLISH        "Move forward"
+
+REFERENCE           BACKWARD
+LANG_ENGLISH        "Move backward"
+
+REFERENCE           TURNLEFT
+LANG_ENGLISH        "Turn left"
+
+REFERENCE           TURNRIGHT
+LANG_ENGLISH        "Turn right"
+
+REFERENCE           MOVELEFT
+LANG_ENGLISH        "Strafe left"
+
+REFERENCE           MOVERIGHT
+LANG_ENGLISH        "Strafe right"
+
+REFERENCE           RUNWALK
+LANG_ENGLISH        "Run/walk"
+
+REFERENCE           SIDESTEPTURN
+LANG_ENGLISH        "Sidestep/turn"
+
+REFERENCE           JUMP
+LANG_ENGLISH        "Jump"
+
+REFERENCE           CROUCH
+LANG_ENGLISH        "Crouch"
+
+REFERENCE           SPRINT
+LANG_ENGLISH        "Sprint"
+
+REFERENCE           ATTACK
+LANG_ENGLISH        "Attack"
+
+REFERENCE           ALTATTACK
+LANG_ENGLISH        "Alt. attack"
+
+REFERENCE           AIM
+LANG_ENGLISH        "Aim"
+
+REFERENCE           RELOAD
+LANG_ENGLISH        "Reload"
+
+REFERENCE           FIGHTINGSTYLE
+LANG_ENGLISH        "Fighting style"
+
+REFERENCE           USE
+LANG_ENGLISH        "Use/activate/pickup"
+
+REFERENCE           INVENTORY
+LANG_ENGLISH        "Inventory"
+
+REFERENCE           AMMOCYCLE
+LANG_ENGLISH        "Cycle Ammo Type"
+
+REFERENCE           ACI
+LANG_ENGLISH        "Active Combat Inventory"
+
+REFERENCE           SLOT1
+LANG_ENGLISH        "Slot 1"
+
+REFERENCE           SLOT2
+LANG_ENGLISH        "Slot 2"
+
+REFERENCE           SLOT3
+LANG_ENGLISH        "Slot 3"
+
+REFERENCE           SLOT4
+LANG_ENGLISH        "Slot 4"
+
+REFERENCE           SLOT5
+LANG_ENGLISH        "Slot 5"
+
+REFERENCE           SLOT6
+LANG_ENGLISH        "Slot 6"
+
+REFERENCE           SLOT7
+LANG_ENGLISH        "Slot 7"
+
+REFERENCE           SLOT8
+LANG_ENGLISH        "Slot 8"
+
+REFERENCE           SLOT9
+LANG_ENGLISH        "Slot 9"
+
+REFERENCE           SLOT0
+LANG_ENGLISH        "Slot 0"
+
+REFERENCE           360CAMERA
+LANG_ENGLISH        "360° Camera"
+
+REFERENCE           ZOOMIN
+LANG_ENGLISH        "Zoom in"
+
+REFERENCE           ZOOMOUT
+LANG_ENGLISH        "Zoom out"
+
+REFERENCE           SAYGLOBAL
+LANG_ENGLISH        "Global chat"
+
+REFERENCE           SAY
+LANG_ENGLISH        "Talk"
+
+REFERENCE           SAYACTION
+LANG_ENGLISH        "/me Action"
+
+REFERENCE           SAYTARGET
+LANG_ENGLISH        "Tell"
+
+REFERENCE			SAYTEAM
+LANG_ENGLISH		"Team chat"
+
+REFERENCE           SCROLLUP
+LANG_ENGLISH        "Scroll up"
+
+REFERENCE           SCROLLDOWN
+LANG_ENGLISH        "Scroll down"
+
+
+REFERENCE           USEPOWER
+LANG_ENGLISH        "Use Force power"
+
+REFERENCE           NEXTPOWER
+LANG_ENGLISH        "Next Force power"
+
+REFERENCE           PREVPOWER
+LANG_ENGLISH        "Prev. Force power"
+
+REFERENCE           PUSH
+LANG_ENGLISH        "Push"
+
+REFERENCE           PULL
+LANG_ENGLISH        "Pull"
+
+REFERENCE           SPEED
+LANG_ENGLISH        "Speed"
+
+REFERENCE           SENSE
+LANG_ENGLISH        "Sense"
+
+REFERENCE           PROTECT
+LANG_ENGLISH        "Protect"
+
+REFERENCE           ABSORB
+LANG_ENGLISH        "Absorb"
+
+REFERENCE           HEAL
+LANG_ENGLISH        "Heal"
+
+REFERENCE           HEALOTHER
+LANG_ENGLISH        "Heal other"
+
+REFERENCE           MINDTRICK
+LANG_ENGLISH        "Mind trick"
+
+REFERENCE           GRIP
+LANG_ENGLISH        "Grip"
+
+REFERENCE           DRAIN
+LANG_ENGLISH        "Drain"
+
+REFERENCE           LIGHTNING
+LANG_ENGLISH        "Lightning"
+
+REFERENCE           RAGE
+LANG_ENGLISH        "Rage"
+
+REFERENCE           TEAMENERGIZE
+LANG_ENGLISH        "Team energize"
+
+REFERENCE           SHOWSCORES
+LANG_ENGLISH        "Show scores"
+
+REFERENCE           TAUNT
+LANG_ENGLISH        "Taunt"
+
+REFERENCE           CHALLENGETODUEL
+LANG_ENGLISH        "Saber Duel"
+
+REFERENCE           PLAYPAZAAK
+LANG_ENGLISH        "Play Pazaak"
+
+REFERENCE			PREVWEAPON
+LANG_ENGLISH		"Previous Weapon"
+
+REFERENCE			NEXTWEAPON
+LANG_ENGLISH		"Next Weapon"
+
+
+ENDMARKER
+
+

@@ -1,0 +1,12 @@
+{
+	"name":             "@JKG_ITEMS_carbine_ProtonCarbine",
+	"internal":             "carbine_Proton",
+	"itemtype":             "weapon",
+	"weapon":		"WP_BLASTER",
+	"variation":		"7",
+	"weight":		"6",
+	"cost":		"1450",
+	"xml":			"Proton_Carbine.xml",
+	"itemIcon":		"models/weapons/ProtonCarbine/icon_default",
+	"itemDescription": "Proton weapons were first designed for hunting large game, but have come in favor among bounty hunters for their effectiveness in penetrating through armor. This carbine features a high firing rate and a 'bounce' mode, but is prone to overheating."
+}

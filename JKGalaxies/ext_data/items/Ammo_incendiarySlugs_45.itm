@@ -1,0 +1,11 @@
+{
+	"name":		"45-pack Incendiary Slugs",
+	"internal":	"ammo_incendiarySlugs_45",
+	"itemtype":	"ammo",
+	"weight":		"0",
+	"cost":		"120",
+	"ammoclass":	"AMMO_SLUGS_INCENDIARY",
+	"ammoquantity":	"45",
+	"itemIcon": "gfx/item_icons/ammo_metallic_bolts.tga",	//needs icon!
+	"itemDescription": "The tungsten-iron alloys used in most modern slugthrowers munitions have been modified in this munition pack to contain highly flammable pockets of gas which ignite upon impact with a target."
+}

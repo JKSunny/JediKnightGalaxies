@@ -1,0 +1,563 @@
+// Note to translators:
+// If a sentence is the same in your language then please change it to "#same"
+//
+// eg:
+// LANG_ENGLISH  "HALT"
+// LANG_GERMAN   "#same"
+//
+// (This is so we can tell which strings have been signed-off as ok to be the same words for QA
+//  and because we do not store duplicate strings, which will then get exported again next time
+//  as being untranslated.)
+//
+VERSION             "1"
+CONFIG              "W:\bin\stringed.cfg"
+FILENOTES           "Text for the inventory menu (@JKG_INVENTORY_)"
+
+REFERENCE           INVENTORY
+LANG_ENGLISH        "Inventory"
+
+REFERENCE           WEIGHT
+LANG_ENGLISH        "Weight:"
+
+REFERENCE           CREDITS
+LANG_ENGLISH        "Credits:"
+
+REFERENCE           FILTER
+LANG_ENGLISH        "Filter by Type:"
+
+REFERENCE           EXAMINE
+LANG_ENGLISH        "Examine"
+
+REFERENCE           USE
+LANG_ENGLISH        "Use"
+
+REFERENCE           EQUIP
+LANG_ENGLISH        "Equip"
+
+REFERENCE           UNEQUIP
+LANG_ENGLISH        "Unequip"
+
+REFERENCE           ASSIGNACI
+LANG_ENGLISH        "Assign to ACI"
+
+REFERENCE           UNASSIGNACI
+LANG_ENGLISH        "Unassign from ACI"
+
+REFERENCE			ACI
+LANG_ENGLISH		"ACI"
+
+REFERENCE			ACI_AUTO
+LANG_ENGLISH		"Auto"
+
+REFERENCE			ACI_REMOVE
+LANG_ENGLISH		"Remove"
+
+REFERENCE           ASSIGNACILONG
+LANG_ENGLISH        "Assign to Active Combat Inventory Slot"
+
+REFERENCE			INACI
+LANG_ENGLISH		"Equipped in ACI Slot %i"
+
+REFERENCE		EQUIPPED
+LANG_ENGLISH		"Equipped"
+
+REFERENCE		QUANTITY
+LANG_ENGLISH		"Quantity: %i"
+
+REFERENCE           DESTROY
+LANG_ENGLISH        "Destroy"
+
+REFERENCE           DESTROYTHISITEM
+LANG_ENGLISH        "Destroy this item?"
+
+REFERENCE           YES
+LANG_ENGLISH        "Yes"
+
+REFERENCE           NO
+LANG_ENGLISH        "No"
+
+REFERENCE			FILTER_ALL
+LANG_ENGLISH		"All"
+
+REFERENCE			FILTER_WEAPONS
+LANG_ENGLISH		"Weapons"
+
+REFERENCE			FILTER_ARMOR
+LANG_ENGLISH		"Armors"
+
+REFERENCE			FILTER_CONSUME
+LANG_ENGLISH		"Consumables"
+
+REFERENCE			FILTER_MISC
+LANG_ENGLISH		"Misc"
+
+REFERENCE		FILTER_AMMO
+LANG_ENGLISH		"Ammo"
+
+REFERENCE           FILTER_TOOLS
+LANG_ENGLISH        "Tools"
+
+// The below aren't used yet
+REFERENCE		FILTER_CUSTOM
+LANG_ENGLISH		"Custom"
+
+REFERENCE		FILTER_CRAFTING
+LANG_ENGLISH		"Crafting Components"
+
+REFERENCE		FILTER_JUNK
+LANG_ENGLISH		"Junk"
+
+REFERENCE		FILTER_QUEST
+LANG_ENGLISH		"Quest Items"
+
+// Not for player inventory
+REFERENCE		FILTER_DROID
+LANG_ENGLISH		"Droids"
+
+REFERENCE		FILTER_BIKES
+LANG_ENGLISH		"Speeder Bikes"
+
+REFERENCE		FILTER_SHIPS
+LANG_ENGLISH		"Transport Ships"
+
+REFERENCE		FILTER_FIGHTERS
+LANG_ENGLISH		"Starfighters"
+
+// Container types
+REFERENCE		CONTAINER_CORPSE
+LANG_ENGLISH		"Corpse"		// not very Star Warzy
+
+REFERENCE		CONTAINER_CRATE
+LANG_ENGLISH		"Crate"
+
+REFERENCE		CONTAINER_WORKBENCH
+LANG_ENGLISH		"Workbench"
+
+REFERENCE		CONTAINER_SHOPKEEPER
+LANG_ENGLISH		"Shopkeeper"
+
+REFERENCE		CONTAINER_CARGO_HOLD
+LANG_ENGLISH		"Cargo Hold"
+
+REFERENCE		ITEM_TIER
+LANG_ENGLISH		"Tier: %s"
+
+REFERENCE		ITEM_TIER_0
+LANG_ENGLISH		"Scrap"
+
+REFERENCE		ITEM_TIER_1
+LANG_ENGLISH		"Common"
+
+REFERENCE		ITEM_TIER_2
+LANG_ENGLISH		"Refined"
+
+REFERENCE		ITEM_TIER_3
+LANG_ENGLISH		"Elite"
+
+REFERENCE		ITEM_TIER_4
+LANG_ENGLISH		"Superior"
+
+REFERENCE		ITEM_TIER_5
+LANG_ENGLISH		"Legendary"
+
+REFERENCE		ITEM_WEIGHT
+LANG_ENGLISH		"Weight: %.2f"
+
+REFERENCE		ITEM_UNDROPPABLE
+LANG_ENGLISH		"This item cannot be dropped."
+
+REFERENCE		ITEM_UNTRADEABLE
+LANG_ENGLISH		"This item cannot be traded."
+
+REFERENCE		ITEM_DESCRIPTION
+LANG_ENGLISH		"Info: %s"
+
+REFERENCE		ITEM_TYPE
+LANG_ENGLISH		"Item Type: "
+
+REFERENCE		ITYPE_WEAPON
+LANG_ENGLISH		"Weapon"
+
+REFERENCE		ITYPE_TOOL
+LANG_ENGLISH		"Tool"
+
+REFERENCE		ITYPE_ARMOR
+LANG_ENGLISH		"Armor"
+
+REFERENCE		ITYPE_CONSUMABLE
+LANG_ENGLISH		"Consumable"
+
+REFERENCE		ITYPE_AMMO
+LANG_ENGLISH		"Ammo"
+
+REFERENCE		ITYPE_MISC
+LANG_ENGLISH		"Misc"
+
+REFERENCE		ITYPE_JUNK
+LANG_ENGLISH		"Junk"
+
+REFERENCE		ITYPE_QUEST
+LANG_ENGLISH		"Quest Item"
+
+REFERENCE		ITYPE_CRAFTING
+LANG_ENGLISH		"Crafting Component"
+
+REFERENCE     		ITYPE_SHIELD
+LANG_ENGLISH    	"Shield"
+
+REFERENCE     		ITYPE_JETPACK
+LANG_ENGLISH    	"Jetpack"
+
+REFERENCE		ARM_EQUIPPEDSLOT
+LANG_ENGLISH		"Equipped in %s slot"
+
+REFERENCE		SLOT_HEAD
+LANG_ENGLISH		"Head"
+
+REFERENCE		SLOT_NECK
+LANG_ENGLISH		"Neck"
+
+REFERENCE		SLOT_TORSO
+LANG_ENGLISH		"Torso"
+
+REFERENCE		SLOT_ROBE
+LANG_ENGLISH		"Robe"
+
+REFERENCE		SLOT_LEGS
+LANG_ENGLISH		"Leg"
+
+REFERENCE		SLOT_GLOVES
+LANG_ENGLISH		"Glove"
+
+REFERENCE		SLOT_BOOTS
+LANG_ENGLISH		"Boot"
+
+REFERENCE		SLOT_SHOULDER
+LANG_ENGLISH		"Shoulder"
+
+REFERENCE		SLOT_IMPLANT
+LANG_ENGLISH		"Implant"
+
+REFERENCE 		ARM_DEFENSE
+LANG_ENGLISH		"Armor: %i (damage reduced by %.1f%%)"
+
+REFERENCE		ARM_NEG_DEFENSE
+LANG_ENGLISH		"Armor: %i (damage increased by %.1f%%)"
+
+REFERENCE		ARM_MOVESPEED
+LANG_ENGLISH		"Movement Speed: -%.1f%%"
+
+REFERENCE		ARM_MOVESPEED_POS
+LANG_ENGLISH		"Movement Speed: +%.1f%%"
+
+REFERENCE		ARM_MAXHEALTH_POS
+LANG_ENGLISH		"Maximum Health: +%i"
+
+REFERENCE		ARM_MAXHEALTH_NEG
+LANG_ENGLISH		"Maximum Health: -%i"
+
+REFERENCE		ARM_MAXSTAMINA_POS
+LANG_ENGLISH		"Maximum Stamina: +%i"
+
+REFERENCE		ARM_MAXSTAMINA_NEG
+LANG_ENGLISH		"Maximum Stamina: -%i"
+
+REFERENCE       ARM_FILTER
+LANG_ENGLISH    "Filters toxins." 
+
+REFERENCE		WEP_DAMAGE
+LANG_ENGLISH		"Damage: %i (%s)"
+
+REFERENCE		WEP_DAMAGE_SCATTERGUN
+LANG_ENGLISH		"Damage: %ix%i (%s)"
+
+REFERENCE		WEP_BDAMAGE
+LANG_ENGLISH		"Blast Damage: %i (%s)"
+
+REFERENCE		WEP_BDAMAGE_SCATTERGUN
+LANG_ENGLISH		"Blast Damage: %ix%i (%s)"
+
+REFERENCE		WEP_BRADIUS
+LANG_ENGLISH		"Blast Radius: %i (%.1fft/%.2fm)"
+
+REFERENCE		WEP_FDAMAGE
+LANG_ENGLISH		"Fallout Damage: %i (%s)"
+
+REFERENCE		MOD_UNKNOWN
+LANG_ENGLISH		"unknown"
+
+REFERENCE		MOD_FALLING
+LANG_ENGLISH		"falling"
+
+REFERENCE		MOD_SUICIDE
+LANG_ENGLISH		"suicidal"
+
+REFERENCE		MOD_CRUSH
+LANG_ENGLISH		"crushing"
+
+REFERENCE		MOD_WATER
+LANG_ENGLISH		"drowning"
+
+REFERENCE		MOD_SLIME
+LANG_ENGLISH		"acid"
+
+REFERENCE		MOD_LAVA
+LANG_ENGLISH		"lava"
+
+REFERENCE		MOD_TRIGGER_HURT
+LANG_ENGLISH		"world"
+
+REFERENCE		MOD_TELEFRAG
+LANG_ENGLISH		"telefragging"
+
+REFERENCE		MOD_TEAM_CHANGE
+LANG_ENGLISH		"team change"
+
+REFERENCE		MOD_SABER
+LANG_ENGLISH		"lightsaber"
+
+REFERENCE		MOD_VIBROBLADE
+LANG_ENGLISH		"vibroblade"
+
+REFERENCE		MOD_MELEE
+LANG_ENGLISH		"melee"
+
+REFERENCE		MOD_BLASTER
+LANG_ENGLISH		"blaster"
+
+REFERENCE		MOD_DISRUPTOR
+LANG_ENGLISH		"disruptor"
+
+REFERENCE		MOD_ACP
+LANG_ENGLISH		"ACP"
+
+REFERENCE		MOD_SLUGTHROWER
+LANG_ENGLISH		"slug"
+
+REFERENCE		MOD_PULSE
+LANG_ENGLISH		"pulse"
+
+REFERENCE		MOD_ION
+LANG_ENGLISH		"ion"
+
+REFERENCE		MOD_ELECTRICAL
+LANG_ENGLISH		"electrical"
+
+REFERENCE		MOD_SONIC
+LANG_ENGLISH		"sonic"
+
+REFERENCE		MOD_COLD
+LANG_ENGLISH		"cold"
+
+REFERENCE		MOD_FIRE
+LANG_ENGLISH		"fire"
+
+REFERENCE		MOD_EXPLOSION
+LANG_ENGLISH		"explosion"
+
+REFERENCE		MOD_CARBONITE
+LANG_ENGLISH		"carbonite"
+
+REFERENCE		MOD_FROZEN
+LANG_ENGLISH		"freezing"
+
+REFERENCE		MOD_IGNITED
+LANG_ENGLISH		"burning"
+
+REFERENCE		MOD_STUNNED
+LANG_ENGLISH		"stunning"
+
+REFERENCE		MOD_BLEEDING
+LANG_ENGLISH		"bleed"
+
+REFERENCE		MOD_POISONED
+LANG_ENGLISH		"poison"
+
+REFERENCE       MOD_CURED
+LANG_ENGLISH        "heal"
+
+REFERENCE       MOD_STAMINA
+LANG_ENGLISH        "stamina"
+
+REFERENCE		MOD_QUARREL
+LANG_ENGLISH		"quarrel"
+
+REFERENCE		WEP_TAG_POISON
+LANG_ENGLISH		"Inflicts poison damage"
+
+REFERENCE		WEP_TAG_BLEED
+LANG_ENGLISH		"Inflicts bleed damage"
+
+REFERENCE		WEP_TAG_CARBONITE
+LANG_ENGLISH		"Encases the target in carbonite"
+
+REFERENCE		WEP_TAG_FREEZE
+LANG_ENGLISH		"Freezes targets"
+
+REFERENCE		WEP_TAG_STUN
+NOTES			Not used.
+LANG_ENGLISH		"Stuns targets"
+
+REFERENCE		WEP_TAG_NOSPRINT
+NOTES			Not used.
+LANG_ENGLISH		"Disables sprinting while equipped"
+
+REFERENCE		WEP_TAG_ROLLING
+LANG_ENGLISH		"Lightweight"
+
+REFERENCE		WEP_TAG_LEMONS
+NOTES			Not used.
+LANG_ENGLISH		"IF I HAD LEMONS, I'D MAKE THEM EXPLODE!"
+
+REFERENCE		WEP_TAG_DISINTEGRATE
+LANG_ENGLISH		"Disintegrates targets"
+
+REFERENCE		WEP_TAG_BOUNCING_SHOTS
+LANG_ENGLISH		"Bouncing shots"
+
+REFERENCE		WEP_TAG_FULL_AUTO
+LANG_ENGLISH		"Fully automatic"
+
+REFERENCE		WEP_TAG_SEMI_AUTO
+LANG_ENGLISH		"Semi-automatic"
+
+REFERENCE		WEP_TAG_BURST
+LANG_ENGLISH		"Burst fire"
+
+REFERENCE		WEP_FIRETIME
+LANG_ENGLISH		"Fires %i Rounds per Minute"
+
+REFERENCE		WEP_RELOADTIME
+LANG_ENGLISH		"Reload time: %i milliseconds"
+
+REFERENCE		WEP_BLASTRADIUS_QUAKE3
+NOTES			One meter is 36.5 units
+LANG_ENGLISH		"Blast Radius: %.1f units"
+
+REFERENCE		WEP_BLASTRADIUS_METRIC
+LANG_ENGLISH		"Blast Radius: %.2f meters"
+
+REFERENCE		WEP_BLASTRADIUS_IMPERIAL
+LANG_ENGLISH		"Blast Radius: %.2f yards"
+
+REFERENCE		WEP_RELOADTIME_SEC
+NOTES			For when the reload time is > 1000 milliseconds
+LANG_ENGLISH		"Reload time: %2.3f seconds"
+
+REFERENCE		WEP_COOKTIME
+NOTES			Always handled in seconds, not milliseconds
+LANG_ENGLISH		"Cook time: %.3f seconds"
+
+REFERENCE		WEP_SPEEDPENALTY
+LANG_ENGLISH		"Movement penalty: %.0f%%"
+
+REFERENCE		WEP_SPEEDBONUS
+LANG_ENGLISH		"Movement bonus: +%.0f%%"
+
+REFERENCE		WEP_AMMOTYPE
+LANG_ENGLISH		"Ammo Type: %s"
+
+REFERENCE		WEP_ACCURACY
+LANG_ENGLISH		"Accuracy Rating: %i - %i"
+
+REFERENCE		WEP_RECOIL
+LANG_ENGLISH		"Recoil: %s"
+
+REFERENCE		WEP_RECOIL_NONE
+LANG_ENGLISH		"Recoil: Non-existent"
+
+REFERENCE		WEP_RECOIL_LIGHT
+NOTES			For vertical recoil not exceeding 0.9
+LANG_ENGLISH		"Recoil: Light"
+
+REFERENCE		WEP_RECOIL_MEDIUM
+NOTES			For vertical recoil between 0.9 and 1.5
+LANG_ENGLISH		"Recoil: Medium"
+
+REFERENCE		WEP_RECOIL_HEAVY
+NOTES			For vertical recoil between 1.5 and 3.0
+LANG_ENGLISH		"Recoil: Heavy"
+
+REFERENCE		WEP_RECOIL_INTENSE
+NOTES			For vertical recoil above 3.0
+LANG_ENGLISH		"Recoil: Intense"
+
+REFERENCE		EXPLANATION_ELECTRIC
+LANG_ENGLISH		"Electric Damage. Medium damage towards organic targets and armor, high damage towards droids and shields."
+
+REFERENCE		EXPLANATION_EXPLOSIVE
+LANG_ENGLISH		"Deals damage in a radius."
+
+REFERENCE		EXPLANATION_FIRE
+LANG_ENGLISH		"Fire Damage. Has a chance to ignite the target. Very strong against organic targets."
+
+REFERENCE		EXPLANATION_FREEZE
+LANG_ENGLISH		"Has a chance to freeze the target."
+
+REFERENCE		EXPLANATION_STUN
+LANG_ENGLISH		"Has a chance to stun the target."
+
+REFERENCE		EXPLANATION_CARBONITE
+LANG_ENGLISH		"Has a chance to encase the target in carbonite."
+
+REFERENCE		EXPLANATION_BLASTER
+LANG_ENGLISH		"Blaster damage. Well rounded damage, with a weakness towards shields."
+
+REFERENCE		EXPLANATION_SLUG
+LANG_ENGLISH		"Slug damage. Highly effective against organic targets, and penetrates shields. However, it is weak against armor and droids."
+
+REFERENCE		EXPLANATION_ACP
+LANG_ENGLISH		"ACP damage. Effective against shields and organic targets, weak against electrical systems and armor."
+
+REFERENCE		EXPLANATION_PULSE
+LANG_ENGLISH		"Pulse damage. Completely ignores armor, but relatively ineffective towards shields. Moderately effective against organic targets."
+
+REFERENCE		EXPLANATION_ION
+LANG_ENGLISH		"Ion damage. Completely ignores most armor, and extremely strong against shields. Very weak against organic targets."
+
+REFERENCE		EXPLANATION_SONIC
+LANG_ENGLISH		"Sonic damage. Somewhat effective against armor, shields, and organic targets. Ineffective against droids."
+
+REFERENCE		EXPLANATION_DISRUPTOR
+LANG_ENGLISH		"Disruptor damage. Well rounded damage, with a weakness towards shields. Can cause disintegrations."
+
+REFERENCE		EXPLANATION_QUARREL
+LANG_ENGLISH		"Quarrel damage. Well rounded damage, can impale enemies."
+
+REFERENCE     		WEAPON_STATS
+LANG_ENGLISH  		"Weapon Stats"
+
+REFERENCE		PRIMARY_FIRE
+LANG_ENGLISH		"Primary Firing Mode (%s)"
+
+REFERENCE		SECONDARY_FIRE
+LANG_ENGLISH		"Secondary Firing Mode (%s)"
+
+REFERENCE		TERTIARY_FIRE
+LANG_ENGLISH		"Tertiary Firing Mode (%s)"
+
+REFERENCE		FIRING_MODE
+LANG_ENGLISH		"Firing Mode %i (%s)"
+
+REFERENCE     		CAPACITY
+LANG_ENGLISH    	"Capacity: %i"
+
+REFERENCE     		SHIELD_RECHARGE
+LANG_ENGLISH    	"Recharges after %.1f seconds"
+
+REFERENCE     		SHIELD_REGEN
+LANG_ENGLISH    	"Recharges %.2f shields per second"
+
+REFERENCE     		JETPACK_IDLECONSUMPTION
+LANG_ENGLISH    	"Idle Consumption: %.2f"
+
+REFERENCE     		JETPACK_THRUSTCONSUMPTION
+LANG_ENGLISH    	"Thrust Consumption: %.2f"
+
+REFERENCE     		JETPACK_FUELREGEN
+LANG_ENGLISH    	"Fuel Regeneration: %.2f"
+
+REFERENCE		JETPACK_HOVERGRAVITY
+LANG_ENGLISH		"Hover Gravity: %.1f"
+
+ENDMARKER

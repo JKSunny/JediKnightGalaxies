@@ -1,0 +1,277 @@
+// Note to translators:
+// If a sentence is the same in your language then please change it to "#same"
+//
+// eg:
+// LANG_ENGLISH  "HALT"
+// LANG_GERMAN   "#same"
+//
+// (This is so we can tell which strings have been signed-off as ok to be the same words for QA
+//  and because we do not store duplicate strings, which will then get exported again next time
+//  as being untranslated.)
+//
+VERSION             "1"
+CONFIG              "W:\bin\stringed.cfg"
+FILENOTES           "Text for ingame menus"
+
+// Ingame menus
+
+REFERENCE			PLAYER
+LANG_ENGLISH		"Player"
+
+REFERENCE			INVENTORY
+LANG_ENGLISH		"Inventory"
+
+REFERENCE			PROFILE
+LANG_ENGLISH		"Profile"
+
+REFERENCE		KILLED_WATER
+LANG_ENGLISH		"was held underwater for too long by"
+
+REFERENCE		DIED_WATER
+LANG_ENGLISH		"drowned."
+
+REFERENCE		SUICIDE_WATER_MALE
+LANG_ENGLISH		"drowned himself."
+
+REFERENCE		SUICIDE_WATER_FEMALE
+LANG_ENGLISH		"drowned herself."
+
+REFERENCE		SUICIDE_WATER_GENDERLESS
+LANG_ENGLISH		"drowned themself."
+
+REFERENCE		KILLED_SLIME
+LANG_ENGLISH		"was tossed into acid by"
+
+REFERENCE		DIED_SLIME
+LANG_ENGLISH		"fell into caustic acid."
+
+REFERENCE		SUICIDE_SLIME
+LANG_ENGLISH		"committed slimicide."
+
+REFERENCE		KILLED_LAVA
+LANG_ENGLISH		"was tossed into lava by"
+
+REFERENCE		DIED_LAVA
+LANG_ENGLISH		"fell into lava."
+
+REFERENCE		SUICIDE_LAVA
+LANG_ENGLISH		"took a swim in some lava."
+
+REFERENCE		KILLED_SABER
+LANG_ENGLISH		"was sabered by"
+
+REFERENCE		DIED_SABER
+LANG_ENGLISH		"was sabered."
+
+REFERENCE		SUICIDE_SABER
+LANG_ENGLISH		"took the honorable approach."
+
+REFERENCE		KILLED_VIBROBLADE
+LANG_ENGLISH		"was sliced up by"
+
+REFERENCE		DIED_VIBROBLADE
+LANG_ENGLISH		"was sliced up."
+
+REFERENCE		SUICIDE_VIBROBLADE_MALE
+LANG_ENGLISH		"sliced himself into a million pieces."
+
+REFERENCE		SUICIDE_VIBROBLADE_FEMALE
+LANG_ENGLISH		"sliced herself into a million pieces."
+
+REFERENCE		SUICIDE_VIBROBLADE_GENDERLESS
+LANG_ENGLISH		"sliced themself into a million pieces."
+
+REFERENCE		KILLED_MELEE
+LANG_ENGLISH		"was knocked out by"
+
+REFERENCE		DIED_MELEE
+LANG_ENGLISH		"was horribly beaten up."
+
+REFERENCE		SUICIDE_MELEE_MALE
+LANG_ENGLISH		"punched himself in the face a little too hard."
+
+REFERENCE		SUICIDE_MELEE_FEMALE
+LANG_ENGLISH		"punched herself in the face a little too hard."
+
+REFERENCE		SUICIDE_MELEE_GENDERLESS
+LANG_ENGLISH		"punched themself in the face a little too hard."
+
+REFERENCE		KILLED_BLASTER
+LANG_ENGLISH		"was blasted by"
+
+REFERENCE		DIED_BLASTER
+LANG_ENGLISH		"was blasted."
+
+REFERENCE		KILLED_DISRUPTOR
+LANG_ENGLISH		"was demolecularized by"
+
+REFERENCE		DIED_DISRUPTOR
+LANG_ENGLISH		"was demolecularized."
+
+REFERENCE		SUICIDE_SHOT_MALE
+LANG_ENGLISH		"shot himself."
+
+REFERENCE		SUICIDE_SHOT_FEMALE
+LANG_ENGLISH		"shot herself."
+
+REFERENCE		SUICIDE_SHOT_GENDERLESS
+LANG_ENGLISH		"shot themself."
+
+REFERENCE		KILLED_SLUGTHROWER
+LANG_ENGLISH		"was shot by"
+
+REFERENCE		DIED_SLUGTHROWER
+LANG_ENGLISH		"was shot."
+
+REFERENCE		KILLED_ACP
+LANG_ENGLISH		"was spiked by"
+
+REFERENCE		DIED_ACP
+LANG_ENGLISH		"was bombarded with charged particles."
+
+REFERENCE		KILLED_PULSE
+LANG_ENGLISH		"was pulsed by"
+
+REFERENCE		DIED_PULSE
+LANG_ENGLISH		"felt a strong pulsation."
+
+REFERENCE		KILLED_ION
+LANG_ENGLISH		"was ionized by"
+
+REFERENCE		DIED_ION
+LANG_ENGLISH		"was horribly ionized."
+
+REFERENCE		KILLED_ELECTRICAL
+LANG_ENGLISH		"was electrocuted by"
+
+REFERENCE		DIED_ELECTRICAL
+LANG_ENGLISH		"was electrocuted."
+
+REFERENCE		SUICIDE_ELECTRICAL_MALE
+LANG_ENGLISH		"electrocuted himself."
+
+REFERENCE		SUICIDE_ELECTRICAL_FEMALE
+LANG_ENGLISH		"electrocuted herself."
+
+REFERENCE		SUICIDE_ELECTRICAL_GENDERLESS
+LANG_ENGLISH		"electrocuted themself."
+
+REFERENCE		KILLED_SONIC
+LANG_ENGLISH		"was phased by"
+
+REFERENCE		DIED_SONIC
+LANG_ENGLISH		"faced the music."
+
+REFERENCE		KILLED_COLD
+LANG_ENGLISH		"was chilled by"
+
+REFERENCE		DIED_COLD
+LANG_ENGLISH		"couldn't thaw out."
+
+REFERENCE		KILLED_FIRE
+LANG_ENGLISH		"was scorched by"
+
+REFERENCE		DIED_FIRE
+LANG_ENGLISH		"died in a fire."
+
+REFERENCE		SUICIDE_FIRE
+LANG_ENGLISH		"walked into a fire."
+
+REFERENCE		KILLED_EXPLOSION
+LANG_ENGLISH		"was blown up by"
+
+REFERENCE		DIED_EXPLOSION
+LANG_ENGLISH		"was blown up."
+
+REFERENCE		SUICIDE_EXPLOSION_MALE
+LANG_ENGLISH		"blew himself up."
+
+REFERENCE		SUICIDE_EXPLOSION_FEMALE
+LANG_ENGLISH		"blew herself up."
+
+REFERENCE		SUICIDE_EXPLOSION_GENDERLESS
+LANG_ENGLISH		"blew themself up."
+
+REFERENCE		KILLED_QUARREL
+LANG_ENGLISH		"was impaled by"
+
+REFERENCE		DIED_QUARREL
+LANG_ENGLISH		"was impaled."
+
+REFERENCE		KILLED_FROZEN
+LANG_ENGLISH		"was frozen by"
+
+REFERENCE		DIED_FROZEN
+LANG_ENGLISH		"failed to thaw out."
+
+REFERENCE		SUICIDE_FROZEN_MALE
+LANG_ENGLISH		"froze himself to death."
+
+REFERENCE		SUICIDE_FROZEN_FEMALE
+LANG_ENGLISH		"froze herself to death."
+
+REFERENCE		SUICIDE_FROZEN_GENDERLESS
+LANG_ENGLISH		"froze themself to death."
+
+REFERENCE		KILLED_CARBONITE
+LANG_ENGLISH		"was encased in carbonite by"
+
+REFERENCE		DIED_CARBONITE
+LANG_ENGLISH		"was encased in carbonite."
+
+REFERENCE		SUICIDE_CARBONITE_MALE
+LANG_ENGLISH		"encased himself in carbonite."
+
+REFERENCE		SUICIDE_CARBONITE_FEMALE
+LANG_ENGLISH		"encased herself in carbonite."
+
+REFERENCE		SUICIDE_CARBONITE_GENDERLESS
+LANG_ENGLISH		"encased themself in carbonite."
+
+REFERENCE		KILLED_IGNITED
+LANG_ENGLISH		"was roasted by"
+
+REFERENCE		DIED_IGNITED
+LANG_ENGLISH		"was roasted."
+
+REFERENCE		SUICIDE_IGNITED_MALE
+LANG_ENGLISH		"lit himself on fire."
+
+REFERENCE		SUICIDE_IGNITED_FEMALE
+LANG_ENGLISH		"lit herself on fire."
+
+REFERENCE		SUICIDE_IGNITED_GENDERLESS
+LANG_ENGLISH		"lit themself on fire."
+
+REFERENCE		KILLED_STUNNED
+LANG_ENGLISH		"was stunned by"
+
+REFERENCE		DIED_STUNNED
+LANG_ENGLISH		"was stunned."
+
+REFERENCE		KILLED_BLEEDING
+LANG_ENGLISH		"was bled out by"
+
+REFERENCE		DIED_BLEEDING
+LANG_ENGLISH		"bled out."
+
+REFERENCE		SUICIDE_BLEEDING
+LANG_ENGLISH		"drowned in a pool of their own blood."
+
+REFERENCE		KILLED_POISONED
+LANG_ENGLISH		"was poisoned by"
+
+REFERENCE		DIED_POISONED
+LANG_ENGLISH		"absorbed too many toxins."
+
+REFERENCE		SUICIDE_POISONED
+LANG_ENGLISH		"poisoned themselves."
+
+REFERENCE		KILLED_CURED
+LANG_ENGLISH		"was healed by"
+
+REFERENCE		DIED_CURED
+LANG_ENGLISH		"died from malpractice."
+
+REFERENCE		SUICIDE_CURED
+LANG_ENGLISH		"tried to self medicate and died from malpractice."

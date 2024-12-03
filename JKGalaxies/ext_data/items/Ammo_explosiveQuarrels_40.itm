@@ -1,0 +1,11 @@
+{
+	"name":		"40-pack Explosive Crossbow Quarrels",
+	"internal":	"ammo_explosiveQuarrel_40",
+	"itemtype":	"ammo",
+	"weight":		"0",
+	"cost":		"260",
+	"ammoclass":	"AMMO_QUARREL_EXPLOSIVE",
+	"ammoquantity":	"40",
+	"itemIcon": "gfx/item_icons/ammo_metallic_bolts.tga",	//needs icon!
+	"itemDescription": "These crossbow bolts munitions appear to contain trace amounts of baradium resulting in extreme explosive force upon impact with a surface or body."
+}

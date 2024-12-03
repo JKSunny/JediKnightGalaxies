@@ -1,0 +1,11 @@
+{
+	"name":		"60-pack Explosive Round Slugs",
+	"internal":	"ammo_explosiveSlugs_60",
+	"itemtype":	"ammo",
+	"weight":		"0",
+	"cost":		"250",
+	"ammoclass":	"AMMO_SLUGS_EXPLOSIVE",
+	"ammoquantity":	"60",
+	"itemIcon": "gfx/item_icons/ammo_metallic_bolts.tga",	//needs icon!
+	"itemDescription": "These slugthrower munitions appear to contain trace amounts of baradium resulting in extreme explosive force upon impact with a surface or body."
+}

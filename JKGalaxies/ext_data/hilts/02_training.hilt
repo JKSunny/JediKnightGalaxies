@@ -1,0 +1,14 @@
+{
+	"name":		"Training",
+	"fullName":	"Training",
+	"saberModel":	"models/weapons2/saber_reborn/saber_w.glm",
+	"soundOn":	"sound/weapons/saber/saberon.wav",
+	"soundLoop":	"sound/weapons/saber/saberhum4.wav",
+	"soundOff":	"sound/weapons2/saber/saberoff.wav",
+	"blades": {
+		"blade1": {
+			"length":	32,
+			"radius":	4
+		}
+	}
+}

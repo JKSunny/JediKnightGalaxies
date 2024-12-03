@@ -1,0 +1,17 @@
+{
+	"name":			"single_3",
+	"fullName":		"@MENUS_SINGLE_HILT3",
+	"saberModel":		"models/weapons2/saber_3/saber_3.glm",
+	"soundOn":		"sound/weapons/saber/saberon.wav",
+	"soundLoop":		"sound/weapons/saber/saberhum4.wav",
+	"soundOff":		"sound/weapons/saber/saberoff.wav",
+	"moveSpeedScale":	1.15,
+	"animSpeedScale":	1.2,
+	"bpRegenRate":		315,
+	"extraDamage":		1.05,
+	"blades": {
+		"blade1": {
+			"length": 32
+		}
+	}
+}

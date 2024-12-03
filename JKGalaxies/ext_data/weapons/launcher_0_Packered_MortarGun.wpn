@@ -1,0 +1,104 @@
+{
+    "name":             "@JKG_ITEMS_launcher_Packered_MortarGun",
+    "type":             "WP_ROCKET_LAUNCHER",
+    "variation":        0,
+    "classname":        "launcher_mortar",
+    "description":      "@JKG_ITEMS_launcher_Packered_MortarGun",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/Packered_MortarGun/viewmodel.md3",
+        "worldmodel":       "models/weapons/Packered_MortarGun/model.glm",
+        "hudicon":          "models/weapons/Packered_MortarGun/icon_default",
+        "hudnaicon":        "models/weapons/Packered_MortarGun/icon_default",
+        "selectsound":      "sound/weapons/select_h_launcher.wav",
+        
+        "gunposition":      "4.0 -6.0 -10.0",
+        "ironsightsposition": "5.0 -6.5 -6.0",
+        "ironsightsfov": "70",
+		
+		"barrelCount": "3",
+   
+        "firemode0": {
+            "type":         "grenade",
+            
+            "muzzlefx":     "slugthrowers/muzzleflash_big",
+            "firesound":    [
+                "sound/weapons/slugthrowers/DF_mortar_fire.mp3"
+            ],
+            "projectilemodel": "models/ammo/anti-armor_charge.md3",
+            "projectilefx": "explosives/shot_mortar",
+            "miss":         { "impactfx": "explosives/demomedium" },
+            "hit":          { "impactfx": "explosives/demomedium" },
+	    "displayName":  "Launcher"
+        },
+        
+        "firemode1": {
+            "type":         "grenade",
+            
+            "muzzlefx":     "slugthrowers/muzzleflash_big",
+            "firesound":    [
+                "sound/weapons/slugthrowers/DF_mortar_fire.mp3"
+            ],
+            "projectilemodel": "models/ammo/anti-armor_charge.md3",
+            "projectilefx": "explosives/shot_mortar",
+            "miss":         { "impactfx": "explosives/demomedium" },
+            "hit":          { "impactfx": "explosives/demomedium" }
+        }
+    },
+    
+    "stats": {
+        "slot":         1,
+        "reloadtime":   2750,
+//        "flags":        [ "knockback" ],
+        "reloadmodifier": 0.5,
+        "speed":        0.8
+    },
+    
+    "firemode0": {
+        "damage":       75,//150,
+        "ballistic":    true,
+        "collisionsize":3.0,
+        "ammocost":     1,
+        "firedelay":    1200,
+        "firingtype":   "semi",
+        "splashrange":  420,//210,
+        "range":        40000.0,
+        "recoil":       7.0,
+        "spread":       1.0,
+        "projectilespeed":1500.0,
+        "projectileclass":"rocket_proj",
+        "meansofdeath": "MOD_EXPLOSION",
+        "splashmeansofdeath": "MOD_EXPLOSION",
+	"ammobase": "AMMO_PACKERED_MORTAR",
+	"ammodefault": "AMMO_PACKERED_MORTAR",
+        "clipSize":              3,
+        "accuracy": {
+        	"accuracyRating": 72,
+        	"accuracyRatingPerShot": 12,
+        	"msToDrainAccuracy": 250,
+        	"maxAccuracyAdd": 96,
+        	"crouchModifier": 0.9,
+        	"runModifier": 1.4,
+        	"sightsModifier": 0.7,
+        	"walkModifier": 1.1,
+        	"inAirModifier": 1.8
+        }
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+	"reload":       { "torso": "TORSO_DROPWEAP1" },
+        "sights":        { "torso": "TORSO_WEAPONREADY3", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK3" },
+	"ready":	{ "torso": "BOTH_BASE_RIFLESTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_RIFLESHOOT" },
+	"sprint":	{ "torso": "BOTH_RIFLERUN" },
+        "sprintStyle": "14"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

@@ -1,0 +1,13 @@
+{
+	"name":             "@JKG_ITEMS_launcher_DC-15A_AntiArmor",
+	"shortName":             "@JKG_ITEMS_s_launcher_DC-15A_AntiArmor",
+	"internal":             "launcher_DC-15A",
+	"itemtype":             "weapon",
+	"weapon":		"WP_ROCKET_LAUNCHER",
+	"variation":		"4",
+	"weight":		"25",
+	"cost":		"1650",
+	"xml":			"xml/items/DC-15A_AA.xml",
+	"itemIcon":		"models/weapons/dc-15a_rifle/icon_aaa",
+	"itemDescription": "Once the weapon of choice for the Galactic Republic's clone troopers, it's high rate of fire makes use of ionized plasma effective against droids and shielding. This model has a anti-armor rocket launcher attachment and scope."
+}

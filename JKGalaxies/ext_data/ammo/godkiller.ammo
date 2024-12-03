@@ -1,0 +1,65 @@
+{
+	"AMMO_SLUGS_GODKILLER": {
+		"shortname": "God Killer Ammo",
+		"longname": "God Slaying Hyper Slugs",
+		"basedOn": "AMMO_SLUGS",
+		"max": 200,
+		"pricePerUnit": 50,
+		"overrides": 
+		{
+			"damage": {
+				"multiply": 0.9
+			},
+			"bounces": {
+				"add": 5
+			},
+			"SplashRange": {
+				"set": 400
+			},
+			"projectiles": {
+				"set": 5
+			},
+			"accuracyRatingBase": {
+				"set": 100
+			},
+			"accuracyRatingPerShot": {
+				"set": 15
+			},
+			"ammocost": {
+				"multiply": 2
+			},
+			"meansofdeath": "MOD_DISRUPTOR",
+        	"splashmeansofdeath": "MOD_EXPLOSION",
+			"visuals": 
+			{
+				"projectile": 
+				{
+					"hit": "Blasters/purple_impactHuge",
+					"miss": "Blasters/purple_shield_impact",
+					"effect": "Blasters/shot_Blue_medium"
+				}
+			},
+			"buffs": 
+			[
+				{
+					"buff": "standard-poison",
+					"addbuff": true,
+					"duration": 
+					{
+						"set": 7000
+					}
+				},
+				{
+					"buff": "standard-fire",
+					"addbuff": true,
+					"duration": 
+					{
+						"set": 9000
+					}
+				}
+			]
+
+		}
+
+	}
+}

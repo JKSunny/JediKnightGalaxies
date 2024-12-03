@@ -1,0 +1,12 @@
+//power "paks" are for pistols
+{
+	"name":		"60 BlasTech Ion Pwr Pak(sm)",
+	"internal":	"ammo_ionPwrPakSm_60",
+	"itemtype":	"ammo",
+	"weight":		"0",
+	"cost":		"50",
+	"ammoclass":	"AMMO_ION_POWERPAK_S",
+	"ammoquantity":	"60",
+	"itemIcon": "gfx/item_icons/ammo_power_cell.tga",	//needs icon!
+	"itemDescription": "Specialized ionized blaster bolt munitions that are effective against droids, electronics and shields. Ion technology saw great advances during the Clone Wars combating the sophisticated Trade Federation combat droids, but remains stagnant today."
+}

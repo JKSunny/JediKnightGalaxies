@@ -1,0 +1,12 @@
+{
+	"name":             "@MENUS_SINGLE_HILT1",
+	"internal":             "saber_arbiter",
+	"itemtype":             "weapon",
+	"weapon":		"WP_SABER",
+	"variation":		"7",
+	"weight":		"6",
+	"tier":			4,
+	"cost":		"1350",
+	"xml":			"",
+	"itemIcon":		"models/weapons/lightsabers/icons/arbiter.tga"
+}

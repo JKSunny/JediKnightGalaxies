@@ -1,0 +1,153 @@
+{
+    "name":             "@JKG_ITEMS_chemical_CR-24_FlameCarbine",
+    "type":             "WP_DEMP2",
+    "variation":        0,
+    "classname":        "chem_CR-24",
+    "description":      "@JKG_ITEMS_chemical_CR-24_FlameCarbine",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/CR-24_FlameCarbine/viewmodel.md3",
+        "worldmodel":       "models/weapons/CR-24_FlameCarbine/model.glm",
+        "hudicon":          "models/weapons/CR-24_FlameCarbine/icon_default",
+        "hudnaicon":        "models/weapons/CR-24_FlameCarbine/icon_default",
+        "selectsound":      "sound/weapons/select_l_launcher.wav",
+        
+        "indicators": {
+            "ammo":         [ "models/weapons/cr-24_flamecarbine/numbers3", "models/weapons/cr-24_flamecarbine/numbers2", "models/weapons/cr-24_flamecarbine/numbers1" ],
+            "firemode":     "models/weapons/cr-24_flamecarbine/firemode"
+        },
+        
+        "gunposition":      "12.0 -6.0 -8.0",
+        "ironsightsposition": "4.0 -3.3 -5.0",
+        "ironsightsfov": "70",
+		"barrelCount": "2",
+    
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "chemicals/flamethrower",
+            "firesound":    [
+                "sound/effects/fireburst.mp3"
+            ],
+            "miss":         { "impactfx": "chemicals/flamethrower_fire" },
+            "hit":          { "impactfx": "env/fire_big" },
+	    "displayName":  "Sustained"
+        },
+        
+        "firemode1": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "chemicals/flamethrower",
+            "firesound":    [
+                "sound/effects/fireburst.mp3"
+            ],
+            "miss":         { "impactfx": "chemicals/flamethrower_fire" },
+            "hit":          { "impactfx": "env/fire_big" },
+	    "displayName":  "Jet"
+        }
+    },
+    
+    "stats": {
+        "slot":         2,
+        "reloadtime":   2500,
+        "flags":        [ "roll", "knockback" ],
+        "reloadmodifier": 0.8,
+        "speed":        0.7
+    },
+    
+    "firemode0": {
+	"damage": {
+                                 "damageradius": { "start": 16 },
+//                                   "duration":       2000,
+//                                   "damagedelay": 100,
+                                 "damage":       5,
+                                 "buffs": [
+					{
+						"buff": "standard-fire",
+						"duration": 10000
+					}
+				]
+	},
+        "ballistic":    true,
+        "ammocost":     1,
+        "collisionsize": 4.0,
+        "firedelay":    70,
+        "range":        400.0,
+        "recoil":       0.5,
+        "spread":       5.0,
+        "projectilespeed": 3000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_FIRE",
+	"ammobase": "AMMO_GAS",
+	"ammodefault": "AMMO_GAS",
+        "clipSize":              99,
+        "accuracy": {
+        	"accuracyRating": 50,
+        	"accuracyRatingPerShot": 0,
+        	"msToDrainAccuracy": 1000,
+        	"maxAccuracyAdd": 0,
+        	"crouchModifier": 1,
+        	"runModifier": 1,
+        	"sightsModifier": 1,
+        	"walkModifier": 1,
+        	"inAirModifier": 1
+        }
+    },
+    
+    "firemode1": {
+          "damage": {
+                                 "damageradius": { "start": 16 },
+                                 "damage":       5,
+                                 "buffs": [
+					{
+						"buff": "standard-fire",
+						"duration": 10000
+					}
+				]
+	},
+        "ballistic":    true,
+        "ammocost":     1,
+        "collisionsize": 4.0,
+        "burstshotdelay": 70,
+        "firedelay":    900,
+        "firingtype":   "burst",
+        "range":        450.0,
+        "recoil":       0.5,
+        "shotsperburst": 6,
+        "spread":       8.0,
+        "projectilespeed": 3000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_FIRE",
+	"ammobase": "AMMO_GAS",
+	"ammodefault": "AMMO_GAS",
+        "clipSize":              99,
+        "accuracy": {
+        	"accuracyRating": 64,
+        	"accuracyRatingPerShot": 0,
+        	"msToDrainAccuracy": 1000,
+        	"maxAccuracyAdd": 0,
+        	"crouchModifier": 1,
+        	"runModifier": 1,
+        	"sightsModifier": 1,
+        	"walkModifier": 1,
+        	"inAirModifier": 1
+        }
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+       "reload":        { "torso": "TORSO_DROPWEAP1" },
+        "sights":        { "torso": "TORSO_WEAPONREADY3", "legs": "BOTH_STAND1" },
+	"sprint":	{ "torso": "BOTH_RIFLERUN" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK3" },
+	"ready":	{ "torso": "BOTH_BASE_RIFLESTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_RIFLESHOOT" },
+        "sprintStyle": "3"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

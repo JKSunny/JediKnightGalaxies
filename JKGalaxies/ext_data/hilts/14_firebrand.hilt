@@ -1,0 +1,18 @@
+{
+	"name":			"single_9",
+	"fullName":		"@MENUS_SINGLE_HILT9",
+	"saberModel":		"models/weapons2/saber_9/saber_9.glm",
+	"soundOn":		"sound/weapons/saber/saberon.wav",
+	"soundLoop":		"sound/weapons/saber/saberhum4.wav",
+	"soundOff":		"sound/weapons/saber/saberoff.wav",
+	"extraDamage":		1.25,
+	"bpRegenRate":		330,
+	"fpRegenRate":		180,
+	"animSpeedScale":	1.1,
+	"extraDisarmChance":	12,
+	"blades": {
+		"blade1": {
+			"length": 44
+		}
+	}
+}

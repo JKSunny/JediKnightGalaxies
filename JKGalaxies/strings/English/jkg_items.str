@@ -1,0 +1,307 @@
+// Note to translators:
+// If a sentence is the same in your language then please change it to "#same"
+//
+// eg:
+// LANG_ENGLISH  "HALT"
+// LANG_GERMAN   "#same"
+//
+// (This is so we can tell which strings have been signed-off as ok to be the same words for QA
+//  and because we do not store duplicate strings, which will then get exported again next time
+//  as being untranslated.)
+//
+VERSION             "1"
+CONFIG              "W:\bin\stringed.cfg"
+FILENOTES           "in game text for single player and MP items"
+
+//_____________________________________________________
+//-------------------------------------------------------------------------|
+/// JKGalaxies' Guns and Explosives
+//-------------------------------------------------------------------------|
+// For line breaks, aim for <30 characters per line (cfr W-90)
+//____________________________________________________/
+
+REFERENCE	ARRAY_ACP_ARRAYGUN
+LANG_ENGLISH	"Arakyd ACP Array Gun"
+
+REFERENCE	ARRAY_ARC_CASTERIMPERIAL
+LANG_ENGLISH	"Imperial ARC Caster"
+
+REFERENCE	ARRAY_ARC_CASTERMK1
+LANG_ENGLISH	"Mk 1 Prototype ARC Caster"
+
+REFERENCE	ARRAY_BRYAR_SHOTGUN
+LANG_ENGLISH	"N'nhar-Ancar Sawed-off \nBryar Shotgun"
+
+REFERENCE	ARRAY_DOUBLEBARREL_ARRAYGUN
+LANG_ENGLISH	"Adostic Arms AA-35c \nPulse Array Gun"
+
+
+REFERENCE	CARBINE_E-11_STUNCARBINE
+LANG_ENGLISH	"BlasTech E-11 Stun Carbine"
+
+REFERENCE	CARBINE_E-11_CARBINE
+LANG_ENGLISH	"BlasTech E-11 Blaster Carbine"
+
+REFERENCE	CARBINE_E-11B_CARBINE
+LANG_ENGLISH	"BlasTech E-11b Blaster Carbine"
+
+REFERENCE	CARBINE_DXR6_HEAVYCARBINE
+LANG_ENGLISH	"DXR6 Heavy Blaster Carbine"
+
+REFERENCE	CARBINE_LT-60_SLUGCARBINE_COMM
+LANG_ENGLISH	"Arakyd LT-60 Commando \nSlugthrower Carbine"
+
+REFERENCE	CARBINE_LT-60_SLUGCARBINE_STEALTH
+LANG_ENGLISH	"Arakyd LT-60 Stealth \nSlugthrower Carbine"
+
+REFERENCE	CARBINE_LT-60_SLUGCARBINE
+LANG_ENGLISH	"Arakyd LT-60 \nSlugthrower Carbine"
+
+REFERENCE	CARBINE_PROTONCARBINE
+LANG_ENGLISH	"Proton Carbine"
+
+REFERENCE   CARBINE_IR-5
+LANG_ENGLISH    "Merr-Sonn IR-5 \n"Intimidator" Carbine"
+
+REFERENCE   CARBINE_IR-5_ADV
+LANG_ENGLISH    "Merr-Sonn IR-5 \n"Intimidator" Advanced Carbine"
+
+
+REFERENCE	CHARGE_LASERPROJECTOR
+LANG_ENGLISH	"BlasTech Class VI \nAutomated Laser Projector"
+
+REFERENCE	CHARGE_SEQUENCER
+LANG_ENGLISH	"Sequencer Charge"
+
+
+REFERENCE	CHEMICAL_CR-24_FLAMECARBINE
+LANG_ENGLISH	"Merr-Sonn CR-24 Flame Carbine"
+
+REFERENCE	CHEMICAL_CARBONITERIFLE
+LANG_ENGLISH	"Carbonite Rifle"
+
+
+REFERENCE	GRENADE_FLASHBANG
+LANG_ENGLISH	"Merr-Sonn "Luma" \nFlash-Bang Grenade"
+
+REFERENCE	GRENADE_C22FRAG
+LANG_ENGLISH	"Merr-Sonn C-22 \nFragmentation Grenade"
+
+REFERENCE	GRENADE_THERMAL-E
+LANG_ENGLISH	"Merr-Sonn Class-E \nThermal Detonator"
+
+REFERENCE	GRENADE_THERMAL-C
+LANG_ENGLISH	"Merr-Sonn Class-C \nThermal Detonator"
+
+REFERENCE	GRENADE_THERMAL-A
+LANG_ENGLISH	"Merr-Sonn Class-A \nThermal Detonator"
+
+REFERENCE	GRENADE_CODEKEY
+LANG_ENGLISH	"Tarascii Code-Key \nThermal Detonator"
+
+REFERENCE	GRENADE_CONCUSSION
+LANG_ENGLISH	"Concussion Grenade"
+
+REFERENCE	GRENADE_CRYOBAN
+LANG_ENGLISH	"Merr-Sonn WW-41 \nCryoBan Grenade"
+
+REFERENCE	GRENADE_C-14A
+LANG_ENGLISH	"Merr-Sonn C-14A Stun Grenade"
+
+REFERENCE	GRENADE_STUN
+LANG_ENGLISH	"Stun Grenade"
+
+REFERENCE	GRENADE_SMOKE
+LANG_ENGLISH	"Smoke Canister"
+
+REFERENCE	GRENADE_PLASMA
+LANG_ENGLISH	"Plasma Grenade"
+
+REFERENCE GRENADE_BACTA_ANTIDOTE-e
+LANG_ENGLISH    "Bacta Antidote Grenade \nClass-E"
+
+
+REFERENCE	LAUNCHER_PACKERED_MORTARGUN
+LANG_ENGLISH	"Packered Mortar Gun"
+
+REFERENCE	LAUNCHER_DC-15A_ANTIARMOR
+LANG_ENGLISH	"BlasTech DC-15A Blaster Rifle \nw/ Anti-Armor Attachment"
+
+REFERENCE	S_LAUNCHER_DC-15A_ANTIARMOR
+LANG_ENGLISH	"DC-15A Rifle \nw/ Anti-Armor"
+
+REFERENCE	LAUNCHER_LJ-70_CONCRIFLE
+LANG_ENGLISH	"Arakyd LJ-70 Concussion Rifle"
+
+REFERENCE	LAUNCHER_W-90_CONCUSSION
+LANG_ENGLISH	"BlasTech W-90 Concussion Rifle"
+
+REFERENCE	LAUNCHER_W-90_SCOPE
+LANG_ENGLISH	"BlasTech W-90 Concussion Rifle \nw/ Scope"
+
+REFERENCE	LAUNCHER_E-60R_ROCKETLAUNCHER
+LANG_ENGLISH	"Baktoid E-60R Rocket Launcher"
+
+REFERENCE	LAUNCHER_STOUKER
+LANG_ENGLISH	"Stouker Concussion Rifle"
+
+
+REFERENCE	MINE_LASERTRIP_MK1
+LANG_ENGLISH	"Arakyd Mk 1 Anti-Personel \nLaser Trip Mine"
+
+REFERENCE	MINE_LASERTRIP_MK2
+LANG_ENGLISH	"Arakyd Mk 2 Anti-Personel \nLaser Trip Mine"
+
+
+REFERENCE	PISTOL_SUPPRESSORPISTOL
+LANG_ENGLISH	"Trandoshan Suppressor Pistol"
+
+REFERENCE	PISTOL_BRYAR_PISTOL
+LANG_ENGLISH	"Modified Bryar Pistol"
+
+REFERENCE	PISTOL_ELG-3A_PISTOL
+LANG_ENGLISH	"SoroSuub ELG-3A \n"Diplomat's Blaster" Pistol"
+
+REFERENCE	PISTOL_L8STRIKER_PISTOL
+LANG_ENGLISH	"L8 "Striker" \nHeavy Blaster Pistol"
+
+REFERENCE	PISTOL_FWG-5_FLECHETTEPISTOL
+LANG_ENGLISH	"Malaxan FWG-5 Flechette Pistol \nw/ Tracking Laser"
+
+REFERENCE	PISTOL_SUPPRESSORPISTOL_ADV
+LANG_ENGLISH	"Advanced Trandoshan \nSuppressor Pistol"
+
+REFERENCE	PISTOL_KYD-21_PISTOL
+LANG_ENGLISH	"KYD-21 Blaster Pistol"
+
+REFERENCE	PISTOL_DH-17_PISTOL
+LANG_ENGLISH	"BlasTech DH-17 Blaster Pistol"
+
+REFERENCE	PISTOL_DL-18_PISTOL
+LANG_ENGLISH	"BlasTech DL-18 Blaster Pistol"
+
+REFERENCE	PISTOL_A200_ACP_PISTOL
+LANG_ENGLISH	"Barrakan Arms "The Painkiller" \n"A" 200 ACP Pistol"
+
+REFERENCE	PISTOL_DE-10_PISTOL
+LANG_ENGLISH	"DE-10 Blaster Pistol"
+
+REFERENCE	PISTOL_DE-10_PISTOL_SNUB
+LANG_ENGLISH	"Snub-Barrelled \nDE-10 Blaster Pistol"
+
+REFERENCE	PISTOL_Q2_HOLDOUTPISTOL
+LANG_ENGLISH	"Merr-Sonn Model Q2 \nHold-Out Blaster Pistol"
+
+REFERENCE   PISTOL_WESTAR-34_Pistol
+LANG_ENGLISH    "Mandalorian \nWestar-34 Blaster Pistol"
+
+REFERENCE   PISTOL_PULSEREVOLVER
+LANG_ENGLISH    "Arakyd Industries \nPulse Revolver Pistol"
+
+REFERENCE   PISTOL_L8STRIKER_PISTOL
+LANG_ENGLISH    "L8 Blaster Pistol"
+
+REFERENCE   PISTOL_L8STRIKER_SCOPE
+LANG_ENGLISH    "L8 Blaster Pistol\n w/ Scope"
+
+REFERENCE	PISTOL_EE-3_PISTOL
+LANG_ENGLISH	"BlasTech EE-3 Blaster Pistol"
+
+
+REFERENCE	REPEATER_DC-15A_RIFLE
+LANG_ENGLISH	"BlasTech DC-15A Blaster Rifle"
+
+REFERENCE	REPEATER_DC-15A_SCOPE
+LANG_ENGLISH	"BlasTech DC-15A Blaster Rifle \nw/ Scope"
+
+REFERENCE	REPEATER_LS-180_ACP_HEAVYREPEATER
+LANG_ENGLISH	"Arakyd LS-180 Heavy ACP Repeater"
+
+REFERENCE	REPEATER_T-21_REPEATER_BIPOD
+LANG_ENGLISH	"BlasTech T-21 \nLight Repeating Blaster w/ Bipod"
+
+REFERENCE	REPEATER_T-21_REPEATER
+LANG_ENGLISH	"BlasTech T-21 \nLight Repeating Blaster"
+
+REFERENCE	REPEATER_PULSECANNON
+LANG_ENGLISH	"Adostic Arms PB10 \nPulse Cannon"
+
+
+REFERENCE	RIFLE_E-11_RIFLE
+LANG_ENGLISH	"BlasTech E-11 Blaster Rifle"
+
+REFERENCE	RIFLE_E-11A_RIFLE
+LANG_ENGLISH	"BlasTech E-11A Blaster Rifle \nw/ Electroscope"
+
+REFERENCE	RIFLE_E-11B_RIFLE
+LANG_ENGLISH	"BlasTech E-11b Blaster Rifle"
+
+REFERENCE	RIFLE_A200_ACP_BATTLERIFLE_LAUNCHER
+LANG_ENGLISH	"Barrakan Arms "A" 200 ACP Battle \nRifle w/ Projectile Launcher"
+
+REFERENCE	S_RIFLE_A200_ACP_BATTLERIFLE_LAUNCHER
+LANG_ENGLISH	""A" 200 ACP \nRifle w/ Launcher"
+
+REFERENCE	RIFLE_A200_ACP_BATTLERIFLE
+LANG_ENGLISH	"Barrakan Arms \n"A" 200 ACP Battle Rifle"
+
+REFERENCE	RIFLE_BOWCASTER_CLASSIC
+LANG_ENGLISH	"Wookiee Assault Bowcaster"
+
+REFERENCE	RIFLE_BRYAR_RIFLE
+LANG_ENGLISH	"BlasTech Bryar Rifle"
+
+REFERENCE	RIFLE_DXR6_HEAVYCARBINE
+LANG_ENGLISH	"DXR6 Heavy Blaster Rifle"
+
+REFERENCE	RIFLE_DRSLN_SLUGRIFLE
+LANG_ENGLISH	"Dressellian Projectile Rifle"
+
+REFERENCE	RIFLE_EE-3_RIFLE
+LANG_ENGLISH	"BlasTech EE-3 Blaster Rifle"
+
+REFERENCE	RW_STERLING
+LANG_ENGLISH	"Sterling L2A3 MK4 \nSub-Machine Gun"
+
+REFERENCE	RW_LEMONS
+LANG_ENGLISH	"Cave Johnson's \nCombustible Lemons"
+
+
+REFERENCE	SNIPER_DLT-19_HEAVYBLASTER
+LANG_ENGLISH	"BlasTech DLT-19 \nHeavy Blaster Rifle"
+
+REFERENCE	SNIPER_BOWCASTER
+LANG_ENGLISH	"Wookiee Crossbow"
+
+REFERENCE	SNIPER_BOWCASTER_HEAVY
+LANG_ENGLISH	"Heavy Wookiee Crossbow"
+
+REFERENCE	SNIPER_BOWCASTER_HEAVY_SCOPE
+LANG_ENGLISH	"Scoped Heavy \nWookiee Crossbow"
+
+REFERENCE	SNIPER_DLT-19_HEAVYBLASTER_SCOPE
+LANG_ENGLISH	"BlasTech DLT-19 \nHeavy Blaster Rifle w/ Scope"
+
+REFERENCE	SNIPER_DXR6_HEAVYCARBINE
+LANG_ENGLISH	"DXR6 Heavy Disruptor Rifle"
+
+REFERENCE	SNIPER_DRSLN_SLUGRIFLE_SCOPE
+LANG_ENGLISH	"Scoped Dressellian \nProjectile Rifle"
+
+REFERENCE	SNIPER_BRYAR_RIFLE
+LANG_ENGLISH	"Scoped BlasTech Bryar Rifle"
+
+REFERENCE	SNIPER_ACP_HAMAR
+LANG_ENGLISH	"Barrakan Arms ACP \nHeavy Anti-Materiel Rifle 57c"
+
+
+REFERENCE	WEAPON_MELEE
+LANG_ENGLISH	"Hand to Hand"
+
+REFERENCE	WEAPON_SABER
+LANG_ENGLISH	"Lightsaber"
+
+REFERENCE	WEAPON_STUN_BATON
+LANG_ENGLISH	"Merr-Sonn Stun Baton"
+
+ENDMARKER

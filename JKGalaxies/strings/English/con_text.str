@@ -1,0 +1,46 @@
+// Note to translators:
+// If a sentence is the same in your language then please change it to "#same"
+//
+// eg:
+// LANG_ENGLISH  "HALT"
+// LANG_GERMAN   "#same"
+//
+// (This is so we can tell which strings have been signed-off as ok to be the same words for QA
+//  and because we do not store duplicate strings, which will then get exported again next time
+//  as being untranslated.)
+//
+VERSION             "1"
+CONFIG              "W:\bin\stringed.cfg"
+FILENOTES           "Text printed at console"
+
+REFERENCE           DUMP_USAGE
+LANG_ENGLISH        "usage: condump <filename>"
+
+REFERENCE           NEED_CD
+LANG_ENGLISH        "Disk 1 not in drive"
+
+REFERENCE           NO_DEMO_SELECTED
+LANG_ENGLISH        "No demo selected."
+
+REFERENCE           FAILED_MEMTEST
+LANG_ENGLISH        "Your machine failed to allocate %dMB in a memory test, which may mean you'll have problems running this game all the way through.\n\nContinue anyway?"
+
+REFERENCE           INSUFFICIENT_MEMORY
+LANG_ENGLISH        "Insufficient memory to run this game!\n"
+
+REFERENCE           LOW_DESKTOP_COLOUR_DEPTH
+LANG_ENGLISH        "Low Desktop Color Depth"
+
+REFERENCE           TRY_ANYWAY
+LANG_ENGLISH        "It is highly unlikely that a correct windowed\ndisplay can be initialized with the current\ndesktop display depth.  Select 'OK' to try\nanyway.  Select 'Cancel' to try a fullscreen\nmode instead."
+
+REFERENCE           SKIPPING
+LANG_ENGLISH        "Skipping cinematic...\n"
+
+REFERENCE           SAVING_GAME
+LANG_ENGLISH        "Saving game"
+
+
+ENDMARKER
+
+

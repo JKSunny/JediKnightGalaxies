@@ -1,0 +1,12 @@
+{
+	"name":             "@JKG_ITEMS_array_Bryar_Shotgun",
+	"internal":             "array_bryar",
+	"itemtype":             "weapon",
+	"weapon":		"WP_FLECHETTE",
+	"variation":		"3",
+	"weight":		"15",
+	"cost":		"1900",
+	"xml":			"",
+	"itemIcon":		"models/weapons/bryar_carbine/icon_default",
+	"itemDescription": "This BlasTech Industries rifle has been extensively modified into a shotgun configuration, it features 3 barrels and can fire shots in rapid succession or as a spread. The decimator mode, fires shrapnel like blaster fire spread from each barrel."
+}

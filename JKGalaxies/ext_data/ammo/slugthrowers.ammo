@@ -1,0 +1,161 @@
+{
+	"AMMO_SLUGS_SPLITTING": 
+	{
+		"shortname": "Shotgun Slugs",
+		"longname": "Shotgun Slugthrower Packs",
+		"basedOn": "AMMO_SLUGS",
+		"max": 100,
+		"pricePerUnit": 7,
+		"overrides": {
+			"damage": {
+				"multiply": 0.7
+			},
+			"bounces": {
+				"set": 0
+			},
+			"projectiles": {
+				"set": 5
+			},
+			"accuracyRatingBase": {
+				"set": 100
+			},
+			"accuracyRatingPerShot": {
+				"set": 15
+			},
+			"ammocost": {
+				"multiply": 2
+			}
+		}
+	},
+	
+	"AMMO_SLUGS_INCENDIARY": 
+	{
+		"shortname": "Incendiary Slugs",
+		"longname": "Czerka Arms Incendiary Slug Cartridges",
+		"basedOn": "AMMO_SLUGS",
+		"max": 100,
+		"pricePerUnit": 6.5,
+		"overrides": 
+		{
+			"Damage":
+			{
+				"multiply": 0.9 //0.9
+			},	
+			"buffs": 
+			[
+				{
+					"buff": "standard-fire",
+					"addbuff": true,
+					"duration": 
+					{
+						"set": 10000
+					},
+					"intensity":
+					{
+						"multiply": 1.5
+					}
+				}
+			]
+		}
+	},	
+	
+	"AMMO_SLUGS_EXPLOSIVE": 
+	{
+		"shortname": "Explosive Slugs",
+		"longname": "Explosive Round Slugthrower Packs",
+		"basedOn": "AMMO_SLUGS",
+		"max": 60,
+		"pricePerUnit": 15,
+		"overrides": {
+			"Damage": {
+				"set": 30
+			},
+			"splashmeansofdeath": "MOD_EXPLOSION",
+			"SplashRange": {
+				"set": 400
+			},
+			"ammocost": {
+				"multiply": 5
+			},
+			"speed": {
+				"multiply": 0.5
+			},
+			"knockback":{
+				"add": 25
+			},
+			"recoil":{
+				"multiply": 1.25
+			},
+			"bounces": {
+				"set": 0
+			},
+			"visuals": {
+				"projectile": {
+					"hit": "Explosives/flechettesmall", 
+					"miss": "Explosives/flechettesmall",
+					"effect": "Slugthrowers/slug_tracershot"
+				}
+			}
+		}
+	},
+	"AMMO_SLUGS_MEDICINAL":
+	{
+		"shortname": "Medicinal Beads",
+		"longname": "Medicinal Healing Slugthrower Beads",
+		"basedOn": "AMMO_SLUGS",
+		"max": 120,
+		"pricePerUnit": 2,
+		"overrides": 
+		{
+			"meansofdeath": "MOD_CURED",
+        	"splashmeansofdeath": "MOD_CURED",
+			"Damage": {
+				"set": -5
+			},
+			
+			"splashRange":
+			{
+				"add": 75
+			},
+
+			"ammocost": {
+				"multiply": 2
+			},
+			"speed": {
+				"set": 2000
+			},
+			"visuals":
+			{
+				"projectile":
+				{
+					"miss": "weapons/watergun_impact_small",
+					"hit": "weapons/watergun_impact_small" ,
+					"effect": "Slugthrowers/slug_medtracershot"
+				},
+				"fire":
+				{
+					"muzzleEffect": "blasters/muzzleflash_Green_small"
+				}
+			},
+			"buffs": 
+			[
+				{
+					"buff": "refined-heal",
+					"addbuff": true,
+					"duration": 
+					{
+						"set": 6000
+					},
+					"intensity":
+					{
+						"multiply": 1.5
+					}
+				},
+				{
+					"buff": "standard-bleed",
+					"remove": true
+				}
+			]
+		}
+	}
+}

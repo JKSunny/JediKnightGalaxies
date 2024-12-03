@@ -1,0 +1,12 @@
+{
+	"name":             "@JKG_ITEMS_launcher_W-90_Concussion",
+	"internal":             "launcher_W-90",
+	"itemtype":             "weapon",
+	"weapon":		"WP_ROCKET_LAUNCHER",
+	"variation":		"2",
+	"weight":		"19",
+	"cost":		"3200",
+	"xml":			"",
+	"itemIcon":		"models/weapons/w-90_concussion/icon_default",
+	"itemDescription": "Manufactured by BlasTech Industries, this concussion rifle was originally based on the 'Stouker' but combined advanced blaster rifle technologies to make an extended range concussion rifle that was effective at far greater ranges."
+}

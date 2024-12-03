@@ -1,0 +1,25 @@
+---------------
+------------
+Useful Online Tools
+------------
+---------------
+Regex Tester1: https://regexr.com/
+Regex Tester2: https://regex101.com/
+Validate JSON: https://jsonlint.com/
+
+
+
+
+---------------
+------------
+Useful Regular Expressions
+------------
+---------------
+
+---------
+Purpose: Select C-Style Comments
+Notes: use /gm (general, multiline setting), 
+useful for stripping out comments to validate json.
+Expression:
+\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$
+----------

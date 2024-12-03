@@ -1,0 +1,1553 @@
+{
+	// STANDARD JSON FORMAT FILE
+	// This defines all of the saber crystals which exist in the game.
+	// They can have multiple unique properties to each one
+
+
+	// %s indicates the place where the value goes
+	// glowEffect = gfx/lightsabers/rgb_glow_%s
+	// bladeEffect = gfx/lightsabers/rgb_blade_%s
+	// trailEffect = gfx/lightsabers/rgb_trail_%s
+	// The above will not have the _%s bit at the end if no effect specified
+
+	"Blue":
+	{
+		// Original Trilogy style blue
+		"name":		"ot-blue",
+		"rgb": 
+		{
+			"r":	26,
+			"g":	71,
+			"b":	255
+		}
+	},
+
+	"Unstable Blue":
+	{
+		// Unstable blade, OT style blue
+		"name":		"ot-blue-unstable",
+		"rgb":
+		{
+			"r":	26,
+			"g":	71,
+			"b":	255
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Blue":
+	{
+		// Sharp blade, OT style blue
+		"name":		"ot-blue-sharp",
+		"rgb":
+		{
+			"r":	26,
+			"g":	71,
+			"b":	255
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Blue":
+	{
+		// Cheap blade, OT style blue
+		"name":		"ot-blue-cheap",
+		"rgb":
+		{
+			"r":	26,
+			"g":	71,
+			"b":	255
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Green":
+	{
+		// Original Trilogy style green
+		"name":		"ot-green",
+		"rgb": 
+		{
+			"r":	70,
+			"g":	165,
+			"b":	5
+		}
+	},
+
+	"Unstable Green":
+	{
+		// Unstable blade, OT style green
+		"name":		"ot-green-unstable",
+		"rgb": 
+		{
+			"r":	70,
+			"g":	165,
+			"b":	5
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Green":
+	{
+		// Sharp blade, OT style green
+		"name":		"ot-green-sharp",
+		"rgb": 
+		{
+			"r":	70,
+			"g":	165,
+			"b":	5
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Green":
+	{
+		// Cheap blade, OT style blue
+		"name":		"ot-green-cheap",
+		"rgb": 
+		{
+			"r":	70,
+			"g":	165,
+			"b":	5
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Red":
+	{
+		// Original Trilogy style red
+		"name":		"ot-red",
+		"rgb":
+		{
+			"r":	165,
+			"g":	17,
+			"b":	5
+		}
+	},
+
+	"Unstable Red":
+	{
+		// Unstable blade, OT style red
+		"name":		"ot-red-unstable",
+		"rgb":
+		{
+			"r":	165,
+			"g":	17,
+			"b":	5
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Red":
+	{
+		// Sharp blade, OT style red
+		"name":		"ot-red-sharp",
+		"rgb":
+		{
+			"r":	165,
+			"g":	17,
+			"b":	5
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Red":
+	{
+		// Cheap blade, OT style red
+		"name":		"ot-red-cheap",
+		"rgb":
+		{
+			"r":	165,
+			"g":	17,
+			"b":	5
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Purple":
+	{
+		// Purple
+		"name":		"ot-purple",
+		"rgb": 
+		{
+			"r":	179,
+			"g":	72,
+			"b":	249
+		}
+	},
+
+	"Unstable Purple":
+	{
+		// Unstable blade, purple
+		"name":		"ot-purple-unstable",
+		"rgb": 
+		{
+			"r":	179,
+			"g":	72,
+			"b":	249
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Purple":
+	{
+		// Sharp blade, purple
+		"name":		"ot-purple-sharp",
+		"rgb": 
+		{
+			"r":	179,
+			"g":	72,
+			"b":	249
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Purple":
+	{
+		// Cheap blade, purple
+		"name":		"ot-purple-cheap",
+		"rgb": 
+		{
+			"r":	179,
+			"g":	72,
+			"b":	249
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Orange":
+	{
+		// Orange
+		"name":		"ot-orange",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	134,
+			"b":	45
+		}
+	},
+
+	"Unstable Orange":
+	{
+		// Unstable blade, orange
+		"name":		"ot-orange-unstable",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	134,
+			"b":	45
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Orange":
+	{
+		// Sharp blade, orange
+		"name":		"ot-orange-sharp",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	134,
+			"b":	45
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Orange":
+	{
+		// Cheap blade, orange
+		"name":		"ot-orange-cheap",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	134,
+			"b":	45
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Yellow":
+	{
+		// Yellow
+		"name":		"ot-yellow",
+		"rgb": 
+		{
+			"r":	220,
+			"g":	220,
+			"b":	90
+		}
+	},
+
+	"Unstable Yellow":
+	{
+		// Unstable blade, yellow
+		"name":		"ot-yellow-unstable",
+		"rgb": 
+		{
+			"r":	220,
+			"g":	220,
+			"b":	90
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Yellow":
+	{
+		// Sharp blade, yellow
+		"name":		"ot-yellow-sharp",
+		"rgb": 
+		{
+			"r":	220,
+			"g":	220,
+			"b":	90
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Yellow":
+	{
+		// Cheap blade, yellow
+		"name":		"ot-yellow-cheap",
+		"rgb": 
+		{
+			"r":	220,
+			"g":	220,
+			"b":	90
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Cyan":
+	{
+		// Cyan
+		"name":		"ot-cyan",
+		"rgb": 
+		{
+			"r":	0,
+			"g":	204,
+			"b":	255
+		}
+	},
+
+	"Unstable Cyan":
+	{
+		// Unstable blade, cyan
+		"name":		"ot-cyan-unstable",
+		"rgb": 
+		{
+			"r":	0,
+			"g":	204,
+			"b":	255
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Cyan":
+	{
+		// Sharp blade, cyan
+		"name":		"ot-cyan-sharp",
+		"rgb": 
+		{
+			"r":	0,
+			"g":	204,
+			"b":	255
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Cyan":
+	{
+		// Cheap blade, cyan
+		"name":		"ot-cyan-cheap",
+		"rgb": 
+		{
+			"r":	0,
+			"g":	204,
+			"b":	255
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+	"Indigo":
+	{
+		// Indigo
+		"name":		"ot-indigo",
+		"rgb":
+		{
+			"r":	80,
+			"g":	64,
+			"b":	190
+		}
+	},
+	"Unstable Indigo":
+	{
+		// Unstable blade, indigo
+		"name":		"ot-indigo-unstable",
+		"rgb": 
+		{
+			"r":	80,
+			"g":	64,
+			"b":	190
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Indigo":
+	{
+		// Sharp blade, indigo
+		"name":		"ot-indigo-sharp",
+		"rgb": 
+		{
+			"r":	80,
+			"g":	64,
+			"b":	190
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Indigo":
+	{
+		// Cheap blade, indigo
+		"name":		"ot-indigo-cheap",
+		"rgb": 
+		{
+			"r":	80,
+			"g":	64,
+			"b":	190
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+	"Turquoise":
+	{
+		// Turquoise
+		"name":		"ot-turquoise",
+		"rgb":
+		{
+			"r":	80,
+			"g":	128,
+			"b":	255
+		}
+	},
+	"Unstable Turquoise":
+	{
+		// Unstable blade, turquoise
+		"name":		"ot-turquoise-unstable",
+		"rgb": 
+		{
+			"r":	80,
+			"g":	128,
+			"b":	255
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Turquoise":
+	{
+		// Sharp blade, turquoise
+		"name":		"ot-turquoise-sharp",
+		"rgb": 
+		{
+			"r":	80,
+			"g":	128,
+			"b":	255
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Turquoise":
+	{
+		// Cheap blade, turquoise
+		"name":		"ot-turquoise-cheap",
+		"rgb": 
+		{
+			"r":	80,
+			"g":	128,
+			"b":	255
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Full Blue":
+	{
+		// Original Trilogy style blue
+		"name":		"blue",
+		"rgb": 
+		{
+			"r":	0,
+			"g":	0,
+			"b":	255
+		}
+	},
+
+	"Unstable Full Blue":
+	{
+		// Unstable blade, OT style blue
+		"name":		"blue-unstable",
+		"rgb":
+		{
+			"r":	0,
+			"g":	0,
+			"b":	255
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Full Blue":
+	{
+		// Sharp blade, OT style blue
+		"name":		"blue-sharp",
+		"rgb":
+		{
+			"r":	0,
+			"g":	0,
+			"b":	255
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Full Blue":
+	{
+		// Cheap blade, OT style blue
+		"name":		"blue-cheap",
+		"rgb":
+		{
+			"r":	0,
+			"g":	0,
+			"b":	255
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Full Green":
+	{
+		// Original Trilogy style green
+		"name":		"green",
+		"rgb": 
+		{
+			"r":	49,
+			"g":	118,
+			"b":	3
+		}
+	},
+
+	"Unstable Full Green":
+	{
+		// Unstable blade, OT style green
+		"name":		"green-unstable",
+		"rgb": 
+		{
+			"r":	49,
+			"g":	118,
+			"b":	3
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Full Green":
+	{
+		// Sharp blade, OT style green
+		"name":		"green-sharp",
+		"rgb": 
+		{
+			"r":	49,
+			"g":	118,
+			"b":	3
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Full Green":
+	{
+		// Cheap blade, OT style blue
+		"name":		"green-cheap",
+		"rgb": 
+		{
+			"r":	49,
+			"g":	118,
+			"b":	3
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Full Red":
+	{
+		// Original Trilogy style red
+		"name":		"red",
+		"rgb":
+		{
+			"r":	255,
+			"g":	0,
+			"b":	0
+		}
+	},
+
+	"Unstable Full Red":
+	{
+		// Unstable blade, OT style red
+		"name":		"red-unstable",
+		"rgb":
+		{
+			"r":	255,
+			"g":	0,
+			"b":	0
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Full Red":
+	{
+		// Sharp blade, OT style red
+		"name":		"red-sharp",
+		"rgb":
+		{
+			"r":	255,
+			"g":	0,
+			"b":	0
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Full Red":
+	{
+		// Cheap blade, OT style red
+		"name":		"red-cheap",
+		"rgb":
+		{
+			"r":	255,
+			"g":	0,
+			"b":	0
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Full Purple":
+	{
+		// Purple
+		"name":		"purple",
+		"rgb": 
+		{
+			"r":	119,
+			"g":	7,
+			"b":	193
+		}
+	},
+
+	"Unstable Full Purple":
+	{
+		// Unstable blade, purple
+		"name":		"purple-unstable",
+		"rgb": 
+		{
+			"r":	119,
+			"g":	7,
+			"b":	193
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Full Purple":
+	{
+		// Sharp blade, purple
+		"name":		"purple-sharp",
+		"rgb": 
+		{
+			"r":	119,
+			"g":	7,
+			"b":	193
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Full Purple":
+	{
+		// Cheap blade, purple
+		"name":		"purple-cheap",
+		"rgb": 
+		{
+			"r":	119,
+			"g":	7,
+			"b":	193
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Full Orange":
+	{
+		// Orange
+		"name":		"orange",
+		"rgb": 
+		{
+			"r":	214,
+			"g":	105,
+			"b":	8
+		}
+	},
+
+	"Unstable Full Orange":
+	{
+		// Unstable blade, orange
+		"name":		"orange-unstable",
+		"rgb": 
+		{
+			"r":	214,
+			"g":	105,
+			"b":	8
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Full Orange":
+	{
+		// Sharp blade, orange
+		"name":		"orange-sharp",
+		"rgb": 
+		{
+			"r":	214,
+			"g":	105,
+			"b":	8
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Full Orange":
+	{
+		// Cheap blade, orange
+		"name":		"orange-cheap",
+		"rgb": 
+		{
+			"r":	214,
+			"g":	105,
+			"b":	8
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Full Yellow":
+	{
+		// Yellow
+		"name":		"yellow",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	255,
+			"b":	0
+		}
+	},
+
+	"Unstable Full Yellow":
+	{
+		// Unstable blade, yellow
+		"name":		"yellow-unstable",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	255,
+			"b":	0
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Full Yellow":
+	{
+		// Sharp blade, yellow
+		"name":		"yellow-sharp",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	255,
+			"b":	0
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Full Yellow":
+	{
+		// Cheap blade, yellow
+		"name":		"yellow-cheap",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	255,
+			"b":	0
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Full Cyan":
+	{
+		// Cyan
+		"name":		"cyan",
+		"rgb": 
+		{
+			"r":	0,
+			"g":	170,
+			"b":	235
+		}
+	},
+
+	"Unstable Full Cyan":
+	{
+		// Unstable blade, cyan
+		"name":		"cyan-unstable",
+		"rgb": 
+		{
+			"r":	0,
+			"g":	170,
+			"b":	235
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Full Cyan":
+	{
+		// Sharp blade, cyan
+		"name":		"cyan-sharp",
+		"rgb": 
+		{
+			"r":	0,
+			"g":	170,
+			"b":	235
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Full Cyan":
+	{
+		// Cheap blade, cyan
+		"name":		"cyan-cheap",
+		"rgb": 
+		{
+			"r":	0,
+			"g":	170,
+			"b":	235
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+	"Full Indigo":
+	{
+		// Indigo
+		"name":		"indigo",
+		"rgb":
+		{
+			"r":	100,
+			"g":	54,
+			"b":	255
+		}
+	},
+	"Unstable Full Indigo":
+	{
+		// Unstable blade, indigo
+		"name":		"indigo-unstable",
+		"rgb": 
+		{
+			"r":	100,
+			"g":	54,
+			"b":	255
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Full Indigo":
+	{
+		// Sharp blade, indigo
+		"name":		"indigo-sharp",
+		"rgb": 
+		{
+			"r":	100,
+			"g":	54,
+			"b":	255
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Full Indigo":
+	{
+		// Cheap blade, indigo
+		"name":		"indigo-cheap",
+		"rgb": 
+		{
+			"r":	100,
+			"g":	54,
+			"b":	255
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+	"Full Turquoise":
+	{
+		// Turquoise
+		"name":		"turquoise",
+		"rgb":
+		{
+			"r":	26,
+			"g":	135,
+			"b":	255
+		}
+	},
+	"Unstable Full Turquoise":
+	{
+		// Unstable blade, turquoise
+		"name":		"turquoise-unstable",
+		"rgb": 
+		{
+			"r":	26,
+			"g":	135,
+			"b":	255
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Full Turquoise":
+	{
+		// Sharp blade, turquoise
+		"name":		"turquoise-sharp",
+		"rgb": 
+		{
+			"r":	26,
+			"g":	135,
+			"b":	255
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Full Turquoise":
+	{
+		// Cheap blade, turquoise
+		"name":		"turquoise-cheap",
+		"rgb": 
+		{
+			"r":	26,
+			"g":	135,
+			"b":	255
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Faint Blue":
+	{
+		// Original Trilogy style blue
+		"name":		"faint-blue",
+		"rgb": 
+		{
+			"r":	200,
+			"g":	200,
+			"b":	255
+		}
+	},
+
+	"Unstable Faint Blue":
+	{
+		// Unstable blade, OT style blue
+		"name":		"faint-blue-unstable",
+		"rgb":
+		{
+			"r":	200,
+			"g":	200,
+			"b":	255
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Faint Blue":
+	{
+		// Sharp blade, OT style blue
+		"name":		"faint-blue-sharp",
+		"rgb":
+		{
+			"r":	200,
+			"g":	200,
+			"b":	255
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Faint Blue":
+	{
+		// Cheap blade, OT style blue
+		"name":		"faint-blue-cheap",
+		"rgb":
+		{
+			"r":	200,
+			"g":	200,
+			"b":	255
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Faint Green":
+	{
+		// Original Trilogy style green
+		"name":		"faint-green",
+		"rgb": 
+		{
+			"r":	200,
+			"g":	255,
+			"b":	200
+		}
+	},
+
+	"Unstable Faint Green":
+	{
+		// Unstable blade, OT style green
+		"name":		"faint-green-unstable",
+		"rgb": 
+		{
+			"r":	200,
+			"g":	255,
+			"b":	200
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Faint Green":
+	{
+		// Sharp blade, OT style green
+		"name":		"faint-green-sharp",
+		"rgb": 
+		{
+			"r":	200,
+			"g":	255,
+			"b":	200
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Faint Green":
+	{
+		// Cheap blade, OT style blue
+		"name":		"faint-green-cheap",
+		"rgb": 
+		{
+			"r":	200,
+			"g":	255,
+			"b":	200
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Faint Red":
+	{
+		// Original Trilogy style red
+		"name":		"faint-red",
+		"rgb":
+		{
+			"r":	255,
+			"g":	200,
+			"b":	200
+		}
+	},
+
+	"Unstable Faint Red":
+	{
+		// Unstable blade, OT style red
+		"name":		"faint-red-unstable",
+		"rgb":
+		{
+			"r":	255,
+			"g":	200,
+			"b":	200
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Faint Red":
+	{
+		// Sharp blade, OT style red
+		"name":		"faint-red-sharp",
+		"rgb":
+		{
+			"r":	255,
+			"g":	200,
+			"b":	200
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Faint Red":
+	{
+		// Cheap blade, OT style red
+		"name":		"faint-red-cheap",
+		"rgb":
+		{
+			"r":	255,
+			"g":	200,
+			"b":	200
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Faint Purple":
+	{
+		// Purple
+		"name":		"faint-purple",
+		"rgb": 
+		{
+			"r":	220,
+			"g":	171,
+			"b":	252
+		}
+	},
+
+	"Unstable Faint Purple":
+	{
+		// Unstable blade, purple
+		"name":		"faint-purple-unstable",
+		"rgb": 
+		{
+			"r":	220,
+			"g":	171,
+			"b":	252
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Faint Purple":
+	{
+		// Sharp blade, purple
+		"name":		"faint-purple-sharp",
+		"rgb": 
+		{
+			"r":	220,
+			"g":	171,
+			"b":	252
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Faint Purple":
+	{
+		// Cheap blade, purple
+		"name":		"faint-purple-cheap",
+		"rgb": 
+		{
+			"r":	220,
+			"g":	171,
+			"b":	252
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Faint Orange":
+	{
+		// Orange
+		"name":		"faint-orange",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	209,
+			"b":	171
+		}
+	},
+
+	"Unstable Faint Orange":
+	{
+		// Unstable blade, orange
+		"name":		"faint-orange-unstable",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	209,
+			"b":	171
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Faint Orange":
+	{
+		// Sharp blade, orange
+		"name":		"faint-orange-sharp",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	209,
+			"b":	171
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Faint Orange":
+	{
+		// Cheap blade, orange
+		"name":		"faint-orange-cheap",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	209,
+			"b":	171
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Faint Yellow":
+	{
+		// Yellow
+		"name":		"faint-yellow",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	255,
+			"b":	200
+		}
+	},
+
+	"Unstable Faint Yellow":
+	{
+		// Unstable blade, yellow
+		"name":		"faint-yellow-unstable",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	255,
+			"b":	200
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Faint Yellow":
+	{
+		// Sharp blade, yellow
+		"name":		"faint-yellow-sharp",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	255,
+			"b":	200
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Faint Yellow":
+	{
+		// Cheap blade, yellow
+		"name":		"faint-yellow-cheap",
+		"rgb": 
+		{
+			"r":	255,
+			"g":	255,
+			"b":	200
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+
+	"Faint Cyan":
+	{
+		// Cyan
+		"name":		"faint-cyan",
+		"rgb": 
+		{
+			"r":	204,
+			"g":	241,
+			"b":	255
+		}
+	},
+
+	"Unstable Faint Cyan":
+	{
+		// Unstable blade, cyan
+		"name":		"faint-cyan-unstable",
+		"rgb": 
+		{
+			"r":	204,
+			"g":	241,
+			"b":	255
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Faint Cyan":
+	{
+		// Sharp blade, cyan
+		"name":		"faint-cyan-sharp",
+		"rgb": 
+		{
+			"r":	204,
+			"g":	241,
+			"b":	255
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Faint Cyan":
+	{
+		// Cheap blade, cyan
+		"name":		"faint-cyan-cheap",
+		"rgb": 
+		{
+			"r":	204,
+			"g":	241,
+			"b":	255
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+	"Faint Indigo":
+	{
+		// Indigo
+		"name":		"faint-indigo",
+		"rgb":
+		{
+			"r":	216,
+			"g":	204,
+			"b":	255
+		}
+	},
+	"Unstable Faint Indigo":
+	{
+		// Unstable blade, indigo
+		"name":		"faint-indigo-unstable",
+		"rgb": 
+		{
+			"r":	216,
+			"g":	204,
+			"b":	255
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Faint Indigo":
+	{
+		// Sharp blade, indigo
+		"name":		"faint-indigo-sharp",
+		"rgb": 
+		{
+			"r":	216,
+			"g":	204,
+			"b":	255
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Faint Indigo":
+	{
+		// Cheap blade, indigo
+		"name":		"faint-indigo-cheap",
+		"rgb": 
+		{
+			"r":	216,
+			"g":	204,
+			"b":	255
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+	"Faint Turquoise":
+	{
+		// Turquoise
+		"name":		"faint-turquoise",
+		"rgb":
+		{
+			"r":	119,
+			"g":	185,
+			"b":	255
+		}
+	},
+	"Unstable Faint Turquoise":
+	{
+		// Unstable blade, turquoise
+		"name":		"faint-turquoise-unstable",
+		"rgb": 
+		{
+			"r":	119,
+			"g":	185,
+			"b":	255
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+		
+		
+	},
+	"Sharp Faint Turquoise":
+	{
+		// Sharp blade, turquoise
+		"name":		"faint-turquoise-sharp",
+		"rgb": 
+		{
+			"r":	119,
+			"g":	185,
+			"b":	255
+		},
+
+		"bladeEffect":	"sharp"
+		
+	},
+	"Cheap Faint Turquoise":
+	{
+		// Cheap blade, turquoise
+		"name":		"faint-turquoise-cheap",
+		"rgb": 
+		{
+			"r":	119,
+			"g":	185,
+			"b":	255
+		},
+
+		"bladeEffect":	"cheap"
+		
+	},
+	"Futuza Red":
+	{
+		// Unstable blade, red
+		"name":		"red-futuza",
+		"rgb": 
+		{
+			"r":	243,
+			"g":	49,
+			"b":	7
+		},
+
+		"bladeEffect":	"unstable",
+		"trailEffect":	"unstable"
+	}
+}

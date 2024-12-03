@@ -1,0 +1,20 @@
+{
+	"name":			"single_8",
+	"fullName":		"@MENUS_SINGLE_HILT8",
+	"saberModel":		"models/weapons2/saber_8/saber_8.glm",
+	"soundOn":		"sound/weapons/saber/saberon.wav",
+	"soundLoop":		"sound/weapons/saber/saberhum4.wav",
+	"soundOff":		"sound/weapons/saber/saberoff.wav",
+	"animSpeedScale":	0.9,
+	"extraDisarmChance":	9,
+	"extraDamage":		0.5,
+	"FPregenRate":		250,
+	"BPregenRate":		225,
+	"lockBonus":		2,
+	"blades": {
+		"blade1": {
+			"length": 48,
+			"radius": 4
+		}
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"name":             "@JKG_ITEMS_sniper_ACP_HAMaR",
+	"internal":             "sniper_ACP",
+	"itemtype":             "weapon",
+	"weapon":		"WP_BOWCASTER",
+	"variation":		"8",
+	"weight":		"15",
+	"cost":		"2050",
+	"xml":			"",
+	"itemIcon":		"models/weapons/acp_sniperrifle/icon_default",
+	"itemDescription": "The ACP HAMaR is one of the deadliest and most accurate sniper rifles that does not implement use of disruptor technology. A direct shot would likely kill most organics and is capable of even damaging starship hulls."
+}

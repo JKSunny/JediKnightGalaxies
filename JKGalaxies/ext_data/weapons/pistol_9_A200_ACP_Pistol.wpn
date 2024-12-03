@@ -1,0 +1,111 @@
+{
+    "name":             "@JKG_ITEMS_pistol_A200_ACP_Pistol",
+    "type":             "WP_BRYAR_PISTOL",
+    "variation":        9,
+    "classname":        "pistol_ACP",
+    "description":      "@JKG_ITEMS_pistol_A200_ACP_Pistol",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/A200_ACP_Pistol/viewmodel.md3",
+        "worldmodel":       "models/weapons/A200_ACP_Pistol/model.glm",
+        "hudicon":          "models/weapons/A200_ACP_Pistol/icon_default",
+        "hudnaicon":        "models/weapons/A200_ACP_Pistol/icon_default",
+        "selectsound":      "sound/weapons/select_pistol.wav",
+	"barrelCount":	    "2",
+        
+        "indicators": {
+            "ammo":         [ "models/weapons/A200_ACP_Pistol/pad", "models/weapons/A200_ACP_Pistol/pad10" ]
+        },
+        
+        "gunposition":      "12.0 -5.0 -6.0",
+        "ironsightsposition": "7.0 0.0 -3.2",
+        "ironsightsfov": "75",
+    
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "slugthrowers/muzzleflash",
+            "firesound":    [
+                "sound/weapons/slugthrowers/acp_pistol1.mp3",
+                "sound/weapons/slugthrowers/acp_pistol2.mp3",
+                "sound/weapons/slugthrowers/acp_pistol3.mp3",
+                "sound/weapons/slugthrowers/acp_pistol4.mp3"
+            ],
+            "projectilefx": "Slugthrowers/acp_shot_medium",
+            "miss":         { "impactfx": "weapons/acp_impact_highcal" },
+            "hit":          { "impactfx": "slugthrowers/acp_flesh_impact" }
+        },
+        
+        "firemode1": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "slugthrowers/muzzleflash",
+            "firesound":    [
+                "sound/weapons/slugthrowers/acp_pistol1.mp3",
+                "sound/weapons/slugthrowers/acp_pistol2.mp3",
+                "sound/weapons/slugthrowers/acp_pistol3.mp3",
+                "sound/weapons/slugthrowers/acp_pistol4.mp3"
+            ],
+            "projectilefx": "Slugthrowers/acp_shot_medium",
+            "miss":         { "impactfx": "weapons/acp_impact_highcal" },
+            "hit":          { "impactfx": "slugthrowers/acp_flesh_impact" }
+        }
+    },
+    
+    "stats": {
+        "slot":         2,
+        "reloadtime":   900,
+        "flags":        [ "roll" ],
+        "reloadmodifier": 0.7,
+        "speed":        1.1
+    },
+    
+    "firemode0": {
+        "damage": {
+		    "damage":       35,
+		    "buffs": [
+			    {
+				"buff": "standard-bleed",
+				"duration": 5000
+			    }
+		    ]
+	    },
+        "ammocost":     1,
+        "firedelay":    300,
+        "firingtype":   "semi",
+        "range":	3000.0,
+        "recoil":       1.0,
+        "spread":       0.2,
+        "projectilespeed": 7000.0,
+        "projectileclass": "repeater_proj",
+        "meansofdeath": "MOD_ACP",
+        "ACPRatio": 0.4,
+	    "ammobase": "AMMO_ACP_POWERCELL_S",
+	    "ammodefault": "AMMO_ACP_POWERCELL_S",
+        "clipSize":              10,
+        "accuracy": {
+			"accuracyRating": 45,
+			"accuracyRatingPerShot": 6,
+			"msToDrainAccuracy": 75,
+			"maxAccuracyAdd": 85
+        }
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+//        "reload":       { "torso": "TORSO_DROPWEAP1" },
+        "reload":       { "torso": "BOTH_PISTOLRELOAD" },
+        "sights":        { "torso": "TORSO_WEAPONREADY2", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK2" },
+	"ready":	{ "torso": "BOTH_BASE_PISTOLSTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_PISTOLSHOOT" },
+	"sprint":	{ "torso": "BOTH_PISTOLRUN" },
+        "sprintStyle": "8"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

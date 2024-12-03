@@ -1,0 +1,5132 @@
+//--------------------------------------------------------------
+//
+// MULTIPLAYER SETUP MENU
+//
+//--------------------------------------------------------------
+{
+	menuDef 
+	{
+		name					"configureMenu"
+		fullScreen				1				// MENU_TRUE				
+		rect					0 0 640 480			// Size and position of the menu
+		visible					0				// Visible on open
+		focusColor				1 1 1 1				// Focus color for text and items
+		appearanceIncrement			75				// In miliseconds
+//		descX					320
+//		descY					424
+//		descScale				1
+//		descColor				1 .682 0 .8
+//		descAlignment				ITEM_ALIGN_CENTER		
+
+		onOpen 
+		{			
+			uiScript 		loadControls;
+			uiScript		getvideosetup ;			// Get video settings
+			
+			transition2	mainmenubutton_arrow		218 25 20 160	15	15
+			
+			show 		graphicsMenu ;
+			hide			customres ;
+			hide			customwidth_button ;
+			hide			customheight_button ;
+			hide			applyChanges ;
+			hide			vidRestart ;
+			hide			graphics2Menu ;
+			hide			audioMenu ;
+			hide			controlsMenu ;
+			hide			controlsMenuTitle ;
+			hide			controls2Menu ;
+			hide			controls3Menu ;
+			hide			optionsMenu ;
+			hide			defaults ;
+			hide			highlights
+
+
+
+			hide			setup_background
+			hide			video
+			hide			video2
+			hide			sound
+			hide			options
+			hide			mods
+
+		}
+		
+		onClose 
+		{
+			uiScript 			saveControls
+		}
+	
+		onESC 
+		{ 
+			play				"sound/interface/subselect.wav"
+
+			defer				VideoSetup	videowarningMenu
+
+			close				all
+			open				mainMenu
+		}
+
+//----------------------------------------------------------------------------------------------
+//
+//	MENU BACKGROUND
+//
+//----------------------------------------------------------------------------------------------
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/ui/mainsub_bg"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				datapad
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				264 104 376 376
+			background			"gfx/ui/mainsub_datapad_bg"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				scanlines
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				331 137 275 312
+			background			"gfx/ui/mainsub_datapad_lines"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				datapadmenu
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				264 104 376 376
+			background			"gfx/ui/mainsub_datapad_menu"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				holomenu
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				-14 62 270 270
+			background			"gfx/ui/mainsub_holomenu"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				filmgrain
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/ui/main_bg_grain"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		// Selection highlights (generic, with positive rect)
+		itemDef 
+		{
+			name				highlight_bigbutton
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 0 0
+			background			"gfx/ui/shop_itembutton_sel"
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				highlight_smallbutton
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 0 0
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+		itemDef 
+		{
+			name				highlight_sliderbutton
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 0 0
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+
+//----------------------------------------------------------------------------------------------
+//
+//	HOLOMENU - GRAPHICS, AUDIO, CONTROLS, OPTIONS
+//
+//----------------------------------------------------------------------------------------------
+
+		itemDef 
+		{
+			name				mainmenubutton_arrow
+			group				holomenu
+			style				WINDOW_STYLE_SHADER
+			rect				218 25 20 160
+			background			"gfx/ui/inv_arrow_rt"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				graphicsbutton_bg
+			group				holomenu
+			style				WINDOW_STYLE_SHADER
+			rect				-16 69 273 68
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				highlight_graphicsbutton
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				-16 69 273 68
+			background			"gfx/ui/shop_itembutton_sel"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				graphicsbutton
+			group				holomenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				20 80 200 46
+			text				@JKG_MAINMENU_GRAPHICS
+			font				5
+			textscale				0.8
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			3
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+
+			mouseEnter 
+			{ 
+				show			highlight_graphicsbutton
+			}
+			mouseExit 
+			{ 
+				hide			highlight_graphicsbutton
+					clearfocus
+			}
+			action 
+			{
+				transition2	mainmenubutton_arrow		218 25 20 160	15	15
+
+				play			"sound/interface/button1.wav" ;
+
+				uiScript		getvideosetup ;		// Get video settings
+
+				defer			VideoSetup	videowarningMenu ;
+
+				show 		graphicsMenu ;
+				hide			customres ;
+				hide			customwidth_button ;
+				hide			customheight_button ;
+				hide			applyChanges ;
+				hide			vidRestart ;
+				hide			graphics2Menu ;
+				hide			audioMenu ;
+				hide			controlsMenu ;
+				hide			controlsMenuTitle ;
+				hide			controls2Menu ;
+				hide			controls3Menu ;
+				hide			optionsMenu ;
+				hide			defaults ;
+				hide			highlights
+			}
+		}
+
+		itemDef
+		{
+			name				graphicsbutton_undertext
+			group				holomenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				20 80 200 46
+			text				@JKG_MAINMENU_VIDCONFIG
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			29
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				audiobutton_bg
+			group				holomenu
+			style				WINDOW_STYLE_SHADER
+			rect				-16 122 273 68
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				highlight_audiobutton
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				-16 122 273 68
+			background			"gfx/ui/shop_itembutton_sel"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				audiobutton
+			group				holomenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				20 133 200 46
+			text				@JKG_MAINMENU_AUDIO
+			font				5
+			textscale				0.8
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			3
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+
+			mouseEnter 
+			{ 
+				show			highlight_audiobutton
+			}
+			mouseExit 
+			{ 
+				hide			highlight_audiobutton
+					clearfocus
+			}
+			action 
+			{
+				transition2	mainmenubutton_arrow		218 77 20 160	15	15
+
+				play			"sound/interface/button1.wav" ;
+
+				defer			VideoSetup	videowarningMenu ;
+
+				hide 			graphicsMenu ;
+				hide			customres ;
+				hide			customwidth_button ;
+				hide			customheight_button ;
+				hide			applyChanges ;
+				hide			vidRestart ;
+				hide			graphics2Menu ;
+				show			audioMenu ;
+				hide			controlsMenu ;
+				hide			controlsMenuTitle ;
+				hide			controls2Menu ;
+				hide			controls3Menu ;
+				hide			optionsMenu ;
+				hide			defaults ;
+				hide			highlights
+			}
+		}
+
+		itemDef
+		{
+			name				audiobutton_undertext
+			group				holomenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				20 133 200 46
+			text				@JKG_MAINMENU_ADJVOLSETS
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			28
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				controlsbutton_bg
+			group				holomenu
+			style				WINDOW_STYLE_SHADER
+			rect				-16 175 273 68
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				highlight_controlsbutton
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				-16 175 273 68
+			background			"gfx/ui/shop_itembutton_sel"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				controlsbutton
+			group				holomenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				20 186 200 46
+			text				@JKG_MAINMENU_CONTROLS
+			font				5
+			textscale				0.8
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			3
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+
+			mouseEnter 
+			{ 
+				show			highlight_controlsbutton
+			}
+			mouseExit 
+			{ 
+				hide			highlight_controlsbutton
+					clearfocus
+			}
+			action 
+			{
+				transition2	mainmenubutton_arrow		218 132 20 160	15	15
+
+				play			"sound/interface/button1.wav" ;
+
+				defer			VideoSetup	videowarningMenu ;
+
+				hide 			graphicsMenu ;
+				hide			customres ;
+				hide			customwidth_button ;
+				hide			customheight_button ;
+				hide			applyChanges ;
+				hide			vidRestart ;
+				hide			graphics2Menu ;
+				hide			audioMenu ;
+				show			controlsMenu ;
+				show			controlsMenuTitle ;
+				hide			controls2Menu ;
+				hide			controls3Menu ;
+				hide			optionsMenu ;
+				hide			defaults ;
+				hide			highlights
+			}
+		}
+
+		itemDef
+		{
+			name				controlsbutton_undertext
+			group				holomenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				20 186 200 46
+			text				@JKG_MAINMENU_CONFIGINPUTS
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			26
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				optionsbutton_bg
+			group				holomenu
+			style				WINDOW_STYLE_SHADER
+			rect				-16 228 273 68
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				highlight_optionsbutton
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				-16 228 273 68
+			background			"gfx/ui/shop_itembutton_sel"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				optionsbutton
+			group				holomenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				20 239 200 46
+			text				@JKG_MAINMENU_OPTIONS
+			font				5
+			textscale				0.8
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			3
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+
+			mouseEnter 
+			{ 
+				show			highlight_optionsbutton
+			}
+			mouseExit 
+			{ 
+				hide			highlight_optionsbutton
+					clearfocus
+			}
+			action 
+			{
+				transition2	mainmenubutton_arrow		218 184 20 160	15	15
+				
+				play			"sound/interface/button1.wav" ;
+
+				defer			VideoSetup	videowarningMenu ;
+
+				hide 			graphicsMenu ;
+				hide			customres ;
+				hide			customwidth_button ;
+				hide			customheight_button ;
+				hide			applyChanges ;
+				hide			vidRestart ;
+				hide			graphics2Menu ;
+				hide			audioMenu ;
+				hide			controlsMenu ;
+				hide			controlsMenuTitle ;
+				hide			controls2Menu ;
+				hide			controls3Menu ;
+				show		optionsMenu ;
+				hide			defaults ;
+				hide			highlights
+			}
+		}
+
+		itemDef
+		{
+			name				optionsbutton_undertext
+			group				holomenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				20 239 200 46
+			text				@JKG_MAINMENU_SETUPGAMESETS
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			26
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				mainmenubutton_bg
+			group				holomenu
+			style				WINDOW_STYLE_SHADER
+			rect				99 290 135 34
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				highlight_mainmenubutton
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				99 290 135 34
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				mainmenubutton
+			group				holomenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				112 297 109 22
+			text				@JKG_MAINMENU_BACKTOMAIN
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_CENTER
+			textalignx			54
+			textaligny			10
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+
+			mouseEnter 
+			{ 
+				show			highlight_mainmenubutton
+			}
+			mouseExit 
+			{ 
+				hide			highlight_mainmenubutton
+					clearfocus
+			}
+			action 
+			{
+
+			play				"sound/interface/subselect.wav" ;
+
+			defer				VideoSetup	videowarningMenu ;
+
+			close				all ;
+			open				mainMenu
+			}
+		}
+
+//----------------------------------------------------------------------------------------------
+//
+//	-VIDEO SETTINGS-
+//
+//----------------------------------------------------------------------------------------------
+
+		itemDef
+		{
+			name				graphicsMenu_title
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				337 141 263 26
+			text				@JKG_MAINMENU_VIDSETS
+			font				5
+			textscale				1
+			textalign				ITEM_ALIGN_CENTER
+			textalignx			131
+			textaligny			-2
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+
+		itemDef
+		{
+			name				vidpresets
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 180 117 7
+			text				@JKG_MAINMENU_VIDPRESETS
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			117
+			textaligny			-5
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				vidpresets_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				460 174 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			vidpresets_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 180 117 7
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2.5
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar 			"ui_r_glCustom"
+			cvarFloatList 
+			{ 
+				@MENUS_HIGH_QUALITY	0 
+				@MENUS_NORMAL	1 
+				@MENUS_FAST		2 
+				@MENUS_FASTEST	3 
+				@MENUS_CUSTOM	4 
+			}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 174 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript 		update "ui_r_glCustom" ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+
+		itemDef
+		{
+			name				displayres
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 202 117 7
+			text				@JKG_MAINMENU_DISPLAYRES
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			117
+			textaligny			-5
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				displayres_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				460 196 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			displayres_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 202 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"ui_r_mode"
+			cvarFloatList
+				{
+					@JKG_MAINMENU_FIT_TO_DESKTOP -2
+					@JKG_MAINMENU_CUSTOM_ENTERBELOW	-1
+					@JKG_MAINMENU_320_X_240	0
+					@JKG_MAINMENU_400_X_300	1
+					@JKG_MAINMENU_512_X_386	2
+					@MENUS_640_X_480		3
+					@MENUS_800_X_600		4
+					@MENUS_1024_X_768		6
+					@MENUS_1152_X_864		7
+					@MENUS_1280_X_1024		8
+					@MENUS_1600_X_1200		9
+					@MENUS_2048_X_1536		10
+					@MENUS_2400_X_600		12
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 196 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript 		update "ui_r_glCustom" ;
+				setcvar			ui_r_modified	1 ;
+
+				show			customres ;
+				show			customwidth_button ;
+				show			customheight_button ;
+
+				show			applyChanges
+			}
+		}
+
+		itemDef
+		{
+			name				customres
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				479 213 117 7
+			text				@JKG_MAINMENU_OTHER_X
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-4
+			textstyle			0
+			forecolor			1 1 1 1
+			cvarTest			ui_r_mode
+			showCvar			{ "-1" }
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			customwidth_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_EDITFIELD	
+			maxchars 			4
+			maxPaintChars			4
+			rect			498 211 61 8
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			16
+			textaligny			-5
+			forecolor			0.2 0.72 0.86 1
+
+	   		visible 		1
+
+			cvar				"r_customwidth"
+
+			cvarTest			ui_r_mode
+			showCvar			{ "-1" }
+
+			mouseenter 
+			{ 
+				show			highlight_smallbutton
+				setitemrect		highlight_smallbutton 	519 208 38 11
+			}
+			mouseexit 
+			{ 
+				hide			highlight_smallbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript 		update "ui_r_glCustom" ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			customheight_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_EDITFIELD	
+			maxchars 			4
+			maxPaintChars			4
+			rect			559 211 50 8
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			2
+			textaligny			-5
+			forecolor			0.2 0.72 0.86 1
+
+	   		visible 		1
+
+			cvar				"r_customheight"
+
+			cvarTest			ui_r_mode
+			showCvar			{ "-1" }
+
+			mouseenter 
+			{ 
+				show			highlight_smallbutton
+				setitemrect		highlight_smallbutton 	565 208 38 11
+			}
+			mouseexit 
+			{ 
+				hide			highlight_smallbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript 		update "ui_r_glCustom" ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+
+		itemDef
+		{
+			name				fullscreen
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 228 117 7
+			text				@JKG_MAINMENU_FULLSCREEN
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			117
+			textaligny			-5
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				fullscreen_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				460 222 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			fullscreen_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 228 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"ui_r_fullscreen"
+			cvarFloatList
+				{
+					@JKG_MAINMENU_DISABLED 0
+					@JKG_MAINMENU_ENABLED 1
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 222 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				uiScript update 	"ui_r_fullscreen" ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+
+		itemDef
+		{
+			name				colorbits
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 243 117 7
+			text				@JKG_MAINMENU_COLORBITS
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			117
+			textaligny			-5
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				colorbits_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				460 237 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			colorbits_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 243 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"ui_r_colorbits"
+			cvarFloatList
+				{
+					@MENUS_DEFAULT 0
+					@MENUS_16_BIT 16
+					@MENUS_32_BIT 32
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 237 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				uiScript update 	"ui_r_colorbits" ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+
+		itemDef
+		{
+			name				lodbias
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 273 117 7
+			text				@JKG_MAINMENU_LODBIAS
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			117
+			textaligny			-5
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				lodbias_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				460 267 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			lodbias_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 273 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"ui_r_lodbias"
+			cvarFloatList
+				{
+					@MENUS_LOW 2
+					@MENUS_MEDIUM 1
+					@MENUS_HIGH 0
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 267 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				uiScript update 	"ui_r_lodbias" ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+		itemDef
+		{
+			name				texturedetail
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 288 117 7
+			text				@JKG_MAINMENU_PICMIP_DETAIL
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			117
+			textaligny			-5
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				texturedetail_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				460 282 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			texturedetail_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 288 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"ui_r_picmip"
+			cvarFloatList
+				{
+					@MENUS_LOW 3
+					@MENUS_MEDIUM 2
+					@MENUS_HIGH 1
+					@MENUS_VERY_HIGH 0
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 282 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+
+		itemDef
+		{
+			name				texturebits
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 303 117 7
+			text				@JKG_MAINMENU_TEXTUREBITS_QUALITY
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			117
+			textaligny			-5
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				texturebits_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				460 297 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			texturebits_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 303 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"ui_r_texturebits"
+			cvarFloatList
+				{
+					@MENUS_DEFAULT 0
+					@MENUS_16_BIT 16
+					@MENUS_32_BIT 32
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 297 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+
+		itemDef
+		{
+			name				mipmaps
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 318 117 7
+			text				@JKG_MAINMENU_TEXTUREMODE_MIPMAPS
+			font				5
+			textscale				0.47
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			119
+			textaligny			-3
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				mipmaps_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				460 312 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			mipmaps_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 318 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"ui_r_texturemode"
+			cvarStrList
+				{
+					@MENUS_BILINEAR "GL_LINEAR_MIPMAP_NEAREST"
+					@MENUS_TRILINEAR "GL_LINEAR_MIPMAP_LINEAR"
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 312 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+
+		itemDef
+		{
+			name				showdetail
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 333 117 7
+			text				@JKG_MAINMENU_SHOWDETAIL
+			font				5
+			textscale				0.45
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			122
+			textaligny			-3
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				showdetail_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				460 327 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			showdetail_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 333 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"ui_r_detailtextures"
+			cvarFloatList
+				{
+					@JKG_MAINMENU_HIDE 0
+					@JKG_MAINMENU_SHOW 1
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 327 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+
+		itemDef
+		{
+			name				compresstextures
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 348 117 7
+			text				@JKG_MAINMENU_COMPRESSTEXTURES
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			117
+			textaligny			-5
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				compresstextures_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				460 342 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			compresstextures_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 348 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"ui_r_ext_compress_textures"
+			cvarFloatList
+				{
+					@MENUS_NO 0
+					@MENUS_YES 1
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 342 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+
+		itemDef
+		{
+			name				videosync
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 363 117 7
+			text				@JKG_MAINMENU_VIDEOSYNC
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			117
+			textaligny			-5
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				videosync_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				460 357 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			videosync_button			
+			group 			graphicsMenu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 363 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"r_swapInterval"
+			cvarFloatList
+				{
+					@MENUS_NO 0
+					@MENUS_YES 1
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 357 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+		// APPLY CHANGES BUTTON
+		itemDef 
+		{
+			name				applyChanges_bg
+			group				applyChanges
+			style				WINDOW_STYLE_SHADER
+			rect				325 391 157 39
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				applyChanges_button
+			group				applyChanges
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				340 398 128 27
+			text				@JKG_MAINMENU_APPLYCHANGES
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_CENTER
+			textalignx			64
+			textaligny			10
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+
+			mouseEnter 
+			{ 
+				show			highlight_smallbutton
+				setitemrect		highlight_smallbutton	325 391 157 39
+			}
+			mouseExit 
+			{ 
+				hide			highlight_smallbutton
+					clearfocus
+			}
+			action 
+			{
+			play			"sound/interface/button1.wav"
+			hide			graphicsMenu ;
+			hide			customres 
+			hide			customwidth_button ;
+			hide			customheight_button ;
+			hide			applyChanges ;
+			show		vidRestart ;
+			hide			graphics2Menu ;
+			hide			audioMenu ;
+			hide			controlsMenu ;
+			hide			controlsMenuTitle ;
+			hide			controls2Menu ;
+			hide			controls3Menu ;
+			hide			optionsMenu ;
+			hide			defaults ;
+			hide			highlights
+			}
+		}
+		// MORE SETTINGS BUTTON
+		itemDef 
+		{
+			name				moresettings_bg
+			group				graphicsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				452 391 157 39
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				moresettings_button
+			group				graphicsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				466 398 128 27
+			text				@JKG_MAINMENU_MORESETTINGS
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_CENTER
+			textalignx			64
+			textaligny			10
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+
+			mouseEnter 
+			{ 
+				show			highlight_smallbutton
+				setitemrect		highlight_smallbutton	452 391 157 39
+			}
+			mouseExit 
+			{ 
+				hide			highlight_smallbutton
+					clearfocus
+			}
+			action 
+			{
+			play			"sound/interface/button1.wav"
+			hide			graphicsMenu ;
+			hide			customres 
+			hide			customwidth_button ;
+			hide			customheight_button ;
+			hide			applyChanges ;
+			hide			vidRestart ;
+			show		graphics2Menu ;
+			hide			audioMenu ;
+			hide			controlsMenu ;
+			hide			controlsMenuTitle ;
+			hide			controls2Menu ;
+			hide			controls3Menu ;
+			hide			optionsMenu ;
+			hide			defaults ;
+			hide			highlights
+			}
+		}
+
+		//----------------------------------------------------------------------------------------------
+		//
+		//	VIDEO RESTART
+		//
+		//----------------------------------------------------------------------------------------------
+
+		itemDef
+		{
+			name				vidRestart_title
+			group				vidRestart
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				337 141 263 26
+			text				@JKG_MAINMENU_RESTART_TITLE
+			font				5
+			textscale				0.66
+			textalign				ITEM_ALIGN_CENTER
+			textalignx			131
+			textaligny			4
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				vidrestart_text1
+			group				vidRestart
+			text				@MENUS_THIS_WILL_APPLY_VIDEO
+			text2				@MENUS_AND_RETURN_TO_THE_MAIN
+			rect				337 230 263 20
+			textalign			ITEM_ALIGN_CENTER
+			text2aligny			18
+			textalignx			131
+			font				5
+			textscale			0.6
+			forecolor			1 1 1 1
+			visible			0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				vidrestart_text2
+			group				vidRestart
+			text				@MENUS_VID_RESTART3
+			rect				337 300 263 20
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			131
+			font				5
+			textscale			1        
+			forecolor			1 1 1 1
+			visible			0
+		}
+
+		// YES button
+		itemDef 
+		{
+			name				vidrestart_yes_bg
+			group				vidRestart
+			style				WINDOW_STYLE_SHADER
+			rect				456 408 161 40
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				vidrestart_yes
+			group				vidRestart
+			text				@JKG_MAINMENU_YES
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				477 414 119 28
+			font				5
+			textscale			1        
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			35
+			textaligny			-3
+			forecolor			1 1 1 1
+			visible			0
+
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				uiScript		updatevideosetup ;
+			}
+			mouseEnter 
+			{ 
+				show			highlight_bigbutton
+				setitemrect		highlight_bigbutton	456 408 161 40
+			}
+			mouseExit 
+			{ 
+				hide			highlight_bigbutton
+					clearfocus
+			}	  	  
+
+		}
+	
+		// CANCEL button
+		itemDef 
+		{
+			name				vidrestart_no_bg
+			group				vidRestart
+			style				WINDOW_STYLE_SHADER
+			rect				321 408 161 40
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				vidrestart_no
+			group				vidRestart
+			text				@JKG_MAINMENU_NO
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				342 414 119 28
+			font				5
+			textscale			1        
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			35
+			textaligny			-3
+			forecolor			1 1 1 1
+			visible			0
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				show 		graphicsMenu ;
+				show		customres ;
+				show		customwidth_button ;
+				show		customheight_button ;
+				show		applyChanges ;
+				hide			vidRestart ;
+				hide			graphics2Menu ;
+				hide			audioMenu ;
+				hide			controlsMenu ;
+				hide			controlsMenuTitle ;
+				hide			controls2Menu ;
+				hide			controls3Menu ;
+				hide			optionsMenu ;
+				hide			defaults ;
+				hide			highlights
+				hide			vidrestart_yes_button ;
+				hide			vidrestart_no_button ;
+			}
+			mouseEnter 
+			{ 
+				show			highlight_bigbutton
+				setitemrect		highlight_bigbutton	321 408 161 40
+			}
+			mouseExit 
+			{ 
+				hide			highlight_bigbutton
+					clearfocus
+			}	  	  
+
+		}
+
+		//----------------------------------------------------------------------------------------------
+		//
+		//	VIDEO 2
+		//
+		//----------------------------------------------------------------------------------------------
+
+		itemDef
+		{
+			name				graphics2Menu_title
+			group				graphics2Menu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				337 141 263 26
+			text				@JKG_MAINMENU_MOREGRAPHICS
+			font				5
+			textscale				0.9
+			textalign				ITEM_ALIGN_CENTER
+			textalignx			131
+			textaligny			0
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+
+		itemDef
+		{
+			name				gamma
+			group				graphics2Menu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				339 178 52 12
+			text				@JKG_MAINMENU_GAMMA
+			font				5
+			textscale				0.6
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			52
+			textaligny			-3
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				gammaslider_bg
+			group				graphics2Menu
+			style				WINDOW_STYLE_SHADER
+			rect				361 174 267 22
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 0
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				gammaslider
+			group				graphics2Menu
+			type				ITEM_TYPE_SLIDER
+			text				@JKG_MAINMENU_BLANK
+			cvarfloat			"r_gamma" 1 .5 3
+			rect				393 181 203 9	// FU, RavenSoft!!!! Apparently, these things have hardcoded size... x_x
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			-8
+			textaligny			0
+			font 				5
+			textscale 			1
+			forecolor			1 1 1 1
+			visible				1
+			action
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+			mouseenter 
+			{ 
+			}
+			mouseexit 
+			{ 
+			} 
+		}
+
+		itemDef 
+		{
+			name				gammascale
+			group				graphics2Menu
+			style				WINDOW_STYLE_SHADER
+			rect				338 194 259 32
+			background			"gfx/ui/mainsub_gammascale"
+			forecolor			1 1 1 1
+			visible			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				gammahelp_arrow
+			group				graphics2Menu
+			style				WINDOW_STYLE_SHADER
+			rect				339 219 160 20
+			background			"gfx/ui/shop_arrow_up"
+			forecolor			1 1 1 1
+			visible			1
+			decoration
+		}
+
+		itemDef
+		{
+			name				gammahelp
+			group				graphics2Menu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				337 233 263 8
+			text				@JKG_MAINMENU_ADJUSTGAMMA
+			font				5
+			textscale				0.36
+			textalign				ITEM_ALIGN_CENTER
+			textalignx			131
+			textaligny			-2
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+		
+		itemDef
+		{
+			name				lodcurveerror
+			group				graphics2Menu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 271 117 7
+			text				@JKG_MAINMENU_LODCURVEERROR
+			font				5
+			textscale				0.5
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			119
+			textaligny			-2
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				lodcurveerror_bg
+			group				graphics2Menu
+			style				WINDOW_STYLE_SHADER
+			rect				460 265 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			lodcurveerror_button			
+			group 			graphics2Menu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 271 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"r_lodcurveerror"
+			cvarFloatList
+				{
+					@MENUS_LOW 1
+					@MENUS_MEDIUM 250
+					@MENUS_HIGH 750
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 265 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef
+		{
+			name				lodscale
+			group				graphics2Menu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 286 117 7
+			text				@JKG_MAINMENU_LODSCALE
+			font				5
+			textscale				0.42
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			119
+			textaligny			-2
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				lodscale_bg
+			group				graphics2Menu
+			style				WINDOW_STYLE_SHADER
+			rect				460 280 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			lodscale_button			
+			group 			graphics2Menu
+			text			@JKG_MAINMENU_BLANK
+			style			WINDOW_STYLE_EMPTY
+	   		type 			ITEM_TYPE_MULTI	
+			rect			479 286 117 7
+			font				5
+			textscale				0.38
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			-8
+			textaligny			-2
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"r_lodscale"
+			cvarFloatList
+				{
+					@JKG_MAINMENU_NEAR 3
+					@JKG_MAINMENU_NORMAL 5
+					@JKG_MAINMENU_FAR 8
+				}
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 280 155 19
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+		
+		itemDef 
+		{	
+ 			name				dynamic_light
+			group				graphics2Menu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_DYNAMIC_LIGHTS
+			cvar				"r_dynamiclight"
+			cvarFloatList		
+			{  
+				@MENUS_OFF 	0 
+				@MENUS_ON 	1 
+			}
+			rect				300 300 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font				5
+			textscale				0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_TOGGLE_TO_TURN_ON_MOVING
+			action
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+			mouseenter 
+			{ 
+				show			highlight9
+			}
+			mouseexit 
+			{ 
+				hide			highlight9
+			} 
+		}
+
+		itemDef 
+		{	
+			name				dynamic_glow
+			group				graphics2Menu
+      		type				ITEM_TYPE_MULTI
+			text				@MENUS_DYNAMIC_GLOW
+			cvar				r_dynamicglow
+			cvarFloatList		
+			{  
+				@MENUS_OFF 	0 
+				@MENUS_ON 	1 
+			}
+			rect				300 314 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale				0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_DYNAMIC_GLOW_DESC
+			action
+			{ 
+				play			"sound/interface/button1"
+			}
+			mouseenter 
+			{ 
+				show			highlight10
+			}
+			mouseexit 
+			{ 
+				hide			highlight10
+			} 
+		}
+
+		itemDef 
+		{	
+			name				light_flares
+			group				graphics2menu
+      		type				ITEM_TYPE_MULTI
+			text				@MENUS_LIGHT_FLARES
+			cvar				r_flares
+			cvarFloatList		
+			{  
+				@MENUS_OFF 	0 
+				@MENUS_ON 	1 
+			}
+			rect				300 328 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale				0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_TOGGLE_TO_SHOW_HALOS
+			action
+			{ 
+				play			"sound/interface/button1"
+			}
+			mouseenter 
+			{ 
+				show			highlight11
+			}
+			mouseexit 
+			{ 
+				hide			highlight11
+			} 
+		}
+
+		itemDef 
+		{	
+			name				wall_marks
+			group				graphics2menu
+      		type				ITEM_TYPE_MULTI
+			text				@MENUS_WALL_MARKS
+			cvar				cg_marks
+			cvarFloatList		
+			{  
+				@MENUS_OFF 	0 
+				@MENUS_ON 	1 
+			}
+			rect				300 342 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale				0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_TOGGLE_TO_DISPLAY_SCORCH
+			action
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+			mouseenter 
+			{ 
+				show			highlight12
+			}
+			mouseexit 
+			{ 
+				hide			highlight12
+			} 
+		}
+
+		itemDef 
+		{	
+			name				video_mode
+			group				graphics2menu
+			type				ITEM_TYPE_SLIDER
+			text				@MENUS_ANISOTROPIC_FILTERING
+			cvarTest			r_ext_texture_filter_anisotropic_avail
+			disableCvar			{ 0 }     
+			cvarfloat				r_ext_texture_filter_anisotropic 1 .5 16
+			rect				300 360 120 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale				0.42
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_TOGGLE_ADVANCED_TEXTURE
+			action
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+			mouseenter 
+			{ 
+				show			highlight13
+			}
+			mouseexit 
+			{ 
+				hide			highlight13
+			} 
+		}
+
+		itemDef 
+		{
+			name				advancedvideobutton_glow
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				300 384 340 14
+			background			"gfx/menus/menu_buttonback"			// Frame around button
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{	
+			name				advancedvideo
+			group				graphics2menu
+      		type					ITEM_TYPE_BUTTON
+			text				@MENUS_SHOW_DRIVER_INFO
+			rect				300 384 340 14
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_SHOW_ADVANCED_INFORMATION
+
+			mouseenter 
+			{ 
+				show			advancedvideobutton_glow
+			}
+			mouseexit 
+			{ 
+				hide			advancedvideobutton_glow
+			} 
+			action
+			{
+				play			sound/interface/button1.wav
+				hide			advancedvideobutton_glow
+				open 			videodriverMenu
+			}
+		}
+
+//----------------------------------------------------------------------------------------------
+//
+//	SOUND FIELDS
+//
+//----------------------------------------------------------------------------------------------
+	itemDef
+		{
+			name				audioMenu_title
+			group				audioMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				337 141 263 26
+			text				"-Audio Settings-"
+			font				5
+			textscale				1
+			textalign				ITEM_ALIGN_CENTER
+			textalignx			131
+			textaligny			-2
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				effects_volume
+			group				audioMenu
+			type				ITEM_TYPE_SLIDER
+			text				@MENUS_EFFECTS_VOLUME
+			cvarfloat			"s_volume" 0 0 1
+			rect				300 188 120 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_ADJUST_VOLUME_FOR_SOUND
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ;
+			}
+
+			mouseenter 
+			{ 
+				show			highlight1
+			}
+			mouseexit 
+			{ 
+				hide			highlight1
+			} 
+		}
+
+		itemDef 
+		{
+			name				music_volume
+			group				audioMenu
+			type				ITEM_TYPE_SLIDER
+			text				@MENUS_MUSIC_VOLUME
+			cvarfloat			"s_musicvolume" 0 0 1
+			rect				300 216 120 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_ADJUST_VOLUME_FOR_MUSIC
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ;
+			}
+
+			mouseenter 
+			{ 
+				show			highlight3
+			}
+			mouseexit 
+			{ 
+				hide			highlight3
+			} 
+		}
+
+		itemDef 
+		{
+			name				voice_volume
+			group				audioMenu
+			type				ITEM_TYPE_SLIDER
+			text				@MENUS_VOICE_VOLUME
+			cvarfloat			"s_volumeVoice" 0 0 1
+			rect				300 244 120 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_VOICE_VOLUME_DESC
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ;
+			}
+
+			mouseenter 
+			{ 
+				show			highlight5
+			}
+			mouseexit 
+			{ 
+				hide			highlight5
+			} 
+		}
+
+		itemDef 
+		{	
+			name				sound_quality
+			group				audioMenu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_SOUND_QUALITY
+			cvar				"s_khz"
+			cvarFloatList		
+			{ 
+				@MENUS_LOW 	11  
+				@MENUS_MEDIUM 	22 
+				@MENUS_HIGH		44
+			}
+			rect				300 272 120 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_TRADE_CLARITY_OF_SOUND
+			cvarTest			"s_UseOpenAL"
+			hideCvar			{ 1 }
+
+			mouseenter 
+			{ 
+				show			highlight7
+			}
+			mouseexit 
+			{ 
+				hide			highlight7
+			} 
+			action 
+			{
+				play			"sound/interface/button1.wav"
+				uiScript		update s_khz
+			}
+		}
+
+		itemDef 
+		{
+			name				eax
+			group				audioMenu
+			type				ITEM_TYPE_MULTI
+			cvar				"s_UseOpenAL"
+			cvarFloatList		
+			{  
+				@MENUS_OFF 	0 
+				@MENUS_ON 	1 
+			}
+			text				@MENUS_EAX
+			rect				300 300 120 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_EAX_DESC
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+				uiScript		update s_khz
+			}
+
+			mouseenter 
+			{ 
+				show			highlight9
+			}
+			mouseexit 
+			{ 
+				hide			highlight9
+			} 
+		}
+
+		itemDef
+		{
+			name				eax_icon
+			group				audioMenu
+			style				WINDOW_STYLE_SHADER
+			rect				380 320 128 64
+			background			"gfx/menus/eax"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+			cvarTest			"s_UseOpenAL"
+			hideCvar			{ 0 }
+		}
+
+
+//----------------------------------------------------------------------------------------------
+//
+//	CONTROLS SETUP
+//
+//----------------------------------------------------------------------------------------------
+		// CONFIGURE CONTROLS title
+		itemDef
+		{
+			name				controlsMenu_title
+			group				controlsMenuTitle
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				337 141 263 26
+			text				@JKG_MAINMENU_CONFIGCONTROLS
+			font				5
+			textscale				0.9
+			textalign				ITEM_ALIGN_CENTER
+			textalignx			131
+			textaligny			0
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		// NEXT SET button
+		itemDef 
+		{
+			name				nextset_bg
+			group				controlsMenu
+			style				WINDOW_STYLE_SHADER
+			rect				456 408 161 40
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				nextset
+			group				controlsMenu
+			text				@JKG_MAINMENU_NEXTSET
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				477 414 119 28
+			font				5
+			textscale			0.64
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			17
+			textaligny			4
+			forecolor			1 1 1 1
+			visible			1
+
+			action 
+			{ 
+				hide			controlsMenu ;
+				show		controls2Menu ;
+				hide			controls3Menu ;
+				hide			highlights ;
+			}
+			mouseEnter 
+			{ 
+				show			highlight_bigbutton
+				setitemrect		highlight_bigbutton	456 408 161 40
+			}
+			mouseExit 
+			{ 
+				hide			highlight_bigbutton
+					clearfocus
+			}	  	  
+
+		}
+
+		itemDef 
+		{
+		   	name 			forward_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_FORWARD
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 180 117 7
+			rect				460 174 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+forward"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 174 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			back_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_BACKWARD
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 191 117 7
+			rect				460 185 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+back"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 185 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			left_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_TURNLEFT
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 202 117 7
+			rect				460 196 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+left"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 196 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			right_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_TURNRIGHT
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 213 117 7
+			rect				460 207 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+right"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 207 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			moveleft_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_MOVELEFT
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 224 117 7
+			rect				460 218 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+moveleft"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 218 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			moveright_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_MOVERIGHT
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 235 117 7
+			rect				460 229 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+moveright"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 229 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			speed_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_RUNWALK
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 246 117 7
+			rect				460 240 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+speed"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 240 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			strafe_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_SIDESTEPTURN
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 257 117 7
+			rect				460 251 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+strafe"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 251 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			moveup_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_JUMP
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 279 117 7
+			rect				460 273 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+moveup"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 273 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			movedown_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_CROUCH
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 290 117 7
+			rect				460 284 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+movedown"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 284 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			sprint_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_SPRINT
+			type			ITEM_TYPE_BIND_FIXED
+			rect			460 295 155 19
+			selectionZone		479 301 117 7
+			background 		"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+button12"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 295 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			attack_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_BLANK
+			type			ITEM_TYPE_BIND_FIXED
+			background 		"gfx/ui/mainsub_sliderbar"
+			rect				460 317 155 19
+			selectionZone			479 323 117 7
+			font				5
+			font2				5
+			text				@JKG_MAINMENU_ATTACK
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+attack"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 317 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			aim_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_AIM
+			type			ITEM_TYPE_BIND_FIXED
+			background 		"gfx/ui/mainsub_sliderbar"
+			rect				460 328 155 19
+			selectionZone			479 334 117 7
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+button13"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 328 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			reload_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_RELOAD
+			type			ITEM_TYPE_BIND_FIXED
+			background 		"gfx/ui/mainsub_sliderbar"
+			rect				460 339 155 19
+			selectionZone			479 345 117 7
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"reload"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 339 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			saberAttackCycle_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_FIGHTINGSTYLE
+			type			ITEM_TYPE_BIND_FIXED
+			background			"gfx/ui/mainsub_sliderbar"
+			selectionZone			479 356 117 7
+			rect				460 350 155 19
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"saberAttackCycle"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 350 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			use_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_USE
+			type			ITEM_TYPE_BIND_FIXED
+			background			"gfx/ui/mainsub_sliderbar"
+			selectionZone			479 367 117 7
+			rect				460 361 155 19
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+use"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 361 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			inventory_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_INVENTORY
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 378 117 7
+			rect				460 372 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"inventory"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 372 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			ammocycle_button			
+			group 			controlsMenu
+			text			@JKG_MAINMENU_AMMOCYCLE
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 389 117 7
+			rect				460 383 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"ammocycle"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 383 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+		
+		
+		
+		
+				// NEXT SET button
+		itemDef 
+		{
+			name				nextset2_bg
+			group				controls2Menu
+			style				WINDOW_STYLE_SHADER
+			rect				456 408 161 40
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				nextset2
+			group				controls2Menu
+			text				@JKG_MAINMENU_NEXTSET
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				477 414 119 28
+			font				5
+			textscale			0.64
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			17
+			textaligny			4
+			forecolor			1 1 1 1
+			visible			1
+
+			action 
+			{ 
+				hide			controlsMenu ;
+				hide			controls2Menu ;
+				show		controls3Menu ;
+				hide			highlights ;
+			}
+			mouseEnter 
+			{ 
+				show			highlight_bigbutton
+				setitemrect		highlight_bigbutton	456 408 161 40
+			}
+			mouseExit 
+			{ 
+				hide			highlight_bigbutton
+					clearfocus
+			}	  	  
+
+		}
+	
+		// PREVIOUS SET button
+		itemDef 
+		{
+			name				prevset2_bg
+			group				controls2Menu
+			style				WINDOW_STYLE_SHADER
+			rect				321 408 161 40
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				prevset2
+			group				controls2Menu
+			text				@JKG_MAINMENU_PREVSET
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				342 414 119 28
+			font				5
+			textscale			0.64
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			1
+			textaligny			4
+			forecolor			1 1 1 1
+			visible			1
+			action 
+			{ 
+				show		controlsMenu ;
+				hide			controls2Menu ;
+				hide			controls3Menu ;
+				hide			highlights ;
+			}
+			mouseEnter 
+			{ 
+				show			highlight_bigbutton
+				setitemrect		highlight_bigbutton	321 408 161 40
+			}
+			mouseExit 
+			{ 
+				hide			highlight_bigbutton
+					clearfocus
+			}	  	  
+
+		}
+
+
+		itemDef
+		{
+			name				aci
+			group				controls2Menu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				356 180 117 7
+			text				@JKG_MAINMENU_ACI
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			textalignx			115
+			textaligny			-3
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+		   	name 			slot1_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SLOT1
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 191 117 7
+			rect				460 185 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapon 1"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 185 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			slot2_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SLOT2
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 202 117 7
+			rect				460 196 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapon 2"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 196 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			slot3_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SLOT3
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 213 117 7
+			rect				460 207 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapon 3"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 207 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			slot4_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SLOT4
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 224 117 7
+			rect				460 218 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapon 4"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 218 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			slot5_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SLOT5
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 235 117 7
+			rect				460 229 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapon 5"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 229 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			slot6_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SLOT6
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 246 117 7
+			rect				460 240 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapon 6"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 240 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			slot7_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SLOT7
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 257 117 7
+			rect				460 251 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapon 7"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 251 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			slot8_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SLOT8
+			type			ITEM_TYPE_BIND_FIXED
+			background			"gfx/ui/mainsub_sliderbar"
+			selectionZone			479 268 117 7
+			rect				460 262 155 19
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapon 8"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 262 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			slot9_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SLOT9
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 279 117 7
+			rect				460 273 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapon 9"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 273 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			slot0_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SLOT0
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 290 117 7
+			rect				460 284 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapon 0"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 284 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			usepower_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_USEPOWER
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 312 117 7
+			rect				460 306 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+useforce"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 306 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			nextpower_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_NEXTPOWER
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 323 117 7
+			rect				460 317 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"forcenext"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 317 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			prevpower_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_PREVPOWER
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 334 117 7
+			rect				460 328 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"forceprev"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 328 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			sayglobal_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SAYGLOBAL
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 356 117 7
+			rect				460 350 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"messagemode"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 350 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			sayteam_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SAYTEAM
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 367 117 7
+			rect				460 361 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"messagemode2"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 361 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			sayaction_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SAYACTION
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 378 117 7
+			rect				460 372 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"messagemode4"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 372 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			saytarget_button			
+			group 			controls2Menu
+			text			@JKG_MAINMENU_SAYTARGET
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 389 117 7
+			rect				460 383 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"messagemode3"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 383 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}	
+		
+		// PREVIOUS SET button
+		itemDef 
+		{
+			name				prevset3_bg
+			group				controls3Menu
+			style				WINDOW_STYLE_SHADER
+			rect				321 408 161 40
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				prevset3
+			group				controls3Menu
+			text				@JKG_MAINMENU_PREVSET
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				342 414 119 28
+			font				5
+			textscale			0.64
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			1
+			textaligny			4
+			forecolor			1 1 1 1
+			visible			1
+			action 
+			{ 
+				hide			controlsMenu ;
+				show		controls2Menu ;
+				hide			controls3Menu ;
+				hide			controls3Menu ;
+				hide			highlights ;
+			}
+			mouseEnter 
+			{ 
+				show			highlight_bigbutton
+				setitemrect		highlight_bigbutton	321 408 161 40
+			}
+			mouseExit 
+			{ 
+				hide			highlight_bigbutton
+					clearfocus
+			}	  	  
+
+		}
+	
+		
+		itemDef 
+		{
+		   	name 			showscores_button			
+			group 			controls3Menu
+			text			@JKG_MAINMENU_SHOWSCORES
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 180 117 7
+			rect				460 174 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"+scores"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 174 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			taunt_button			
+			group 			controls3Menu
+			text			@JKG_MAINMENU_TAUNT
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 191 117 7
+			rect				460 185 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"taunt"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 185 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			playpazaak_button		
+			group 			controls3Menu
+			text			@JKG_MAINMENU_PLAYPAZAAK
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 202 117 7
+			rect				460 196 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"pzktest"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 196 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			prevwpn_button		
+			group 			controls3Menu
+			text			@JKG_MAINMENU_PREVWEAPON
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 213 117 7
+			rect				460 207 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapprev"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 207 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+		itemDef 
+		{
+		   	name 			nextwpn_button		
+			group 			controls3Menu
+			text			@JKG_MAINMENU_NEXTWEAPON
+			type			ITEM_TYPE_BIND_FIXED
+			selectionZone			479 224 117 7
+			rect				460 218 155 19
+			background			"gfx/ui/mainsub_sliderbar"
+			font				5
+			font2				5
+			textscale				0.5
+			textscale2				0.4
+			textalign				ITEM_ALIGN_RIGHT
+			text2align				ITEM_ALIGN_LEFT
+			textalignx			10
+			textaligny			1
+			text2alignx			22
+			text2aligny			4
+			forecolor			1 1 1 1
+
+	   		visible 		1
+
+			cvar				"weapnext"
+
+			mouseenter 
+			{ 
+				show			highlight_sliderbutton
+				setitemrect		highlight_sliderbutton 	460 218 155 19
+				show			keybindstatus
+			}
+			mouseexit 
+			{ 
+				hide			highlight_sliderbutton
+				hide			keybindstatus
+					clearfocus
+			} 
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+
+//----------------------------------------------------------------------------------------------
+//
+//	OPTION FIELDS
+//
+//----------------------------------------------------------------------------------------------
+		
+	itemDef
+		{
+			name				optionsMenu_title
+			group				optionsMenu
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				337 141 263 26
+			text				"-Misc. Options-"
+			font				5
+			textscale				1
+			textalign				ITEM_ALIGN_CENTER
+			textalignx			131
+			textaligny			-2
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+		
+		
+		
+		
+		itemDef 
+		{	
+			name				draw_crosshair
+			group				optionsMenu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_DRAW_CROSSHAIR
+			cvar				"cg_drawcrosshair"
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				350 188 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_TOGGLE_TO_SHOW_OR_HIDE
+			action
+			{
+				play			"sound/interface/button1.wav"
+			}
+			mouseenter 
+			{ 
+				show			highlight1
+			}
+			mouseexit 
+			{ 
+				hide			highlight1
+			} 
+		}
+
+
+		itemDef 
+		{	
+			name				identifytarget
+			group				optionsMenu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_IDENTIFY_TARGET
+			cvar				cg_drawCrosshairNames
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				350 202 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_TOGGLE_TO_HAVE_THE_CROSSHAIR
+			action
+			{
+				play			"sound/interface/button1.wav" ; 
+			}
+			mouseenter 
+			{ 
+				show			highlight2
+			}
+			mouseexit 
+			{ 
+				hide			highlight2
+			} 
+		}
+
+		itemDef 
+		{	
+			name				forcemodels
+			group				optionsMenu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_FORCE_PLAYER_MODELS
+			cvar				"cg_forceModel"
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				350 216 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_FORCE_ALL_PLAYER_MODELS
+			action
+			{
+				play			"sound/interface/button1.wav" ; 
+			}
+			mouseenter 
+			{ 
+				show			highlight3
+			}
+			mouseexit 
+			{ 
+				hide			highlight3
+			} 
+		}
+
+		itemDef 
+		{	
+			name				defermodels
+			group				optionsMenu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_DEFER_PLAYER_MODELS
+			cvar				"cg_deferPlayers"
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				350 230 240 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_DEFERS_LOADING_OF_NEW
+			action
+			{
+				play			"sound/interface/button1.wav" ; 
+			}
+
+			mouseenter 
+			{ 
+				show			highlight4
+			}
+			mouseexit 
+			{ 
+				hide			highlight4
+			} 
+		}
+
+		itemDef 
+		{	
+			name				teamchatsonly
+			group				optionsMenu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_TEAM_CHATS_ONLY
+			cvar				"cg_teamChatsOnly"
+			cvarFloatList		
+			{ 
+				@MENUS_NO	0
+				@MENUS_YES	1
+			}
+			rect				350 244 240 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_IGNORE_NON_TEAM_CHATS
+			action
+			{
+				play			"sound/interface/button1.wav" ; 
+			}
+			mouseenter 
+			{ 
+				show			highlight5
+			}
+			mouseexit 
+			{ 
+				hide			highlight5
+			} 
+		}
+
+		itemDef 
+		{	
+			name				simpleitems
+			group				optionsMenu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_SIMPLE_ITEMS
+			cvar				"cg_simpleItems"
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				350 258 240 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_RENDER_ICONS_FOR_ITEMS
+			action
+			{
+				play			"sound/interface/button1.wav" ; 
+			}
+			mouseenter 
+			{ 
+				show			highlight6
+			}
+			mouseexit 
+			{ 
+				hide			highlight6
+			} 
+		}
+
+		itemDef 
+		{	
+			name				teamoverlay
+			group				optionsMenu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_TEAM_OVERLAY
+			cvar				"cg_drawTeamOverlay"
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				350 272 240 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			descText			@MENUS_DRAW_OVERLAY_SHOWING
+			action
+			{
+				play			"sound/interface/button1.wav" ; 
+			}
+			mouseenter 
+			{ 
+				show			highlight7
+			}
+			mouseexit 
+			{ 
+				hide			highlight7
+			} 
+		}
+
+// Weapon Sway.  Yes, this is nutty.  Two cvars here, one removes weapon sway, the other adds it.
+		itemDef 
+		{	
+			name				weaponswayon
+			group				optionsMenu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_VIEW_SWAYING
+			descText			@MENUS_VIEW_SWAYING_DESC
+			cvar				"ui_disableWeaponSway"
+			cvarFloatList		
+			{ 
+				@MENUS_ON	0
+				@MENUS_OFF 	1
+			}
+			cvarTest			"ui_disableWeaponSway"
+			showCvar
+			{
+				"0"
+			}
+			rect				350 286 240 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 	
+				exec			"exec noMotion.cfg"
+				show			weaponswayoff
+				setfocus		weaponswayoff
+			}
+			mouseenter 
+			{ 
+				show			highlight8
+			}
+			mouseexit 
+			{ 
+				hide			highlight8
+			} 
+		}
+
+		itemDef 
+		{	
+			name				weaponswayoff
+			group				optionsMenu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_VIEW_SWAYING
+			descText			@MENUS_VIEW_SWAYING_DESC
+			cvar				"ui_disableWeaponSway"
+			cvarFloatList		
+			{ 
+				@MENUS_ON	0
+				@MENUS_OFF 	1
+			}
+			cvarTest			"ui_disableWeaponSway"
+			hideCvar
+			{
+				"0"
+			}
+			rect				350 286 240 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 	
+				exec			"exec restoreMotion.cfg" ;
+				show			weaponswayon ;
+				setfocus		weaponswayon
+			}
+			mouseenter 
+			{ 
+				show			highlight8
+			}
+			mouseexit 
+			{ 
+				hide			highlight8
+			} 
+		}
+
+		itemDef 
+		{	
+			name				footsteps
+			group				optionsMenu
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_FOOTSTEPS
+			desctext			@MENUS_FOOTSTEPS_DESC
+			cvar				"cg_footsteps"
+			cvarFloatList		
+			{ 
+				@MENUS_OFF 			0  
+				@MENUS_SOUNDS	 		1 
+				@MENUS_SOUNDS_AND_EFFECTS	2
+				@MENUS_SOUNDS_EFFECTS_GRAPHICS	3
+			}
+			rect				350 300 240 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			150
+			textaligny			0
+			font 				5				
+			textscale 			0.5
+			forecolor			1 1 1 1
+			visible				0
+			action
+			{
+				play			"sound/interface/button1.wav"
+			}
+			mouseenter 
+			{ 
+				show			highlight10
+			}
+			mouseexit 
+			{ 
+				hide			highlight10
+			} 
+		}
+
+
+//----------------------------------------------------------------------------------------------
+//
+//	RESET DEFAULTS
+//
+//----------------------------------------------------------------------------------------------
+// Faint red box
+		itemDef 
+		{
+			name				vidrestart_background
+			group				defaults
+			style				WINDOW_STYLE_SHADER
+			rect				350 185 342 227				
+			background			"gfx/menus/menu_boxred"					// Frame
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				options
+			group				defaults
+			text				@MENUS_WARNING
+			rect				350 202 340 20
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			150
+			font				5
+			textscale			1    
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				options
+			group				defaults
+			text				@MENUS_THIS_WILL_SET_ALL_GAME
+			rect				350 230 340 20
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			150
+			text2aligny			20
+			font				5
+			textscale			.9 
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				options
+			group				defaults
+			text				@MENUS_TO_THEIR_FACTORY_SETTINGS
+			rect				350 260 340 20
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			150
+			text2aligny			20
+			font				5 //2
+			textscale			.9   
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				options
+			group				defaults
+			text				@MENUS_VID_RESTART3
+			rect				350 320 340 20
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			150
+			font				5
+			textscale			1    
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+
+
+		itemDef 
+		{
+			name				default_yes_button
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				443 364 120 24 
+			background			"gfx/menus/menu_buttonback"			// Frame around button
+			forecolor			1 1 1 1
+			decoration
+			visible				0 
+		}
+	
+		// YES button - lose reset defaults
+		itemDef 
+		{
+			name				default_yes
+			group				defaults
+			text				@MENUS_YES
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				443 364 120 24 
+			font				5
+			textscale			1
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			60
+			textaligny			-2
+			descText			@MENUS_USE_DEFAULT_SETTINGS
+			forecolor			1 1 1 1
+			visible				0
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ;
+				hide			highlights ;
+				close			all ; 
+				uiscript		resetdefaults
+			}
+			mouseEnter 
+			{ 
+				show			default_yes_button 
+			}
+			mouseExit 
+			{ 
+				hide			default_yes_button
+			}	  	  
+
+		}
+	
+		itemDef 
+		{
+			name				default_no_button
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				297 364 120 24 
+			background			"gfx/menus/menu_buttonback"			// Frame around button
+			forecolor			1 1 1 1
+			decoration
+			visible				0
+		}
+
+		// NO button - return to Main Menu
+		itemDef 
+		{
+			name				default_no
+			group				defaults
+			text				@MENUS_NO
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				297 364 120 24 
+			font				5
+			textscale			1
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			60
+			textaligny			-2
+			descText			@MENUS_DO_NOT_RESET_DEFAULT
+			forecolor			1 1 1 1
+			visible				0
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+				hide			highlights ;
+				hide			default_no_button
+				uiscript 		clearmouseover	default_no ;
+				close			all ; 
+				open			mainMenu ;
+			}
+			mouseEnter 
+			{ 
+				show			default_no_button 
+			}
+			mouseExit 
+			{ 
+				hide			default_no_button
+			}	  	  
+		}
+
+		
+	}
+}

@@ -1,0 +1,20 @@
+// Gang Wars team definition
+// File by eezstreet
+// (c) 2012 Jedi Knight Galaxies
+
+name "@MP_INGAME_BLUE"
+longname "@MP_SVGAME_PRINTBLUETEAM"
+joinstring "@MP_SVGAME_JOINEDTHEBLUETEAM"
+toomanystring "@MP_SVGAME_TOOMANYBLUE"
+leadstring "@MP_INGAME_BLUE_LEADS"
+menujoinstring "@MENUS_JOIN_BLUE"
+menustring "@MENUS_TEAM_BLUE"
+flagtakenstring "^7The Blue team have stolen the flag"
+flagreturnedstring "^7The Blue team returned their flag"
+flagcapturedstring "^7The Blue team have captured the flag"
+reference "blue"
+modelstore "NULL,"
+useTeamColors "1"
+icon "sprites/rebels"
+
+teamColor "{51,51,255,255}"

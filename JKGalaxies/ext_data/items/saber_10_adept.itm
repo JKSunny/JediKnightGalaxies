@@ -1,0 +1,12 @@
+{
+	"name":             "@MENUS_SINGLE_HILT4",
+	"internal":             "saber_adept",
+	"itemtype":             "weapon",
+	"weapon":		"WP_SABER",
+	"variation":		"10",
+	"weight":		"17",
+	"tier":			4,
+	"cost":		"1750",
+	"xml":			"",
+	"itemIcon":		"models/weapons/lightsabers/icons/Adept.tga"
+}

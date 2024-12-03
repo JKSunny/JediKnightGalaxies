@@ -1,0 +1,135 @@
+{
+    "name":             "@JKG_ITEMS_carbine_E-11_Carbine",
+    "type":             "WP_BLASTER",
+    "variation":        0,
+    "classname":        "carbine_E-11",
+    "description":      "@JKG_ITEMS_carbine_E-11_Carbine",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/E-11_Carbine/viewmodel.md3",
+        "worldmodel":       "models/weapons/E-11_Carbine/model.glm",
+        "hudicon":          "models/weapons/E-11_Carbine/icon_default",
+        "hudnaicon":        "models/weapons/E-11_Carbine/icon_default",
+        "selectsound":      "sound/weapons/select_carbine.wav",
+        
+//        "gunposition":      "8.0 -2.2 -7.0",
+        "gunposition":      "14.0 -4.0 -8.0",
+        "ironsightsposition": "13.0 0.0 -4.4",
+        "ironsightsfov": "70",
+		"barrelCount": "4",
+    
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_Red_small",
+            "firesound":    [
+                "sound/weapons/blasters/e11b_1.mp3",
+                "sound/weapons/blasters/e11b_2.mp3",
+                "sound/weapons/blasters/e11b_3.mp3",
+                "sound/weapons/blasters/e11b_4.mp3"
+            ],
+            "projectilefx": "blasters/shot_red_small",
+            "miss":         { "impactfx": "weapons/blaster_impact_red_medium_fire" },
+            "hit":          { "impactfx": "blasters/red_flesh_impact" },
+            "deathfx": "blasters/shot_red_vaporize",
+	    "displayName":  "Blaster"
+        },
+        
+        "firemode1": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash2_Blue_medium",
+            "firesound":    [
+                "sound/weapons/blasters/stunblast.mp3",
+                "sound/weapons/blasters/stunblast2.mp3",
+                "sound/weapons/blasters/stunblast3.mp3",
+                "sound/weapons/blasters/stunblast4.mp3",
+                "sound/weapons/blasters/stunblast5.mp3",
+                "sound/weapons/blasters/stunblast6.mp3"
+            ],
+            "projectilefx": "blasters/shot_Stunblast_medium",
+            "hit":          { "impactfx": "saber/ignitionflare_blue" },
+	    "displayName":  "Stun"
+        }
+    },
+    
+    "stats": {
+        "slot":         1,
+        "reloadtime":   2500,
+        "flags":        [ "roll" ],
+        "reloadmodifier": 0.7
+    },
+    
+    "firemode0": {
+        "damage":       16,
+        "ammocost":     1,
+        "firedelay":    120,
+        "range":        3400.0,
+        "recoil":       0.7,
+//        "splashrange":  3.0,
+        "spread":       0.9,
+        "projectilespeed": 4000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_BLASTER",
+        "splashmeansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_POWERPACK_M",
+	"ammodefault": "AMMO_POWERPACK_M",
+        "clipSize":              120,
+        "accuracy": {
+			"accuracyRating": 40,
+			"accuracyRatingPerShot": 8,
+			"msToDrainAccuracy": 75,
+			"maxAccuracyAdd": 80,
+			"sightsModifier": 0.4
+        },
+	"heatGenerated": 3
+    },
+    
+    "firemode1": {
+        "damage": {
+                               "damageradius": { "start": 8,
+                                                     "function": [ "constant"] },
+                               "damage":       10,
+			       "buffs": [
+					{
+						"buff": "standard-stun",
+						"duration": 2000
+					}
+				]
+                        },
+        "collisionsize": 8.0,
+        "maxchargetime": 500,
+        "chargedamage": 1.5,
+        "chargedelay":  500,
+        "ammocost":     15,
+        "firedelay":    1500,
+        "firingtype":   "semi",
+        "range":        700.0,
+        "recoil":       0.5,
+        "spread":       1.0,
+        "projectilespeed": 3000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_STUNNED",
+	"ammobase": "AMMO_POWERPACK_M",
+	"ammodefault": "AMMO_POWERPACK_M",
+        "clipSize":              120
+    },
+
+	
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "BOTH_RIFLERELOADR" },
+        "sights":        { "torso": "TORSO_WEAPONREADY3", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK3" },
+	"ready":	{ "torso": "BOTH_BASE_RIFLESTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_RIFLESHOOT" },
+	"sprint":	{ "torso": "BOTH_RIFLERUN" },
+        "sprintStyle": "2"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

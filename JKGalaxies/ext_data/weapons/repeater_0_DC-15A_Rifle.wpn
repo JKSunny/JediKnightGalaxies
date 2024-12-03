@@ -1,0 +1,146 @@
+{
+    "name":             "@JKG_ITEMS_repeater_DC-15A_Rifle",
+    "type":             "WP_REPEATER",
+    "variation":        0,
+    "classname":        "repeater_DC-15A",
+    "description":      "@JKG_ITEMS_repeater_DC-15A_Rifle",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/dc-15a_rifle/viewmodel.md3",
+        "worldmodel":       "models/weapons/dc-15a_rifle/model.glm",
+        "hudicon":          "models/weapons/dc-15a_rifle/icon_default",
+        "hudnaicon":        "models/weapons/dc-15a_rifle/icon_default",
+        "selectsound":      "sound/weapons/select_repeater.wav",
+        
+        "indicators": {
+            "ammo":         [ "models/weapons/dc-15a_rifle/numbers3", "models/weapons/dc-15a_rifle/numbers2", "models/weapons/dc-15a_rifle/numbers1" ],
+            "firemode":     "models/weapons/dc-15a_rifle/firemode"
+        },
+        
+        "gunposition":      "10.0 -4.0 -8.0",
+        "ironsightsposition": "4.0 0.0 -5.3",
+        "ironsightsfov": "70",
+		"barrelCount": "3",
+        
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_Blue_medium",
+            "firesound":    [
+                "sound/weapons/blasters/generic1.mp3",
+                "sound/weapons/blasters/generic2.mp3",
+                "sound/weapons/blasters/generic3.mp3",
+                "sound/weapons/blasters/generic4.mp3",
+                "sound/weapons/blasters/generic5.mp3",
+                "sound/weapons/blasters/generic6.mp3"
+            ],
+            "projectilefx": "blasters/shot_blue_small",
+            "miss":         { "impactfx": "weapons/blaster_impact_blue_medium_fire" },
+            "hit":          { "impactfx": "blasters/blue_flesh_impact" },
+            "deathfx": "blasters/shot_blue_vaporize",
+	        "displayName":  "Repeater"
+        },
+        
+        "firemode1": {
+            "type":         "blaster",
+            
+            "firesound":    [
+                "sound/weapons/blasters/droideka1.mp3",
+                "sound/weapons/blasters/droideka2.mp3",
+                "sound/weapons/blasters/droideka3.mp3",
+                "sound/weapons/blasters/droideka4.mp3"
+            ],
+            "chargingfx":   "weapons/charge_samus",
+            "muzzlefx":     "blasters/muzzleflash_blue_big",
+            "projectilefx": "blasters/shot_Blue_Flare_big",
+            "miss":         { "impactfx": "weapons/blaster_impact_blue_huge_fire" },
+            "hit":          { "impactfx": "weapons/blaster_impact_blue_huge" },
+            "deathfx": "blasters/shot_bluegreen_vaporize",
+	        "displayName":  "Heavy Blaster"
+        }
+    },
+    
+    "stats": {
+        "slot":         1,
+        "reloadtime":   2700,
+        "reloadmodifier": 0.7,
+        "speed":        0.9
+    },
+    
+    "firemode0": {
+        "damage":       12,
+        "ammocost":     1,
+        "firedelay":    75,
+        "firingtype":   "auto",
+        "range":        5800.0,
+        "recoil":       0.5,
+        "projectilespeed": 4000.0,
+        "projectileclass":"blaster_proj",
+        "meansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_POWERPACK_M",
+	"ammodefault": "AMMO_ION_POWERPACK_L",
+        "clipSize":              100,
+        "accuracy": {
+        	"accuracyRating": 50,
+        	"accuracyRatingPerShot": 4,
+        	"msToDrainAccuracy": 55,
+        	"maxAccuracyAdd": 70,
+        	"crouchModifier": 0.85,
+        	"runModifier": 1.6,
+        	"sightsModifier": 0.5,
+        	"walkModifier": 1.3,
+        	"inAirModifier": 1.8
+        },
+	"heatGenerated": 1.8
+    },
+    
+    "firemode1": {
+        "damage":       50,//50,
+        "maxchargetime":1500,
+        "chargedamage": 2.0,
+        "chargedelay":  1500,
+        "ammocost":     50,
+        "firedelay":    900,
+        "firingtype":   "semi",
+        "splashrange":  115,//50,
+        "range":        7000.0,
+        "recoil":       3.0,
+        "spread":       0.75,
+        "projectilespeed": 6000.0,
+        "projectileclass": "repeater_alt_proj",
+        "meansofdeath": "MOD_BLASTER",
+        "splashmeansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_POWERPACK_M",
+	"ammodefault": "AMMO_ION_POWERPACK_L",
+        "clipSize":              100,
+        "accuracy": {
+        	"accuracyRating": 50,
+        	"accuracyRatingPerShot": 12,
+        	"msToDrainAccuracy": 55,
+        	"maxAccuracyAdd": 155,
+        	"crouchModifier": 0.9,
+        	"runModifier": 1.6,
+        	"sightsModifier": 0.5,
+        	"walkModifier": 1.3,
+        	"inAirModifier": 1.8
+        },
+	"heatGenerated": 15
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "BOTH_RIFLERELOADL" },
+        "sights":        { "torso": "TORSO_WEAPONREADY3", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK3" },
+	"ready":	{ "torso": "BOTH_BASE_RIFLESTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_RIFLESHOOT" },
+	"sprint":       { "torso": "BOTH_RIFLERUN" },
+        "sprintStyle": "14"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

@@ -1,0 +1,821 @@
+{
+	// New Means of Damage system. Uses MOD_ to create damage types.
+
+	//////////////////////////////////////////////
+	//
+	// Special types of damage, environmental/hardcoded requirement
+	//
+	//////////////////////////////////////////////
+
+	"MOD_UNKNOWN": {
+		// An unknown source of pain
+		"inventoryName": "@JKG_INVENTORY_MOD_UNKNOWN",
+
+		"modifiers": {
+		},
+
+		"killFeed": {
+			"killMessage": "@MP_INGAME_KILLED_GENERIC",
+			"deathMessage": "@MP_INGAME_DIED_GENERIC",
+			"suicideMessageMale": "@MP_INGAME_SUICIDE_GENERICDEATH_MALE",
+			"suicideMessageFemale": "@MP_INGAME_SUICIDE_GENERICDEATH_FEMALE",
+			"suicideMessageNeuter":	"@MP_INGAME_SUICIDE_GENERICDEATH_GENDERLESS"
+		}
+	},
+
+	"MOD_FALLING": {
+		// Falling from a high place
+		"inventoryName": "@JKG_INVENTORY_MOD_FALLING",
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"ignoreShield": true
+		},
+
+		"killFeed": {
+			"killMessage": "@MP_INGAME_KILLED_FORCETOSS",
+			"deathMessage": "@MP_INGAME_SUICIDE_FALLDEATH_GENDERLESS",
+			"suicideMessageMale": "@MP_INGAME_SUICIDE_FALLDEATH_MALE",
+			"suicideMessageFemale": "@MP_INGAME_SUICIDE_FALLDEATH_FEMALE",
+			"suicideMessageNeuter": "@MP_INGAME_SUICIDE_FALLDEATH_GENDERLESS"
+		}
+	},
+
+	"MOD_SUICIDE": {
+		// Using /kill
+		"inventoryName": "@JKG_INVENTORY_MOD_SUICIDE",
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"ignoreShield": true
+		},
+
+		"killFeed": {
+			"killMessage": "@MP_INGAME_KILLED_GENERIC",
+			"deathMessage": "@MP_INGAME_DIED_GENERIC",
+			"suicideMessageMale": "@MP_INGAME_SUICIDE_GENERICDEATH_MALE",
+			"suicideMessageFemale": "@MP_INGAME_SUICIDE_GENERICDEATH_FEMALE",
+			"suicideMessageNeuter":	"@MP_INGAME_SUICIDE_GENERICDEATH_GENDERLESS"
+		},
+
+		"plums": {
+			"hide": true
+		}
+	},
+	
+	"MOD_CRUSH": {
+		// Being crushed by for e.g. a door
+		"inventoryName": "@JKG_INVENTORY_MOD_CRUSH",
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"ignoreShield": true,
+			"dodgeable": true
+		},
+
+		"killFeed": {
+			"killMessage": "@MP_INGAME_KILLED_GENERIC",
+			"deathMessage": "@MP_INGAME_DIED_GENERIC",
+			"suicideMessageMale": "@MP_INGAME_SUICIDE_GENERICDEATH_MALE",
+			"suicideMessageFemale": "@MP_INGAME_SUICIDE_GENERICDEATH_FEMALE",
+			"suicideMessageNeuter":	"@MP_INGAME_SUICIDE_GENERICDEATH_GENDERLESS"
+		}
+	},
+
+	"MOD_WATER": {
+		// Drowning
+		"inventoryName": "@JKG_INVENTORY_MOD_WATER",
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"ignoreShield": true
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_WATER",
+			"deathMessage": "@JKG_INGAME_DIED_WATER",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_WATER_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_WATER_FEMALE",
+			"suicideMessageNeuter":	"@JKG_INGAME_SUICIDE_WATER_GENDERLESS"
+		}
+	},
+
+	"MOD_SLIME": {
+		// Falling into toxic slime
+		"inventoryName": "@JKG_INVENTORY_MOD_SLIME",
+
+		"modifiers": {
+			"ignoreShield": true
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_SLIME",
+			"deathMessage": "@JKG_INGAME_DIED_SLIME",
+			"suicideMessage": "@JKG_INGAME_SUICIDE_SLIME"
+		}
+	},
+
+	"MOD_LAVA": {
+		// Falling into hot lava
+		"inventoryName": "@JKG_INVENTORY_MOD_LAVA",
+
+		"modifiers": {
+			"ignoreShield": true
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_LAVA",
+			"deathMessage": "@JKG_INGAME_DIED_LAVA",
+			"suicideMessage": "@JKG_INGAME_SUICIDE_LAVA"
+		}
+	},
+
+	"MOD_TRIGGER_HURT": {
+		// Falling into a trigger_hurt
+		"inventoryName": "@JKG_INVENTORY_MOD_TRIGGER_HURT",
+
+		"modifiers": {
+		"dodgeable": true
+		
+		},
+
+		"killFeed": {
+			"killMessage": "@MP_INGAME_KILLED_GENERIC",
+			"deathMessage": "@MP_INGAME_DIED_GENERIC",
+			"suicideMessageMale": "@MP_INGAME_SUICIDE_GENERICDEATH_MALE",
+			"suicideMessageFemale": "@MP_INGAME_SUICIDE_GENERICDEATH_FEMALE",
+			"suicideMessageNeuter":	"@MP_INGAME_SUICIDE_GENERICDEATH_GENDERLESS"
+		}
+	},
+
+	"MOD_TELEFRAG": {
+		// Someone else teleporting on top of you
+		"inventoryName": "@JKG_INVENTORY_MOD_TELEFRAG",
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"ignoreShield": true
+		},
+
+		"dismemberment": {
+			"canDismember": true,
+			"blowChunks": true
+		},
+
+		"killFeed": {
+			"killMessage": "@MP_INGAME_KILLED_GENERIC",
+			"deathMessage": "@MP_INGAME_DIED_GENERIC",
+			"suicideMessageMale": "@MP_INGAME_SUICIDE_GENERICDEATH_MALE",
+			"suicideMessageFemale": "@MP_INGAME_SUICIDE_GENERICDEATH_FEMALE",
+			"suicideMessageNeuter":	"@MP_INGAME_SUICIDE_GENERICDEATH_GENDERLESS"
+		}
+	},
+
+	"MOD_TEAM_CHANGE": {
+		// Changed team
+		"inventoryName": "@JKG_INVENTORY_MOD_TEAM_CHANGE",
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"ignoreShield": true
+		},
+
+		"killFeed": {
+			"killMessage": "@MP_INGAME_KILLED_GENERIC",
+			"deathMessage": "@MP_INGAME_DIED_GENERIC",
+			"suicideMessageMale": "@MP_INGAME_SUICIDE_GENERICDEATH_MALE",
+			"suicideMessageFemale": "@MP_INGAME_SUICIDE_GENERICDEATH_FEMALE",
+			"suicideMessageNeuter":	"@MP_INGAME_SUICIDE_GENERICDEATH_GENDERLESS"
+		},
+
+		"plums": {
+			"hide": true
+		}
+	},
+	
+	"MOD_HEAL": 
+	{
+		//the opposite of damage...
+		"inventoryName": "@JKG_INVENTORY_MOD_HEAL",
+		
+		"modifiers": {
+			"ignoreArmor": true,
+			"ignoreShield": true,
+			"organic": 1.1,
+			"droid": 0.5
+		},
+		
+		"killFeed": {
+			"killMessage": "@MP_INGAME_KILLED_GENERIC",
+			"deathMessage": "@MP_INGAME_DIED_GENERIC",
+			"suicideMessageMale": "@MP_INGAME_SUICIDE_GENERICDEATH_MALE",
+			"suicideMessageFemale": "@MP_INGAME_SUICIDE_GENERICDEATH_FEMALE",
+			"suicideMessageNeuter":	"@MP_INGAME_SUICIDE_GENERICDEATH_GENDERLESS"
+		},
+		
+		"plums": {
+			"damageColor": [ "17", "255", "17" ],
+			"lowDamageColor": [ "89", "247", "110" ]
+		}
+	},
+
+	//////////////////////////////////////////////
+	//
+	// Damage specific to weapons
+	//
+	//////////////////////////////////////////////
+
+	"MOD_SABER": {
+		// Exclusive to lightsabers
+		"inventoryName": "@JKG_INVENTORY_MOD_SABER",
+
+		"modifiers": {
+			"ignoreShield": true,
+			"dodgeable": true,
+			"organic": 1.5
+		},
+
+		"dismemberment": {
+			"canDismember": true
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_SABER",
+			"deathMessage": "@JKG_INGAME_DIED_SABER",
+			"suicideMessage": "@JKG_INGAME_SUICIDE_SABER"
+		}
+	},
+
+	"MOD_VIBROBLADE": {
+		// Exclusive to vibroblades
+		"inventoryName": "@JKG_INVENTORY_MOD_VIBROBLADE",
+
+		"modifiers": {
+			"ignoreShield": true,
+			"dodgeable": true,
+			"armor": 0.8,
+			"organic": 1.5
+		},
+
+		"dismemberment": {
+			"canDismember": true
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_VIBROBLADE",
+			"deathMessage": "@JKG_INGAME_DIED_VIBROBLADE",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_VIBROBLADE_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_VIBROBLADE_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_VIBROBLADE_GENDERLESS"
+		}
+	},
+
+	"MOD_MELEE": {
+		// Exclusive to melee
+		"inventoryName": "@JKG_INVENTORY_MOD_MELEE",
+
+		"modifiers": {
+			"ignoreShield": true,
+			"dodgeable": true,
+			"armor": 0.5,
+			"organic": 1.5
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_MELEE",
+			"deathMessage": "@JKG_INGAME_DIED_MELEE",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_MELEE_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_MELEE_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_MELEE_GENDERLESS"
+		}
+	},
+
+	//////////////////////////////////////////////////////
+	// Everything above this point MUST be in the file
+	//////////////////////////////////////////////////////
+
+	"MOD_BLASTER": { // Referenced in code
+		// Blaster weapons
+		"inventoryName": "@JKG_INVENTORY_MOD_BLASTER",
+
+		"modifiers": {
+			"dodgeable": true,
+			"armor": 1.0,
+			"organic": 1.3,
+			"shield": 0.8,
+			"droid": 1.0
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_BLASTER",
+			"deathMessage": "@JKG_INGAME_DIED_BLASTER",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_SHOT_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_SHOT_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_SHOT_GENDERLESS"
+		}
+	},
+	
+	"MOD_DISRUPTOR": {
+		// Disruptor weapons
+		"inventoryName": "@JKG_INVENTORY_MOD_DISRUPTOR",
+
+		"disintegrate": true,
+
+		"modifiers": {
+			"dodgeable": true,
+			"armor": 1.2,
+			"organic": 1.3,
+			"shield": 0.8,
+			"droid": 1.0
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_DISRUPTOR",
+			"deathMessage": "@JKG_INGAME_DIED_DISRUPTOR",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_SHOT_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_SHOT_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_SHOT_GENDERLESS"
+		}
+	},
+
+	"MOD_SLUGTHROWER": {
+		// Slugthrower weapons
+		"inventoryName": "@JKG_INVENTORY_MOD_SLUGTHROWER",
+
+		"modifiers": {
+			"ignoreShield": true,
+			"dodgeable": true,
+			"armor": 0.6,
+			"organic": 1.15,
+			"droid": 0.2
+		},
+
+		"dismemberment": {
+			"canDismember": true
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_SLUGTHROWER",
+			"deathMessage": "@JKG_INGAME_DIED_SLUGTHROWER",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_SHOT_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_SHOT_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_SHOT_GENDERLESS"
+		}
+	},
+
+	"MOD_ACP": {
+		// ACP weapons
+		"inventoryName": "@JKG_INVENTORY_MOD_ACP",
+
+		"modifiers": {
+			"ignoreShield": false,
+			"dodgeable": true,
+			"armor": 0.8,
+			"organic": 1.2,
+			"shield": 1.2,
+			"droid": 0.8
+		},
+
+		"dismemberment": {
+			"canDismember": true
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_ACP",
+			"deathMessage": "@JKG_INGAME_DIED_ACP",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_SHOT_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_SHOT_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_SHOT_GENDERLESS"
+		}
+	},
+
+	"MOD_PULSE": {
+		// Pulse weapons
+		"inventoryName": "@JKG_INVENTORY_MOD_PULSE",
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"dodgeable": true,
+			"organic": 1.1,
+			"shield": 0.8,
+			"droid": 1.1
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_PULSE",
+			"deathMessage": "@JKG_INGAME_DIED_PULSE",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_SHOT_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_SHOT_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_SHOT_GENDERLESS"
+		}
+	},
+
+	"MOD_ION": {
+		// Ion weapons
+		"inventoryName": "@JKG_INVENTORY_MOD_ION",
+
+		"modifiers": {
+			"isEMP": true,
+			"ignoreArmor": true,
+			"dodgeable": true,
+			"organic": 0.2,
+			"shield": 2.0,
+			"droid": 2.1
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_ION",
+			"deathMessage": "@JKG_INGAME_DIED_ION",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_SHOT_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_SHOT_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_SHOT_GENDERLESS"
+		}
+	},
+
+	"MOD_IONBLASTER": {
+		// Ionized Blasters
+		"inventoryName": "@JKG_INVENTORY_MOD_IONBLASTER",
+
+		"modifiers": {
+			"isEMP": true,
+			"dodgeable": true,
+			"organic": 0.4,
+			"shield": 1.6,
+			"droid": 1.8
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_BLASTER",
+			"deathMessage": "@JKG_INGAME_DIED_BLASTER",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_SHOT_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_SHOT_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_SHOT_GENDERLESS"
+		}
+	},
+
+	"MOD_ELECTRICAL": { // Referenced in code
+		// Electrical weapons
+		"inventoryName": "@JKG_INVENTORY_MOD_ELECTRICAL",
+
+		"modifiers": {
+			"isEMP": true,
+			"armor": 0.8,
+			"organic": 1.0,
+			"shield": 1.7,
+			"droid": 1.8
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_ELECTRICAL",
+			"deathmessage": "@JKG_INGAME_DIED_ELECTRICAL",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_ELECTRICAL_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_ELECTRICAL_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_ELECTRICAL_GENDERLESS"
+		}
+	},
+
+	"MOD_SONIC": {
+		// Sonic weapons
+		"inventoryName": "@JKG_INVENTORY_MOD_SONIC",
+
+		"modifiers": {
+			"isEMP": true,
+			"dodgeable": true,
+			"armor": 1.0,
+			"organic": 1.0,
+			"shield": 1.0,
+			"droid": 0.8
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_SONIC",
+			"deathMessage": "@JKG_INGAME_DIED_SONIC",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_SHOT_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_SHOT_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_SHOT_GENDERLESS"
+		}
+	},
+
+	"MOD_COLD": {
+		// Cold weapons
+		"inventoryName": "@JKG_INVENTORY_MOD_COLD",
+
+		"modifiers": {
+			"dodgeable": true,
+			"armor": 0.8,
+			"organic": 1.1,
+			"shield": 1.2,
+			"droid": 0.8
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_COLD",
+			"deathMessage": "@JKG_INGAME_DIED_COLD",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_FROZEN_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_FROZEN_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_FROZEN_GENDERLESS"
+		},
+
+		"plums": {
+			"damageColor": [ "11", "11", "255" ],
+			"lowDamageColor": [ "11", "11", "255" ],
+			"shieldDamageColor": [ "11", "11", "255" ]
+		}
+	},
+
+	"MOD_FIRE": {
+		// Fire weapons
+		"inventoryName": "@JKG_INVENTORY_MOD_FIRE",
+
+		"modifiers": {
+			"ignoreShield": false,
+			"armor": 0.8,
+			"organic": 1.4,
+			"shield": 0.5,
+			"droid": 0.8
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_FIRE",
+			"deathMessage": "@JKG_INGAME_DIED_FIRE",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_IGNITED_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_IGNITED_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_IGNITED_GENDERLESS"
+		},
+
+		"plums": {
+			"damageColor": [ "255", "169", "65" ],
+			"lowDamageColor": [ "255", "169", "65" ],
+			"shieldDamageColor": [ "255", "169", "65" ]
+		}
+	},
+
+	"MOD_EXPLOSION": { // Referenced in code
+		"inventoryName": "@JKG_INVENTORY_MOD_EXPLOSION",
+
+		// Exploding weapons
+		"hitmarkerExplosives": false,	// Special case, don't trigger hitmarkers
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"dodgeable": true,
+			"organic": 1.0,
+			"shield": 1.0,
+			"droid": 1.0
+		},
+
+		"dismemberment": {
+			"canDismember": true,
+			"blowChunks": true
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_EXPLOSION",
+			"deathMessage": "@JKG_INGAME_DIED_EXPLOSION",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_EXPLOSION_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_EXPLOSION_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_EXPLOSION_GENDERLESS"
+		}
+	},
+
+	"MOD_QUARREL": {
+		// Fire weapons
+		"inventoryName": "@JKG_INVENTORY_MOD_QUARREL",
+
+		"modifiers": {
+			"dodgeable": true,
+			"armor": 1.0,
+			"organic": 1.0,
+			"shield": 1.0,
+			"droid": 1.0
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_QUARREL",
+			"deathMessage": "@JKG_INGAME_DIED_QUARREL",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_SHOT_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_SHOT_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_SHOT_GENDERLESS"
+		}
+	},
+
+	//////////////////////////////////////////////
+	//
+	// Damage related to debuffs
+	//
+	//////////////////////////////////////////////
+
+	"MOD_FROZEN": {
+		// Frozen via Cryoban grenade
+		"inventoryName": "@JKG_INVENTORY_MOD_FROZEN",
+
+		"modifiers": {
+			"armor": 0.8,
+			"organic": 1.1,
+			"shield": 1.2,
+			"droid": 0.8
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_FROZEN",
+			"deathMessage": "@JKG_INGAME_DIED_FROZEN",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_FROZEN_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_FROZEN_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_FROZEN_GENDERLESS"
+		},
+
+		"plums": {
+			"damageColor": [ "255", "255", "255" ],
+			"lowDamageColor": [ "255", "255", "255" ],
+			"shieldDamageColor": [ "255", "255", "255" ]
+		}
+	},
+
+	"MOD_CARBONITE": {
+		// Encased in carbonite
+		"inventoryName": "@JKG_INVENTORY_MOD_CARBONITE",
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_CARBONITE",
+			"deathMessage": "@JKG_INGAME_DIED_CARBONITE",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_CARBONITE_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_CARBONITE_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_CARBONITE_GENDERLESS"
+		},
+
+		"plums": {
+			"damageColor": [ "255", "255", "255" ],
+			"lowDamageColor": [ "255", "255", "255" ],
+			"shieldDamageColor": [ "255", "255", "255" ]
+		}
+	},
+
+	"MOD_EMP": { 
+		// electromagnetic pulse shorts out electronics
+		"inventoryName": "@JKG_INVENTORY_MOD_ION",
+
+		"modifiers": {
+			"isEMP": true,
+			"armor": 0.6,
+			"organic": 1.0,
+			"shield": 1.7,
+			"droid": 1.8
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_ELECTRICAL",
+			"deathmessage": "@JKG_INGAME_DIED_ELECTRICAL",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_ELECTRICAL_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_ELECTRICAL_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_ELECTRICAL_GENDERLESS"
+		},
+
+		"plums": {
+			"damageColor": [ "157", "125", "255" ],
+			"lowDamageColor": [ "157", "100", "255" ],
+			"shieldDamageColor": [ "22", "168", "220" ]
+		}
+	},
+
+	"MOD_IGNITED": {
+		// Lit on fire
+		"inventoryName": "@JKG_INVENTORY_MOD_IGNITED",
+
+		"modifiers": {
+			"shieldBlocks": true,
+			"armor": 0.8,
+			"organic": 1.4,
+			"shield": 0.5,
+			"droid": 0.8
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_IGNITED",
+			"deathMessage": "@JKG_INGAME_DIED_IGNITED",
+			"suicideMessageMale": "@JKG_INGAME_SUICIDE_IGNITED_MALE",
+			"suicideMessageFemale": "@JKG_INGAME_SUICIDE_IGNITED_FEMALE",
+			"suicideMessageNeuter": "@JKG_INGAME_SUICIDE_IGNITED_GENDERLESS"
+		},
+
+		"plums": {
+			"damageColor": [ "255", "169", "65" ],
+			"lowDamageColor": [ "255", "169", "65" ],
+			"shieldDamageColor": [ "255", "169", "65" ]
+		}
+	},
+
+	"MOD_STUNNED": {
+		// Stunned
+		"inventoryName": "@JKG_INVENTORY_MOD_STUNNED",
+
+		"modifiers": {
+			"isEMP": true,
+			"shieldBlocks": true
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_STUNNED",
+			"deathMessage": "@JKG_INGAME_DIED_STUNNED",
+			"suicideMessage": "@JKG_INGAME_DIED_STUNNED"
+		}
+	},
+
+	"MOD_BLEEDING": {
+		// Bleeding, by slugthrower
+		"inventoryName": "@JKG_INVENTORY_MOD_BLEEDING",
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"ignoreShield": true
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_BLEEDING",
+			"deathMessage": "@JKG_INGAME_DIED_BLEEDING",
+			"suicideMessage": "@JKG_INGAME_SUICIDE_BLEEDING"
+		},
+
+		"plums": {
+			"damageColor": [ "99", "7", "7" ],
+			"lowDamageColor": [ "99", "7", "7" ]
+		}
+	},
+	
+	"MOD_POISONED": {
+		// Poisoned, by monsters/grenades/environment
+		"inventoryName": "@JKG_INVENTORY_MOD_POISONED",
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"ignoreShield": true,
+			"droid": 0.0,
+			"organic": 1.3
+		},
+
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_POISONED",
+			"deathMessage": "@JKG_INGAME_DIED_POISONED",
+			"suicideMessage": "@JKG_INGAME_SUICIDE_POISONED"
+		},
+
+		"plums": {
+			"damageColor": [ "133", "25", "169" ],
+			"lowDamageColor": [ "133", "25", "169" ]
+		}
+	},
+	
+	"MOD_CURED": {
+	//gain hp overtime/remove poison debuff+heal
+	"inventoryName": "@JKG_INVENTORY_MOD_CURED",
+	
+	"modifiers": {
+		"ignoreArmor": true,
+		"ignoreShield": true,
+		"droid": 0.0,
+		"organic": 1.0
+		},
+		
+		"killFeed": {
+			"killMessage": "@JKG_INGAME_KILLED_CURED",
+			"deathMessage": "@JKG_INGAME_DIED_CURED",
+			"suicideMessage": "@JKG_INGAME_SUICIDE_CURED"
+		},
+	
+		"plums": {
+			"damageColor": [ "17", "255", "17" ],
+			"lowDamageColor": [ "89", "247", "110" ]
+		}
+	},
+
+	"MOD_STAMINA_LOSE": {
+		// Taking damage to stamina/force power (can't actually kill you, but sorta hurts you?)
+		"inventoryName": "@JKG_INVENTORY_MOD_STAMINA",
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"ignoreShield": true,
+			"droid": 0.0		//droids are not force sensitive
+		},
+
+		"plums": {
+			"damageColor": [ "25", "75", "200" ],
+			"lowDamageColor": [ "100", "75", "200" ]
+		}
+	},
+
+	"MOD_STAMINA_GAIN": {
+		// Recovering stamina/force power (heals)
+		"inventoryName": "@JKG_INVENTORY_MOD_STAMINA",
+
+		"modifiers": {
+			"ignoreArmor": true,
+			"ignoreShield": true,
+			"droid": 0.0		//droids are not force sensitive
+		},
+
+		"plums": {
+			"damageColor": [ "30", "160", "230" ],
+			"lowDamageColor": [ "100", "160", "230" ]
+		}
+	}
+}

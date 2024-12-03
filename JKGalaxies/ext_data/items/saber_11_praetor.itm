@@ -1,0 +1,12 @@
+{
+	"name":             "@MENUS_SINGLE_HILT5",
+	"internal":             "saber_praetor",
+	"itemtype":             "weapon",
+	"weapon":		"WP_SABER",
+	"variation":		"11",
+	"weight":		"18",
+	"tier":			4,
+	"cost":		"1800",
+	"xml":			"",
+	"itemIcon":		"models/weapons/lightsabers/icons/preator.tga"
+}

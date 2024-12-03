@@ -1,0 +1,29 @@
+{
+	"ref":		"rbhelmet_red",
+	"slot":		"head",
+	"armor":		130,
+	"movemodifier":	1.0,
+
+	"visuals": {
+		"model":	"models/players/rebel/model.glm*red",
+		"modelGroup":	"rebel",
+
+		"armorOnSurfaces": [
+			"head_helmet"
+		],
+
+		"bodyOffSurfaces": [
+			"head_helmet",
+			"head_hair",
+			"head_haira",
+			"head_hairb",
+			"head_l_hairback",
+			"heada",
+			"headb",
+			"head_com",
+			"head_left",
+			"head_right",
+			"head_fins"
+		]
+	}
+}

@@ -1,0 +1,51 @@
+{
+	"AMMO_GAS_POISON": 
+	{
+		"shortname": "Toxic Gas Canister",
+		"longname": "Merr-Sonn Toxic Gas Canisters",
+		"basedOn": "AMMO_GAS",
+		"max": 100,
+		"pricePerUnit": 2.5,
+		"overrides":
+		{
+			"Damage": 
+			{
+				"set": 2
+			},
+			"SplashRange": {
+				"set": 100
+			},
+			"meansofdeath": "MOD_POISONED",
+        	"splashmeansofdeath": "MOD_POISONED",
+			"visuals":
+			{
+				"projectile":
+				{
+					"miss": "player/poison",
+					"hit": "Blasters/green_small_smoke",
+					"effect": "player/poison"
+				}
+			},
+
+			"buffs": 
+			[
+				{
+					"buff": "standard-poison",
+					"addbuff": true,
+					"duration": 
+					{
+						"set": 7000
+					},
+					"intensity":
+					{
+						"multiply": 1.0
+					}
+				},
+				{
+					"buff": "standard-fire",
+					"remove": true
+				}
+			]
+		}
+	}
+}

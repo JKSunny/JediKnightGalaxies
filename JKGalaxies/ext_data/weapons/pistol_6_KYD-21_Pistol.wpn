@@ -1,0 +1,124 @@
+{
+    "name":             "@JKG_ITEMS_pistol_KYD-21_Pistol",
+    "type":             "WP_BRYAR_PISTOL",
+    "variation":        6,
+    "classname":        "pistol_KYD-21",
+    "description":      "@JKG_ITEMS_pistol_KYD-21_Pistol",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/KYD-21_Pistol/viewmodel_targeter.md3",
+        "worldmodel":       "models/weapons/KYD-21_Pistol/model_targeter.glm",
+        "hudicon":          "models/weapons/KYD-21_Pistol/icon_targeter",
+        "hudnaicon":        "models/weapons/KYD-21_Pistol/icon_targeter",
+        "selectsound":      "sound/weapons/select_pistol.wav",
+	"barrelCount":	    1,
+        
+        "indicators": {
+            "ammo":         [ "models/weapons/KYD-21_Pistol/bar3", "models/weapons/KYD-21_Pistol/bar2" ],
+            "firemode":     "models/weapons/KYD-21_Pistol/bar"
+        },
+        
+        "gunposition":      "12.0 -5.0 -6.0",
+        "ironsightsposition": "10.0 0.0 -3.6",
+        "ironsightsfov": "75",
+		"barrelCount": "1",
+    
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_Yellow_small",
+            "firesound":    [
+                "sound/weapons/blasters/tie_cannon1.mp3",
+                "sound/weapons/blasters/tie_cannon2.mp3",
+                "sound/weapons/blasters/tie_cannon3.mp3",
+                "sound/weapons/blasters/tie_cannon4.mp3"
+            ],
+            "projectilefx": "blasters/shot_yellow_small",
+            "miss":         { "impactfx": "weapons/blaster_impact_yellow_medium" },
+            "hit":          { "impactfx": "blasters/yellow_flesh_impact" },
+            "deathfx": "blasters/shot_yellow_vaporize",
+	    "displayName":  "Blaster"
+        },
+        
+        "firemode1": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_stingbeam",
+            "firesound":    [
+                "sound/weapons/blasters/stingbeam1.mp3",
+                "sound/weapons/blasters/stingbeam2.mp3",
+                "sound/weapons/blasters/stingbeam3.mp3",
+                "sound/weapons/blasters/stingbeam4.mp3"
+            ],
+            "projectilefx": "blasters/shot_White_Flare_small",
+            "miss":         { "impactfx": "blasters/blue_impacttiny" },
+            "hit":          { "impactfx": "blasters/blue_impacttiny" },
+            "deathfx": "blasters/shot_White_vaporize",
+	    "displayName":  "Sting Blast"
+        }
+    },
+    
+    "stats": {
+        "slot":         2,
+        "reloadtime":   850,
+        "flags":        [ "roll" ],
+        "reloadmodifier": 0.7
+    },
+    
+    "firemode0": {
+        "damage":       28,
+        "ammocost":     1,
+        "firedelay":    475,
+        "firingtype":   "semi",
+        "range":	3200.0,
+        "recoil":       1.0,
+        "spread":       0.1,
+        "projectilespeed": 4000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_KYD-21",
+	"ammodefault": "AMMO_KYD-21",
+        "clipSize":              16
+    },
+    
+    "firemode1": {
+        "damage": {
+			"damage": 10,
+			"buffs": [
+			{
+				"buff": "standard-sting",
+				"duration": 7000
+			}
+			]
+		},
+        "ammocost":     1,
+        "firedelay":    300,
+        "firingtype":   "semi",
+        "range":	1800.0,
+        "recoil":       0.2,
+        "spread":       0.1,
+        "projectilespeed": 12000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_KYD-21",
+	"ammodefault": "AMMO_KYD-21",
+        "clipSize":              16
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "BOTH_PISTOLRELOAD" },
+        "sights":        { "torso": "TORSO_WEAPONREADY2", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK2" },
+	"ready":	{ "torso": "BOTH_BASE_PISTOLSTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_PISTOLSHOOT" },
+	"sprint":	{ "torso": "BOTH_PISTOLRUN" },
+        "sprintStyle": "1"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

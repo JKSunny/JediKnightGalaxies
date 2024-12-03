@@ -1,0 +1,19 @@
+// Gang Wars team definition
+// File by Futuza
+// (c) 2019 Jedi Knight Galaxies
+
+name "^7Jawas"
+longname "^7Jawa Liberation Front"
+joinstring "^7joined the Jawa Liberation Front."
+toomanystring "^7Too many JLF members!"
+leadstring "^7The JLF has restored their freedom."
+menustring "Jawas"
+reference "jawas"
+flagtakenstring "^7The JLF have stolen a flag!"
+flagreturnedstring "^7The JLF have reclaimed their flag."
+flagcapturedstring "^7The JLF have captured the flag."
+modelstore "jawa/default,human_merc/default,gran/default,trandoshan/default,boba_fett/default,"
+defaultModel "jawa/default,"
+useTeamColors "0"
+icon "sprites/jawas"
+teamColor "{51,201,51,255}"

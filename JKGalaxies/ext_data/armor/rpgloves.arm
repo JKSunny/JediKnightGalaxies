@@ -1,0 +1,27 @@
+{
+	"ref":		"rpgloves",
+	"slot":		"gloves",
+	"armor":		25,
+	"movemodifier":	1.0,
+
+	"visuals": {
+		"model":	"models/players/rebel_pilot/model.glm*default",
+		"modelGroup":	"rebel_pilot",
+
+		"armorOnSurfaces": [
+			"l_hand",
+			"l_hand_inner_glove",
+			"r_hand",
+			"r_hand_inner_glove"
+		],
+
+		"bodyOffSurfaces": [
+			"l_hand",
+			"l_hand_plate",
+			"r_hand",
+			"r_hand_plate",
+			"r_hand_inner_glove",
+			"l_hand_inner_glove"
+		]
+	}
+}

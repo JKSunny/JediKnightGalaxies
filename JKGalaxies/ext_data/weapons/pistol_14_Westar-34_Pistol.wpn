@@ -1,0 +1,81 @@
+{
+	"name": "@JKG_ITEMS_pistol_Westar-34_Pistol",
+	"type": "WP_BRYAR_PISTOL",
+	"variation": 14,
+	"classname": "pistol_Westar-34",
+	"description": "@JKG_ITEMS_pistol_Westar-34_Pistol",
+
+	"visual": {
+		"viewmodel": "models/weapons/Westar-34_Pistol/viewmodel.md3",
+		"worldmodel": "models/weapons/Westar-34_Pistol/model.glm",
+		"hudicon": "models/weapons/Westar-34_Pistol/icon_default",
+		"hudnaicon": "models/weapons/Westar-34_Pistol/icon_default",
+		"selectsound": "sound/weapons/select_pistol.wav",
+		"barrelCount": 0,
+		"gunposition": "14.0 -4.0 -5.6",
+		"ironsightsposition": "10.0 0.0 -2.75",
+		"ironsightsfov": "80",
+
+		"firemode0": {
+			"type": "blaster",
+
+			"muzzlefx": "blasters/muzzleflash_Red_small",
+			"firesound": [
+				"sound/weapons/blasters/westar1.mp3",
+				"sound/weapons/blasters/westar2.mp3",
+				"sound/weapons/blasters/westar3.mp3",
+				"sound/weapons/blasters/westar4.mp3"
+			],
+			"projectilefx": "blasters/shot_red_medium",
+			"miss": {
+				"impactfx": "weapons/blaster_impact_red_medium_fire"
+			},
+			"hit": {
+				"impactfx": "blasters/red_flesh_impact"
+			},
+			"deathfx": "blasters/shot_red_vaporize",
+			"displayName": "Semi"
+		}
+	},
+
+	"stats": {
+		"slot": 2,
+		"reloadtime": 1200,
+		"flags": ["roll"],
+		"reloadmodifier": 0.7
+	},
+
+	"firemode0": {
+		"damage": 20,
+		"ammocost": 1,
+		"firedelay": 125,
+		"firingtype": "semi",
+		"recoil": 0.7,
+		"range": 3300,
+		"spread": 0.4,
+		"projectilespeed": 4000.0,
+		"projectileclass": "blaster_proj",
+		"meansofdeath": "MOD_BRYAR_PISTOL",
+		"ammobase": "AMMO_SS_POWERPAK",
+		"ammodefault": "AMMO_SS_POWERPAK",
+		"clipSize": 20,
+		"heatGenerated": 6.75
+	},
+
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "BOTH_PISTOLRELOAD" },
+        "sights":        { "torso": "TORSO_WEAPONREADY2", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK2" },
+	"ready":	{ "torso": "BOTH_BASE_PISTOLSTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_PISTOLSHOOT" },
+	"sprint":	{ "torso": "BOTH_PISTOLRUN" },
+        "sprintStyle": "7"
+    },
+
+	"weaponanims": {
+		"ready": "READY",
+		"reload": "RELOAD",
+		"firing": "FIRING"
+	}
+}

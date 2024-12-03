@@ -1,0 +1,11 @@
+{
+	"name":		"40-pack Bouncing Crossbow Quarrels",
+	"internal":	"ammo_bouncingQuarrels_40",
+	"itemtype":	"ammo",
+	"weight":		"0",
+	"cost":		"80",
+	"ammoclass":	"AMMO_QUARREL_BOUNCING",
+	"ammoquantity":	"40",
+	"itemIcon": "gfx/item_icons/ammo_metallic_bolts.tga",	//needs icon!
+	"itemDescription": "These crossbow bolt munitions appear to have been magnetically charged enabling them to bounce off non-organic surfaces several times before losing their charge."
+}

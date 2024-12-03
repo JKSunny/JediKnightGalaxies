@@ -1,0 +1,83 @@
+// Jedi Knight Galaxies - Jedi Academy Base Ammo and example file
+{
+	// The name of the field is the reference name of the ammo.
+	//
+	// From there there are a few basic fields:
+	//	shortname: The name as displayed on the HUD
+	//	longname: The name as displayed in the ammo UI
+	//	max: Maximum amount of ammo of this type that can be held
+	//	basedOn: What ammo this type is based on. For example, Flaming Slugthrower Ammo is based on Slugthrower Ammo.
+	//	"overrides": {			// Properties of the weapon that can be overridden. This is an object block that can override any field from .wpn files:
+	//		"damage": {
+	//			"set": 50,		// Sets to a flat number
+	//			"add": 5,		// Adds a flat number to original number from .wpn file (can be negative)
+	//			"multiply": 1.2	// Multiplies original number from .wpn file
+	//		},
+	//		"damagetype": [ "explosive", "fire" ]
+	//		}
+	"AMMO_NONE": {
+		"shortname": "None",
+		"basedOn": "",
+		"max": 0
+	},
+
+	"AMMO_FORCE": {
+		"shortname": "Force",
+		"basedOn": "",
+		"max": 1000
+	},
+
+	"AMMO_BLASTER": {
+		"shortname": "Blaster",
+		"basedOn": "",
+		"max": 3000
+	},
+
+	"AMMO_POWERCELL": {
+		"shortname": "Power Cell",
+		"basedOn": "",
+		"max": 3000
+	},
+
+	"AMMO_METAL_BOLTS": {
+		"shortname": "Metallic Bolts",
+		"basedOn": "",
+		"max": 3000
+	},
+
+	"AMMO_CONCUSSION": {
+		"shortname": "Concussion",
+		"basedOn": "",
+		"max": 500
+	},
+
+	"AMMO_ROCKETS": {
+		"shortname": "Rockets",
+		"basedOn": "",
+		"max": 25
+	},
+
+	"AMMO_EMPLACED": {
+		"shortname": "Emplaced",
+		"basedOn": "",
+		"max": 800
+	},
+
+	"AMMO_THERMAL": {
+		"shortname": "Thermals",
+		"basedOn": "",
+		"max": 10
+	},
+
+	"AMMO_TRIPMINE": {
+		"shortname": "Trip Mines",
+		"basedOn": "",
+		"max": 10
+	},
+
+	"AMMO_DETPACK": {
+		"shortname": "Det Packs",
+		"basedOn": "",
+		"max": 10
+	}
+}

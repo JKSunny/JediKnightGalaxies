@@ -1,0 +1,104 @@
+{
+    "name":             "@JKG_ITEMS_pistol_DE-10_Pistol",
+    "type":             "WP_BRYAR_PISTOL",
+    "variation":        10,
+    "classname":        "pistol_DE-10",
+    "description":      "@JKG_ITEMS_pistol_DE-10_Pistol",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/DE-10_Pistol/viewmodel.md3",
+        "worldmodel":       "models/weapons/DE-10_Pistol/model.glm",
+        "hudicon":          "models/weapons/DE-10_Pistol/icon_default",
+        "hudnaicon":        "models/weapons/DE-10_Pistol/icon_default",
+        "selectsound":      "sound/weapons/select_pistol.wav",
+		"barrelCount":	    "1",
+        
+        "gunposition":      "12.0 -4.0 -7.0",
+        "ironsightsposition": "6.0 0.0 -4.5",
+        "ironsightsfov": "20",
+    
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_Blue_small",
+            "firesound":    [
+                "sound/weapons/blasters/de-10_1.mp3",
+                "sound/weapons/blasters/de-10_2.mp3",
+                "sound/weapons/blasters/de-10_3.mp3",
+                "sound/weapons/blasters/de-10_4.mp3"
+            ],
+            "projectilefx": "blasters/shot_BlueGreen_medium",
+            "miss":         { "impactfx": "weapons/blaster_impact_blue_medium_fire" },
+            "hit":          { "impactfx": "blasters/blue_flesh_impact" },
+            "deathfx": "blasters/shot_BlueGreen_vaporize"
+        },
+        
+        "firemode1": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_Blue_small",
+            "firesound":    [
+                "sound/weapons/blasters/de-10_1.mp3",
+                "sound/weapons/blasters/de-10_2.mp3",
+                "sound/weapons/blasters/de-10_3.mp3",
+                "sound/weapons/blasters/de-10_4.mp3"
+            ],
+            "projectilefx": "blasters/shot_BlueGreen_medium",
+            "miss":         { "impactfx": "weapons/blaster_impact_blue_medium_fire" },
+            "hit":          { "impactfx": "blasters/blue_flesh_impact" },
+            "deathfx": "blasters/shot_BlueGreen_vaporize"
+        },
+
+        "scope": {
+                "mask":     "models/weapons/DE-10_Pistol/scope_Mask"
+        }
+    },
+    
+    "stats": {
+        "slot":         2,
+        "reloadtime":   1500,
+        "flags":        [ "roll", "togglezoom" ],
+        "startzoomfov": 30.0,
+        "reloadmodifier": 0.7
+    },
+    
+    "firemode0": {
+        "damage":       36,
+        "ammocost":     1,
+        "firedelay":    500,
+        "firingtype":   "semi",
+        "range":	4000.0,
+        "recoil":       3.5,
+        "spread":       0.1,
+        "projectilespeed": 4000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_BLASTER",
+        "splashmeansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_AA_POWERPAK",
+	"ammodefault": "AMMO_AA_POWERPAK",
+        "clipSize":              10,
+        "accuracy": {
+			"accuracyRating": 15,
+			"accuracyRatingPerShot": 5,
+			"msToDrainAccuracy": 55,
+			"maxAccuracyAdd": 75
+        }
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "BOTH_PISTOLRELOAD" },
+        "sights":        { "torso": "TORSO_WEAPONREADY2", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK2" },
+	"ready":	{ "torso": "BOTH_BASE_PISTOLSTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_PISTOLSHOOT" },
+	"sprint":	{ "torso": "BOTH_PISTOLRUN" },
+        "sprintStyle": "8"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

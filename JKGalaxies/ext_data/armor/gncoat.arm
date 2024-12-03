@@ -1,0 +1,53 @@
+{
+	"ref":		"gncoat",
+	"slot":		"torso, gloves",
+	"armor":		30,
+	"movemodifier":	1.0,
+
+	"visuals": {
+		"model":	"models/players/jedi_hm/model.glm*head_a1|torso_g1|lower_a1",
+		"modelGroup":	"jedi_hm",
+
+		"armorOnSurfaces": [
+			"torsog",
+			"torsog_collar",
+			"r_armg",
+			"r_armg_cuff",
+			"r_handg",
+			"l_armg",
+			"l_armg_cuff",
+			"l_handg"
+		],
+
+		"bodyOffSurfaces": [
+			"torso",
+			"torso_holster",
+			"torso_strap",
+			"torso_bandolier",
+			"r_arm_shoulder",
+			"r_arm",
+			"r_arm_sleeve",
+			"l_arm",
+			"l_arm_shoulder",
+			"l_arm_sleeve",
+			"torso_body",
+			"l_arm_a",
+			"l_arm_b",
+			"l_arm_c",
+			"r_arm_a",
+			"r_arm_b",
+			"r_arm_c",
+			"torso_l_shoulder",
+			"torso_r_shoulder",
+			"torso_vest",
+			"torso_armor",
+			"torso_cowelbase",
+			"l_hand",
+			"l_hand_plate",
+			"r_hand",
+			"r_hand_plate",
+			"r_hand_inner_glove",
+			"l_hand_inner_glove"
+		]
+	}
+}

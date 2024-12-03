@@ -1,0 +1,227 @@
+{
+    "name":             "@JKG_ITEMS_Grenade_Bacta_Antidote-e",
+    "type":             "WP_THERMAL",
+    "variation":        14,
+    "classname":        "Grenade_Bacta_Antidote-e",
+    "description":      "@JKG_ITEMS_Grenade_Bacta_Antidote-e",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/Grenade_Bacta/viewmodel.md3",
+        "worldmodel":       "models/weapons/Grenade_Bacta/model.glm",
+        "hudicon":          "gfx/Item_Icons/default",
+        "hudnaicon":        "gfx/Item_Icons/default",
+        "selectsound":      "sound/weapons/select_grenade.wav",
+        
+
+        "gunposition":      "10.0 -2.5 -2.5",
+        "ironsightsposition": "9.0 -4.0 -3.2",
+		"barrelCount": "1",
+
+        "firemode0": {
+            "type":         "grenade",
+            
+            "firesound":    [
+                "sound/weapons/melee/swing1.mp3",
+                "sound/weapons/melee/swing2.mp3",
+                "sound/weapons/melee/swing3.mp3",
+                "sound/weapons/melee/swing4.mp3"
+            ],
+            "chargingsound": "sound/weapons/grenade_cook.wav",
+            "projectilemodel": "models/weapons/Grenade_Bacta/projectile.md3",
+			"runsound": "sound/weapons/helpfulnade_loop.wav",
+			"miss": {
+				"impactfx": "weapons/watergun_impact_big",
+				"shockwavefx": "weapons/watergun_impact_small"
+			},
+			"hit": {
+				"impactfx": "weapons/watergun_impact_big",
+				"shockwavefx": "weapons/watergun_impact_small"
+			},
+			"bouncesound": ["sound/weapons/grenade_bounce1.wav", "sound/weapons/grenade_bounce2.wav"],
+			"displayName":  "Throw"
+        },
+        
+        "firemode1": {
+            "type":         "grenade",
+            
+            "firesound":    [
+                "sound/weapons/melee/swing1.mp3",
+                "sound/weapons/melee/swing2.mp3",
+                "sound/weapons/melee/swing3.mp3",
+                "sound/weapons/melee/swing4.mp3"
+            ],
+            "chargingsound": "sound/weapons/grenade_cook.wav",
+            "projectilemodel": "models/weapons/Grenade_Bacta/projectile.md3",
+			"runsound": "sound/weapons/helpfulnade_loop.wav",
+            "miss": {
+                "impactfx": "weapons/watergun_impact_big",
+                "shockwavefx": "weapons/watergun_impact_small"
+            },
+            "hit": {
+                "impactfx": "weapons/watergun_impact_big",
+                "shockwavefx": "weapons/watergun_impact_small"
+           },
+            "bouncesound":  [ "sound/weapons/grenade_bounce1.wav", "sound/weapons/grenade_bounce2.wav" ],
+			"displayName":  "Roll"
+        }
+    },
+    
+    "stats": {
+        "slot":         3,
+        "reloadtime":   3000,
+        "ammoIndex":         "grenade_Bacta_Antidote",
+        "ammoOnSpawn":   2,
+        "ammoOnPickup":   1,
+        "flags":        [ "cookable", "roll" ]
+    },
+    
+    "firemode0": {
+        "damage": 
+		{
+            "damageradius": 
+			{ 
+				"start": 0,
+				"end": 150,
+                "function": "clamp",
+                "parm": 30,
+                "falloff": "constant" 
+			},
+            "duration": 1000,
+            "delay": 0,
+            "damage": -5,
+            "damagedelay": 350,
+			"buffs": [
+			{
+				"buff": "standard-antidote",
+				"duration": 8000
+			}
+			],
+			"flags":	[ "DAMAGE_NO_KNOCKBACK" ]
+        },
+		
+        "secondarydamage": 
+		{
+            "damageradius": 
+			{ 
+				"start": 228,
+                "falloff": "linear" },
+                "duration": 1500,
+                "delay": 500,
+                "damage": -1,
+                "damagedelay": 400,
+                "buffs": [
+				{
+					"buff": "standard-antidote",
+					"duration": 8000
+				},
+                {
+                    "buff": "standard-heal",
+					"duration": 3000
+                }
+				],
+			  "flags":	[ "DAMAGE_NO_KNOCKBACK" ]
+        },
+        "ballistic":    true,
+		"grenade": true,
+		"useQuantity":	true,
+        "grenadeBounces": true,
+        "bounces": 1,
+        "grenadeBounceDMG": 0,
+        "collisionsize":1.7,
+        "ammocost":     1,
+        "maxchargetime":2000,
+        "chargedelay":  2000,
+        "firedelay":    500,
+        "firingtype":   "semi",
+        "recoil":       3.0,
+        "spread":       1.0,
+        "splashrange":  450,
+        "projectilespeed":1200.0,
+        "projectileclass":"repeater_alt_proj",
+        "clipSize":              0,
+        "meansofdeath": "MOD_HEALING",
+        "splashmeansofdeath": "MOD_HEALING"
+    },
+    
+    "firemode1": {
+        "damage": 
+		{
+            "damageradius": 
+			{ 
+				"start": 0,
+				"end": 150,
+                "function": "clamp",
+                "parm": 30,
+                "falloff": "constant" 
+			},
+            "duration": 1000,
+            "delay": 0,
+            "damage": -5,
+            "damagedelay": 500,
+			"buffs": [
+			{
+				"buff": "standard-antidote",
+				"duration": 8000
+			}
+			],
+			"flags":	[ "DAMAGE_NO_KNOCKBACK" ]
+        },
+		
+        "secondarydamage": 
+		{
+            "damageradius": 
+			{ 
+				"start": 228,
+                "falloff": "linear" },
+                "duration": 1500,
+                "delay": 500,
+                "damage": -1,
+                "damagedelay": 250,
+                "buffs": [
+				{
+					"buff": "standard-antidote",
+					"duration": 8000
+				},
+                {
+                    "buff": "standard-heal",
+					"duration": 3000
+                }
+				],
+			  "flags":	[ "DAMAGE_NO_KNOCKBACK" ]
+        },
+        "ballistic":    true,
+		"grenade": true,
+		"useQuantity":	true,
+        "grenadeBounces": true,
+        "bounces": 1,
+        "grenadeBounceDMG": 0,
+        "collisionsize":1.7,
+        "ammocost":     1,
+        "maxchargetime":2000,
+        "chargedelay":  2000,
+        "firedelay":    500,
+        "firingtype":   "semi",
+        "recoil":       3.0,
+        "spread":       1.0,
+        "splashrange":  450,
+        "projectilespeed":900.0,
+        "projectileclass":"repeater_alt_proj",
+        "clipSize":              0,
+        "meansofdeath": "MOD_HEALING",
+        "splashmeansofdeath": "MOD_HEALING"
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "TORSO_DROPWEAP1" },
+        "ready":        { "torso": "TORSO_WEAPONREADY10", "legs": "BOTH_STAND1" },
+        "firing":       { "torso": "BOTH_THERMAL_THROW" },
+        "sprintStyle": "11"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

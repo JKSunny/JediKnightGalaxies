@@ -1,0 +1,12 @@
+{
+	"name":             "Crow",
+	"internal":             "saber_crow",
+	"itemtype":             "weapon",
+	"weapon":		"WP_SABER",
+	"variation":		"3",
+	"weight":		"4",
+	"tier":			4,
+	"cost":		"1125",
+	"xml":			"",
+	"itemIcon":		"models/weapons/lightsabers/icons/crow.tga"
+}

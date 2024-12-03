@@ -1,0 +1,12 @@
+{
+	"name":             "@JKG_ITEMS_sniper_Bryar_Rifle",
+	"internal":             "sniper_Bryar",
+	"itemtype":             "weapon",
+	"weapon":		"WP_BOWCASTER",
+	"variation":		"7",
+	"weight":		"10",
+	"cost":		"1000",
+	"xml":			"",
+	"itemIcon":		"models/weapons/bryar_rifle/icon_scope",
+	"itemDescription": "The Bryar rifle was a predecessor and rifle version of the Bryar pistol and could 'charge' large shots making the blaster bolts more likely to pierce through armor. This scoped variant was suitable for long range operations."
+}

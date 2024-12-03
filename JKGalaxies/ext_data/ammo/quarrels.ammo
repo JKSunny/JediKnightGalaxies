@@ -1,0 +1,85 @@
+{
+	"AMMO_QUARREL": {
+		"shortname": "Bowcaster Quarrels",
+		"longname": "Wookiee Bowcaster Quarrel Packs",
+		"max": 100,
+		"pricePerUnit": 3.5
+	},
+	
+	"AMMO_QUARREL_EXPLOSIVE": {
+		"shortname": "Explosive Quarrels",
+		"longname": "Explosive Wookiee Bowcaster Quarrel Packs",
+		"basedOn": "AMMO_QUARREL",
+		"max": 120,
+		"pricePerUnit": 5,
+		"overrides": {
+			"Damage": {
+				"multiply": 0.9
+			},
+			"SplashRange": {
+				"set": 400
+			},
+			"bounces": {
+				"set": 0
+			},
+			"visuals": {
+				"projectile": {
+					"hit": "Blasters/green_impacthuge", //green_impacthuge is slightly too big, but green_impactbig is too wimpy, need to make a new green_impactlarge that's somewhere inbetween
+					"miss": "Blasters/green_impacthuge",
+					"effect": "Blasters/shot_Green_Flare_medium"
+				}
+			}
+		}
+	},
+
+	"AMMO_QUARREL_SPLITTING": {
+		"shortname": "Splitting Quarrels",
+		"longname": "Splitting Wookiee Bowcaster Quarrel Packs",
+		"basedOn": "AMMO_QUARREL",
+		"max": 120,
+		"pricePerUnit": 7,
+		"overrides": {
+			"damage": {
+				"multiply": 0.7
+			},
+			"bounces": {
+				"set": 0
+			},
+			"projectiles": {
+				"set": 4
+			},
+			"accuracyRatingBase": {
+				"set": 100
+			},
+			"accuracyRatingPerShot": {
+				"set": 15
+			},
+			"ammocost": {
+				"multiply": 2
+			},
+			"visuals": {
+				"projectile": {
+					"hit": "Weapons/aa-35c_green_impacttiny",
+					"miss": "Weapons/aa-35c_green_impacttiny",
+					"effect": "Blasters/shot_Green_Flare_small"
+				}
+			}
+		}
+	},
+
+	"AMMO_QUARREL_BOUNCING": {
+		"shortname": "Bouncing Quarrels",
+		"longname": "Bouncing Wookiee Bowcaster Quarrel Pack",
+		"basedOn": "AMMO_QUARREL",
+		"max": 120,
+		"pricePerUnit": 5,
+		"overrides": {
+			"damage": {
+				"multiply": 0.8
+			},
+			"bounces": {
+				"add": 4
+			}
+		}
+	}
+}

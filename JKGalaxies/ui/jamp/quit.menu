@@ -1,0 +1,335 @@
+	//----------------------------------------------------------------------------------------------
+	//
+	//	QUIT MENU
+	//
+	//----------------------------------------------------------------------------------------------
+{
+	menuDef 
+	{
+		name					"quitMenu"
+		visible				0
+		fullScreen				1								// MENU_TRUE				
+		rect					0 0 640 480						// Size and position of the menu
+		focusColor				1 1 1 1							// Focus color for text and items
+		appearanceIncrement		100								// In miliseconds
+//		descX					320
+//		descY					424
+//		descScale				1
+//		descColor				1 .682 0 .8
+//		descAlignment			ITEM_ALIGN_CENTER		
+
+		onESC 
+		{ 
+			play			"sound/interface/sub_select.wav" ; 
+			close			quitMenu ; 
+			open			mainMenu ;
+		}
+
+		onOpen 
+		{
+			setfocus			nobutton
+			//transition	<item name>	<start rect>		<end rect>	<gaps>	<time/frames 25 = 0.6 s, 50 = 1.1 s, 100 = 2.1 s @ 91 FPS>
+			transition		quitmenu		54 250 245 62		54 89 245 245	20	20
+			transition		quittext		105 264 153 21		105 190 153 21	20	20
+			transition		yesbutton	118 278 56 13		118 224 56 13	20	20
+			transition		yesbutton_bg	110 276 71 18		110 222 71 18	20	20
+			transition		highlightyes	110 276 71 18		110 222 71 18	20	20
+			transition		nobutton		188 278 56 13		188 224 56 13	20	20
+			transition		nobutton_bg	180 276 71 18		180 222 71 18	20	20
+			transition		highlightno	180 276 71 18		180 222 71 18	20	20
+			hide		highlights
+		}
+
+//----------------------------------------------------------------------------------------------
+//	MENU BACKGROUND
+//----------------------------------------------------------------------------------------------
+	
+		itemDef 
+		{
+			name				backgroundfog
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/ui/main_bg_smoke"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				video
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				511 158 92 89
+			background			"gfx/ui/main_video_exit"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/ui/main_bg"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				holomenu
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				54 89 245 245
+			background			"gfx/ui/main_menu"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				logo
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				10 6 487 123
+			background			"gfx/ui/main_bg_logo"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				filmgrain
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/ui/main_bg_grain"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				playbutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				40 108 273 68
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				characterbutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				40 165 273 68
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				configurebutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				40 221 273 68
+			background			"gfx/ui/shop_itembutton"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				creditsbutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				65 280 117 29
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				exitbutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				170 280 117 29
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		//----------------------------------------------------------------------------------------------
+		// 
+		//   QUIT MENU specific stuff
+		// 
+		//----------------------------------------------------------------------------------------------
+
+		// EXIT Submenu
+		itemDef 
+		{
+			name				quitmenu
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				54 89 245 245
+			background			"gfx/ui/main_quitmenu"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		// Quit to Windows?
+		itemDef
+		{
+			name				quittext
+			group				none
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				105 190 153 21
+			text				@JKG_MAINMENU_QUIT
+			font				5
+			textscale				0.6
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			7
+			textaligny			1
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		// "YES" button
+		itemDef 
+		{
+			name				yesbutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				110 222 71 18
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				highlightyes
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				110 222 71 18
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				yesbutton
+			group				main_button
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				118 224 56 13
+			text				@JKG_MAINMENU_YES
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			17
+			textaligny			1
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+
+			mouseEnter 
+			{ 
+				show			highlightyes
+			}
+			mouseExit 
+			{ 
+				hide			highlightyes
+					clearfocus
+			}
+			action 
+			{ 			
+				play		"sound/interface/sub_select.wav" ; 
+				uiScript	Quit			// Quit the game
+			}
+		}
+
+		// "NO" button
+		itemDef 
+		{
+			name				nobutton_bg
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				180 222 71 18
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				highlightno
+			group				highlights
+			style				WINDOW_STYLE_SHADER
+			rect				180 222 71 18
+			background			"gfx/ui/main_buttonsmall"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				nobutton
+			group				main_button
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				188 224 56 13
+			text				@JKG_MAINMENU_NO
+			font				5
+			textscale				0.4
+			textalign				ITEM_ALIGN_LEFT
+			textalignx			19
+			textaligny			1
+			textstyle			0
+			forecolor			1 1 1 1
+			visible				1
+
+			mouseEnter 
+			{ 
+				show			highlightno
+			}
+			mouseExit 
+			{ 
+				hide			highlightno
+					clearfocus
+			}
+			action 
+			{ 			
+				play		"sound/interface/sub_select.wav" ; 
+				close		quitMenu ; 
+				open		mainMenu ;
+			}
+		}
+	}
+}

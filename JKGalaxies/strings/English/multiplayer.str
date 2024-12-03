@@ -1,0 +1,409 @@
+// Note to translators:
+// If a sentence is the same in your language then please change it to "#same"
+//
+// eg:
+// LANG_ENGLISH  "HALT"
+// LANG_GERMAN   "#same"
+//
+// (This is so we can tell which strings have been signed-off as ok to be the same words for QA
+//  and because we do not store duplicate strings, which will then get exported again next time
+//  as being untranslated.)
+//
+VERSION             "1"
+CONFIG              "W:\bin\stringed.cfg"
+FILENOTES           "multiplayer"
+
+REFERENCE           40MOM001
+LANG_ENGLISH        "1 point remaining"
+
+REFERENCE           40MOM002
+LANG_ENGLISH        "2 points remaining"
+
+REFERENCE           40MOM003
+LANG_ENGLISH        "3 points remaining"
+
+REFERENCE           40MOM004
+LANG_ENGLISH        "1 minute remains"
+
+REFERENCE           40MOM005
+LANG_ENGLISH        "5 minutes remain"
+
+REFERENCE           40MOM006
+LANG_ENGLISH        "You won the match"
+
+REFERENCE           40MOM007
+LANG_ENGLISH        "You came in 2nd"
+
+REFERENCE           40MOM008
+LANG_ENGLISH        "You came in 3rd"
+
+REFERENCE           40MOM009
+LANG_ENGLISH        "You did not rank"
+
+REFERENCE           40MOM010
+LANG_ENGLISH        "You lost the match"
+
+REFERENCE           40MOM011
+LANG_ENGLISH        "Your team won the match"
+
+REFERENCE           40MOM012
+LANG_ENGLISH        "Your team lost the match"
+
+REFERENCE           40MOM013
+LANG_ENGLISH        "The Republic won the match"
+
+REFERENCE           40MOM014
+LANG_ENGLISH        "The Empire won the match"
+
+REFERENCE           40MOM015
+LANG_ENGLISH        "Red team won the match"
+
+REFERENCE           40MOM016
+LANG_ENGLISH        "Blue team won the match"
+
+REFERENCE           40MOM017
+LANG_ENGLISH        "Denied"
+
+REFERENCE           40MOM018
+LANG_ENGLISH        "Your commendations are"
+
+REFERENCE           40MOM019
+LANG_ENGLISH        "Ace award"
+
+REFERENCE           40MOM020
+LANG_ENGLISH        "First Strike award"
+
+REFERENCE           40MOM021
+LANG_ENGLISH        "Jedi Master award"
+
+REFERENCE           40MOM022
+LANG_ENGLISH        "Carrier award"
+
+REFERENCE           40MOM023
+LANG_ENGLISH        "Demolitionist award"
+
+REFERENCE           40MOM024
+LANG_ENGLISH        "Defender award"
+
+REFERENCE           40MOM025
+LANG_ENGLISH        "Impressive award"
+
+REFERENCE           40MOM026
+LANG_ENGLISH        "Tactician award"
+
+REFERENCE           40MOM027
+LANG_ENGLISH        "Untouchable award"
+
+REFERENCE           40MOM028
+LANG_ENGLISH        "Objective Complete"
+
+REFERENCE           40MOM029
+LANG_ENGLISH        "Enemy completed objective"
+
+REFERENCE           40MOM030
+LANG_ENGLISH        "Your team is in the lead"
+
+REFERENCE           40MOM031
+LANG_ENGLISH        "Enemy team is in the lead"
+
+REFERENCE           40MOM032
+LANG_ENGLISH        "The teams are tied for the lead"
+
+REFERENCE           40MOM033
+LANG_ENGLISH        "The Empire"
+
+REFERENCE           40MOM034
+LANG_ENGLISH        "The Rebellion"
+
+REFERENCE           40MOM035
+LANG_ENGLISH        "3"
+
+REFERENCE           40MOM036
+LANG_ENGLISH        "2"
+
+REFERENCE           40MOM037
+LANG_ENGLISH        "1"
+
+REFERENCE           40MOM038
+LANG_ENGLISH        "You may begin"
+
+REFERENCE           40MOM039
+LANG_ENGLISH        "The Blue team has stolen the flag"
+
+REFERENCE           40MOM040
+LANG_ENGLISH        "The Red team has stolen the flag"
+
+REFERENCE           40MOM041
+LANG_ENGLISH        "The Blue team has returned their flag"
+
+REFERENCE           40MOM042
+LANG_ENGLISH        "The Red team has returned their flag"
+
+REFERENCE           40MOM043
+LANG_ENGLISH        "The Blue team has scored"
+
+REFERENCE           40MOM044
+LANG_ENGLISH        "The Red team has scored"
+
+REFERENCE           40MOM045
+LANG_ENGLISH        "Blue team is in the lead"
+
+REFERENCE           40MOM046
+LANG_ENGLISH        "Red team is in the lead"
+
+REFERENCE           40MOM047
+LANG_ENGLISH        "The Blue team has stolen the Ysalamiri"
+
+REFERENCE           40MOM048
+LANG_ENGLISH        "The Red team has stolen the Ysalamiri"
+
+REFERENCE           40MOM049
+LANG_ENGLISH        "The Blue team has returned their Ysalamiri"
+
+REFERENCE           40MOM050
+LANG_ENGLISH        "The Red team has returned their Ysalamiri"
+
+REFERENCE           40JAO001
+LANG_ENGLISH        "Cover me"
+
+REFERENCE           40JAO002
+LANG_ENGLISH        "I'll cover you"
+
+REFERENCE           40JAO003
+LANG_ENGLISH        "Hold this position"
+
+REFERENCE           40JAO004
+LANG_ENGLISH        "Follow me"
+
+REFERENCE           40JAO005
+LANG_ENGLISH        "Regroup team"
+
+REFERENCE           40JAO006
+LANG_ENGLISH        "Need backup"
+
+REFERENCE           40JAO007
+LANG_ENGLISH        "Fall back"
+
+REFERENCE           40JAO008
+LANG_ENGLISH        "I've got their flag"
+
+REFERENCE           40JAO009
+LANG_ENGLISH        "I'll get their flag"
+
+REFERENCE           40JAO010
+LANG_ENGLISH        "Get their flag"
+
+REFERENCE           40JAO011
+LANG_ENGLISH        "I've got their flag, but ours is gone"
+
+REFERENCE           40JAO012
+LANG_ENGLISH        "Where is our flag"
+
+REFERENCE           40JAO013
+LANG_ENGLISH        "They've got our flag"
+
+REFERENCE           40JAO014
+LANG_ENGLISH        "Protect the flag"
+
+REFERENCE           40JAO015
+LANG_ENGLISH        "Go for the objective"
+
+REFERENCE           40JAO016
+LANG_ENGLISH        "Objective complete"
+
+REFERENCE           40JAO017
+LANG_ENGLISH        "I'm going for the objective"
+
+REFERENCE           40JAO018
+LANG_ENGLISH        "They're going for the objective"
+
+REFERENCE           40JAO019
+LANG_ENGLISH        "Guard the base"
+
+REFERENCE           40JAO020
+LANG_ENGLISH        "Guard the objective"
+
+REFERENCE           40TAA001
+LANG_ENGLISH        "Cover me"
+
+REFERENCE           40TAA002
+LANG_ENGLISH        "I'll cover you"
+
+REFERENCE           40TAA003
+LANG_ENGLISH        "Hold this position"
+
+REFERENCE           40TAA004
+LANG_ENGLISH        "Follow me"
+
+REFERENCE           40TAA005
+LANG_ENGLISH        "Regroup team"
+
+REFERENCE           40TAA006
+LANG_ENGLISH        "Need backup"
+
+REFERENCE           40TAA007
+LANG_ENGLISH        "Fall back"
+
+REFERENCE           40TAA008
+LANG_ENGLISH        "I've got their flag"
+
+REFERENCE           40TAA009
+LANG_ENGLISH        "I'll get their flag"
+
+REFERENCE           40TAA010
+LANG_ENGLISH        "Get their flag"
+
+REFERENCE           40TAA011
+LANG_ENGLISH        "I've got their flag, but ours is gone"
+
+REFERENCE           40TAA012
+LANG_ENGLISH        "Where is our flag"
+
+REFERENCE           40TAA013
+LANG_ENGLISH        "They've got our flag"
+
+REFERENCE           40TAA014
+LANG_ENGLISH        "Protect the flag"
+
+REFERENCE           40TAA015
+LANG_ENGLISH        "Go for the objective"
+
+REFERENCE           40TAA016
+LANG_ENGLISH        "Objective complete"
+
+REFERENCE           40TAA017
+LANG_ENGLISH        "I'm going for the objective"
+
+REFERENCE           40TAA018
+LANG_ENGLISH        "They're going for the objective"
+
+REFERENCE           40TAA019
+LANG_ENGLISH        "Guard the base"
+
+REFERENCE           40TAA020
+LANG_ENGLISH        "Guard the objective"
+
+REFERENCE           40RS1001
+LANG_ENGLISH        "Cover me"
+
+REFERENCE           40RS1002
+LANG_ENGLISH        "I'll cover you"
+
+REFERENCE           40RS1003
+LANG_ENGLISH        "Hold this position"
+
+REFERENCE           40RS1004
+LANG_ENGLISH        "Follow me"
+
+REFERENCE           40RS1005
+LANG_ENGLISH        "Regroup team"
+
+REFERENCE           40RS1006
+LANG_ENGLISH        "Need backup"
+
+REFERENCE           40RS1007
+LANG_ENGLISH        "Fall back"
+
+REFERENCE           40RS1008
+LANG_ENGLISH        "I've got their flag"
+
+REFERENCE           40RS1009
+LANG_ENGLISH        "I'll get their flag"
+
+REFERENCE           40RS1010
+LANG_ENGLISH        "Get their flag"
+
+REFERENCE           40RS1011
+LANG_ENGLISH        "I've got their flag, but ours is gone"
+
+REFERENCE           40RS1012
+LANG_ENGLISH        "Where is our flag"
+
+REFERENCE           40RS1013
+LANG_ENGLISH        "They've got our flag"
+
+REFERENCE           40RS1014
+LANG_ENGLISH        "Protect the flag"
+
+REFERENCE           40RS1015
+LANG_ENGLISH        "Go for the objective"
+
+REFERENCE           40RS1016
+LANG_ENGLISH        "Objective complete"
+
+REFERENCE           40RS1017
+LANG_ENGLISH        "I'm going for the objective"
+
+REFERENCE           40RS1018
+LANG_ENGLISH        "They're going for the objective"
+
+REFERENCE           40RS1019
+LANG_ENGLISH        "Guard the base"
+
+REFERENCE           40RS1020
+LANG_ENGLISH        "Guard the objective"
+
+REFERENCE           40IO1001
+LANG_ENGLISH        "Cover me"
+
+REFERENCE           40IO1002
+LANG_ENGLISH        "I'll cover you"
+
+REFERENCE           40IO1003
+LANG_ENGLISH        "Hold this position"
+
+REFERENCE           40IO1004
+LANG_ENGLISH        "Follow me"
+
+REFERENCE           40IO1005
+LANG_ENGLISH        "Regroup team"
+
+REFERENCE           40IO1006
+LANG_ENGLISH        "Need backup"
+
+REFERENCE           40IO1007
+LANG_ENGLISH        "Fall back"
+
+REFERENCE           40IO1008
+LANG_ENGLISH        "I've got their flag"
+
+REFERENCE           40IO1009
+LANG_ENGLISH        "I'll get their flag"
+
+REFERENCE           40IO1010
+LANG_ENGLISH        "Get their flag"
+
+REFERENCE           40IO1011
+LANG_ENGLISH        "I've got their flag, but ours is gone"
+
+REFERENCE           40IO1012
+LANG_ENGLISH        "Where is our flag"
+
+REFERENCE           40IO1013
+LANG_ENGLISH        "They've got our flag"
+
+REFERENCE           40IO1014
+LANG_ENGLISH        "Protect the flag"
+
+REFERENCE           40IO1015
+LANG_ENGLISH        "Go for the objective"
+
+REFERENCE           40IO1016
+LANG_ENGLISH        "Objective complete"
+
+REFERENCE           40IO1017
+LANG_ENGLISH        "I'm going for the objective"
+
+REFERENCE           40IO1018
+LANG_ENGLISH        "They're going for the objective"
+
+REFERENCE           40IO1019
+LANG_ENGLISH        "Guard the base"
+
+REFERENCE           40IO1020
+LANG_ENGLISH        "Guard the objective"
+
+
+ENDMARKER
+
+

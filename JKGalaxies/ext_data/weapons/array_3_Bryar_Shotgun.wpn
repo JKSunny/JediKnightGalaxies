@@ -1,0 +1,184 @@
+{
+    "name":             "@JKG_ITEMS_array_Bryar_Shotgun",
+    "type":             "WP_FLECHETTE",
+    "variation":        3,
+    "classname":        "array_Bryar",
+    "description":      "@JKG_ITEMS_array_Bryar_Shotgun",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/bryar_carbine/viewmodel.md3",
+        "worldmodel":       "models/weapons/bryar_carbine/model.glm",
+        "hudicon":          "models/weapons/bryar_carbine/icon_default",
+        "hudnaicon":        "models/weapons/bryar_carbine/icon_default",
+        "selectsound":      "sound/weapons/select_carbine.wav",
+        
+        "indicators": {
+            "ammo":         [ "models/weapons/bryar_carbine/numbers3", "models/weapons/bryar_carbine/numbers2", "models/weapons/bryar_carbine/numbers1" ],
+            "firemode":     "models/weapons/bryar_carbine/firemode"
+        },
+        
+        "gunposition":      "8.4 -3.0 -7.0",
+        "ironsightsposition": "9.0 0.0 -3.7",
+        "ironsightsfov": "70",
+		"barrelCount": "4",
+		
+    
+        "firemode0": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_Red_medium",
+            "firesound":    [
+                "sound/weapons/blasters/bryar_rifle1.mp3",
+                "sound/weapons/blasters/bryar_rifle2.mp3",
+                "sound/weapons/blasters/bryar_rifle3.mp3",
+                "sound/weapons/blasters/bryar_rifle4.mp3"
+            ],
+            "projectilefx": "blasters/shot_redorange_medium",
+            "miss":         { "impactfx": "weapons/blaster_impact_red_medium_fire" },
+            "hit":          { "impactfx": "blasters/red_flesh_impact" },
+            "deathfx": "blasters/shot_redorange_vaporize",
+	    "displayName": "Triple"
+        },
+        
+        "firemode1": {
+            "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_Red_medium",
+            "firesound":    [
+                "sound/weapons/blasters/bryar_rifle1.mp3",
+                "sound/weapons/blasters/bryar_rifle2.mp3",
+                "sound/weapons/blasters/bryar_rifle3.mp3",
+                "sound/weapons/blasters/bryar_rifle4.mp3"
+            ],
+            "projectilefx": "blasters/shot_redorange_medium",
+            "miss":         { "impactfx": "weapons/blaster_impact_red_big_fire" },
+            "hit":          { "impactfx": "blasters/red_flesh_impact" },
+            "deathfx": "blasters/shot_redorange_vaporize",
+	    "displayName": "Burst"
+        },
+		
+		"firemode2": {
+           "type":         "blaster",
+            
+            "muzzlefx":     "blasters/muzzleflash_Red_medium",
+            "firesound":    [
+                "sound/weapons/blasters/bryar_rifle1.mp3",
+                "sound/weapons/blasters/bryar_rifle2.mp3",
+                "sound/weapons/blasters/bryar_rifle3.mp3",
+                "sound/weapons/blasters/bryar_rifle4.mp3"
+            ],
+            "projectilefx": "blasters/shot_redorange_medium",
+            "miss":         { "impactfx": "weapons/blaster_impact_red_medium_fire" },
+            "hit":          { "impactfx": "blasters/red_flesh_impact" },
+            "deathfx": "blasters/shot_redorange_vaporize",
+	    "displayName": "Decimator"
+        }
+		
+    },
+    
+    "stats": {
+        "slot":         2,
+        "reloadtime":   1800,
+        "flags":        [ "roll" ],
+        "reloadmodifier": 0.6
+    },
+    
+    "firemode0": {
+        "damage":       35,
+        "ammocost":     1,
+        "firedelay":    900,
+        "firingtype":   "semi",
+        "projectiles":     3,
+        "recoil":       1.5,
+        "range":       3700,
+        "spread":       10.6,
+        "projectilespeed": 4000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_POWERCELL_L",
+	"ammodefault": "AMMO_POWERCELL_L",
+        "clipSize":              33,
+        "accuracy": {
+        	"accuracyRating": 40,
+        	"accuracyRatingPerShot": 12,
+        	"msToDrainAccuracy": 1000,
+        	"maxAccuracyAdd": 36,
+        	"crouchModifier": 0.95,
+        	"runModifier": 1.5,
+        	"sightsModifier": 0.85,
+        	"walkModifier": 1.25,
+        	"inAirModifier": 2
+        }
+    },
+    
+    "firemode1": {
+        "damage":       35,
+        "ammocost":     1,
+        "burstshotdelay": 250,
+        "firedelay":    900,
+        "firingtype":   "burst",
+        "recoil":       0.8,
+        "range":       3700,
+        "shotsperburst": 3,
+        "spread":       0.0,
+        "projectilespeed": 4000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_POWERCELL_L",
+	"ammodefault": "AMMO_POWERCELL_L",
+        "clipSize":              33,
+        "accuracy": {
+			"accuracyRating": 18,
+			"accuracyRatingPerShot": 2,
+			"msToDrainAccuracy": 1000,
+			"maxAccuracyAdd": 48,
+			"sightsModifier": 0.5
+        }
+    },
+	
+	"firemode2": {
+        "damage":       18,
+        "ammocost":     3,
+        "firedelay":    2000,
+        "firingtype":   "semi",
+        "projectiles":     9,
+        "recoil":       8.5,
+        "range":       2000,
+        "spread":       10.0,
+        "projectilespeed": 2000.0,
+        "projectileclass": "blaster_proj",
+        "meansofdeath": "MOD_BLASTER",
+	"ammobase": "AMMO_POWERCELL_L",
+	"ammodefault": "AMMO_POWERCELL_L",
+        "clipSize":              33,
+        "accuracy": {
+        	"accuracyRating": 80,
+        	"accuracyRatingPerShot": 15,
+        	"msToDrainAccuracy": 1200,
+        	"maxAccuracyAdd": 36,
+        	"crouchModifier": 0.95,
+        	"runModifier": 1.5,
+        	"sightsModifier": 0.85,
+        	"walkModifier": 1.25,
+        	"inAirModifier": 2
+        }
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+//        "reload":       { "torso": "TORSO_DROPWEAP1" },
+        "reload":       { "torso": "BOTH_RIFLERELOADR" },
+        "sights":        { "torso": "TORSO_WEAPONREADY3", "legs": "BOTH_STAND1" },
+        "sightsFiring":       { "torso": "BOTH_ATTACK3" },
+	"ready":	{ "torso": "BOTH_BASE_RIFLESTANCE", "legs": "BOTH_STAND1" },
+	"firing":	{ "torso": "BOTH_BASE_RIFLESHOOT" },
+	"sprint":       { "torso": "BOTH_RIFLERUN" },
+        "sprintStyle": "17"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

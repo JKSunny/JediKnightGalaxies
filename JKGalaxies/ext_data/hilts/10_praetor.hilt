@@ -1,0 +1,15 @@
+{
+	"name":			"single_5",
+	"saberModel":		"models/weapons2/saber_5/saber_5.glm",
+	"soundOn":		"sound/weapons/saber/saberon.wav",
+	"soundLoop":		"sound/weapons/saber/saberhum4.wav",
+	"soundOff":		"sound/weapons/saber/saberoff.wav",
+	"animSpeedScale":	0.9,
+	"extraDamage":		1.25,
+	"blades": {
+		"blade1": {
+			"length": 62,
+			"radius": 1.5
+		}
+	}
+}

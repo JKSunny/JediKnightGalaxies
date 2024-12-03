@@ -1,0 +1,12 @@
+{
+	"name":             "@JKG_ITEMS_sniper_Drsln_SlugRifle_Scope",
+	"internal":             "sniper_Dressy",
+	"itemtype":             "weapon",
+	"weapon":		"WP_BOWCASTER",
+	"variation":		"6",
+	"weight":		"12",
+	"cost":		"1750",
+	"xml":			"xml/items/Dessy.xml",
+	"itemIcon":		"models/weapons/Drsln_SlugRifle/icon_s",
+	"itemDescription": "While considered a crude and primitive weapon by many, it remains nonetheless a deadly weapon capable of piercing Stormtrooper armor. It fires high velocity ballistic slugs which bypass most shields. The optional scope made it much deadlier."
+}

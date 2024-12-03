@@ -1,0 +1,210 @@
+{
+    "name":             "@JKG_ITEMS_Grenade_Poison",
+    "type":             "WP_THERMAL",
+    "variation":        13,
+    "classname":        "Grenade_Poison",
+    "description":      "@JKG_ITEMS_Grenade_Poison",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/Grenade_Poison/viewmodel.md3",
+        "worldmodel":       "models/weapons/Grenade_Poison/model.glm",
+        "hudicon":          "models/weapons/Grenade_Poison/icon_default",
+        "hudnaicon":        "models/weapons/Grenade_Poison/icon_default",
+        "selectsound":      "sound/weapons/select_grenade.wav",
+        
+        
+        "gunposition":      "11.0 -3.0 -4.0",
+        "ironsightsposition": "10.0 -4.0 -4.0",
+		"barrelCount": "1",
+    
+        "firemode0": {
+            "type":         "grenade",
+            
+            "firesound":    [
+                "sound/weapons/melee/swing1.mp3",
+                "sound/weapons/melee/swing2.mp3",
+                "sound/weapons/melee/swing3.mp3",
+                "sound/weapons/melee/swing4.mp3"
+            ],
+            "chargingsound": "sound/weapons/grenade_cook.wav",
+            "projectilemodel": "models/weapons/Grenade_Poison/projectile.md3",
+            "runsound":     "sound/ambience/pipe_steam_lp.wav",
+            "miss": {
+                "impactfx": "explosives/smoketoxic" },
+            "hit": {
+                "impactfx": "explosives/smoketoxic" },
+            "bouncesound":  [ "sound/weapons/grenade_bounce1.wav", "sound/weapons/grenade_bounce2.wav" ],
+	    "displayName":  "Throw"
+        },
+        
+        "firemode1": {
+            "type":         "grenade",
+            
+            "firesound":    [
+                "sound/weapons/melee/swing1.mp3",
+                "sound/weapons/melee/swing2.mp3",
+                "sound/weapons/melee/swing3.mp3",
+                "sound/weapons/melee/swing4.mp3"
+            ],
+            "chargingsound": "sound/weapons/grenade_cook.wav",
+            "projectilemodel": "models/weapons/Grenade_Poison/projectile.md3",
+            "runsound":     "sound/ambience/pipe_steam_lp.wav",
+            "miss": {
+                "impactfx": "explosives/smoketoxic" },
+            "hit": {
+                "impactfx": "explosives/smoketoxic" },
+            "bouncesound":  [ "sound/weapons/grenade_bounce1.wav", "sound/weapons/grenade_bounce2.wav" ],
+	    "displayName":  "Roll"
+        }
+    },
+    
+    "stats": {
+        "slot":         3,
+        "reloadtime":   3000,
+        "ammoIndex":         "grenade_Poison",
+        "ammoOnSpawn":   2,
+        "ammoOnPickup":   1,
+        "flags":        [ "cookable", "roll" ]
+    },
+    
+    "firemode0": {
+		"damage": 
+			{
+				"damageradius": { "start": 0,
+								  "end": 230,
+								  "function": [ "clamp" ],
+								  "param": 40,
+								   "falloff": "constant"
+								},
+				"duration": 2000,
+				"damage": 5,
+				"damagedelay": 500,
+				"delay": 0,
+				"buffs": [
+					{
+						"buff": "standard-poison",
+						"duration": 5000
+					}
+				],
+				"penetration": 2,
+				"flags": [ "DAMAGE_NO_KNOCKBACK" ]
+			},
+		"secondarydamage":
+			{
+				"damageradius": { "start": 230,
+								  "end": 250,
+								  "function": [ "clamp" ],
+								  "param": 40,
+								   "falloff": "constant"
+								},
+				"duration": 15000,
+				"damage": 0,
+				"damagedelay": 500,
+				"delay": 750,
+				"buffs": [
+					{
+						"buff": "standard-poison",
+						"duration": 5000
+					}
+				],
+				"penetration": 2,
+				"flags": [ "DAMAGE_NO_KNOCKBACK" ]
+			},
+        "ballistic":    true,
+		"useQuantity":	true,
+        "bounces":     -5,
+        "collisionsize":3.0,
+	"flags":	[ "DAMAGE_NO_KNOCKBACK" ],
+        "ammocost":     1,
+        "maxchargetime":3000,
+        "chargedelay":  3000,
+        "firedelay":    1000,
+        "firingtype":   "semi",
+        "recoil":       3.0,
+        "spread":       1.0,
+        "splashrange":  700,
+        "projectilespeed":1100.0,
+        "projectileclass":"thermal_detonator",
+        "clipSize":              0,
+        "meansofdeath": "MOD_POISON",
+        "splashmeansofdeath": "MOD_POISON"
+    },
+
+    
+    "firemode1": {
+		"damage": 
+			{
+				"damageradius": { "start": 0,
+								  "end": 230,
+								  "function": [ "clamp" ],
+								  "param": 40,
+								   "falloff": "constant"
+								},
+				"duration": 2000,
+				"damage": 5,
+				"damagedelay": 500,
+				"delay": 0,
+				"buffs": [
+					{
+						"buff": "standard-poison",
+						"duration": 5000
+					}
+				],
+				"penetration": 2,
+				"flags": [ "DAMAGE_NO_KNOCKBACK" ]
+			},
+		"secondarydamage":
+			{
+				"damageradius": { "start": 230,
+								  "end": 250,
+								  "function": [ "clamp" ],
+								  "param": 40,
+								   "falloff": "constant"
+								},
+				"duration": 15000,
+				"damage": 0,
+				"damagedelay": 500,
+				"delay": 750,
+				"buffs": [
+					{
+						"buff": "standard-poison",
+						"duration": 5000
+					}
+				],
+				"penetration": 2,
+				"flags": [ "DAMAGE_NO_KNOCKBACK" ]
+			},
+        "ballistic":    true,
+	"useQuantity":	true,
+        "bounces":     -5,
+        "collisionsize":3.0,
+	"flags":	[ "DAMAGE_NO_KNOCKBACK" ],
+        "ammocost":     1,
+        "maxchargetime":3000,
+        "chargedelay":  3000,
+        "firedelay":    1000,
+        "firingtype":   "semi",
+        "recoil":       3.0,
+        "spread":       1.0,
+        "splashrange":  800,
+        "projectilespeed":1100.0,
+        "projectileclass":"thermal_detonator",
+        "clipSize":              0,
+        "meansofdeath": "MOD_POISON",
+        "splashmeansofdeath": "MOD_POISON"
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "TORSO_DROPWEAP1" },
+        "ready":        { "torso": "TORSO_WEAPONREADY10", "legs": "BOTH_STAND1" },
+        "firing":       { "torso": "BOTH_THERMAL_THROW" },
+        "sprintStyle": "11"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}

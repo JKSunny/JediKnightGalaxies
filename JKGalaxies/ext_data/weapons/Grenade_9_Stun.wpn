@@ -1,0 +1,159 @@
+{
+    "name":             "@JKG_ITEMS_Grenade_Stun",
+    "type":             "WP_THERMAL",
+    "variation":        9,
+    "classname":        "Grenade_Stun",
+    "description":      "@JKG_ITEMS_Grenade_Stun",
+    
+    "visual": {
+        "viewmodel":        "models/weapons/Grenade_Stun/viewmodel.md3",
+        "worldmodel":       "models/weapons/Grenade_Stun/model.glm",
+        "hudicon":          "models/weapons/Grenade_Stun/icon_default",
+        "hudnaicon":        "models/weapons/Grenade_Stun/icon_default",
+        "selectsound":      "sound/weapons/select_grenade.wav",
+        
+
+        "gunposition":      "10.0 -2.5 -2.5",
+        "ironsightsposition": "9.0 -4.0 -3.2",
+		"barrelCount": "1",
+
+        "firemode0": {
+            "type":         "grenade",
+            
+            "firesound":    [
+                "sound/weapons/melee/swing1.mp3",
+                "sound/weapons/melee/swing2.mp3",
+                "sound/weapons/melee/swing3.mp3",
+                "sound/weapons/melee/swing4.mp3"
+            ],
+            "chargingsound": "sound/weapons/grenade_cook.wav",
+            "projectilemodel": "models/weapons/Grenade_Stun/projectile.md3",
+            "miss": {
+                "impactfx": "explosives/stunsmall",
+                "shockwavefx": "weapons/flashbang_blind"
+            },
+            "hit": {
+                "impactfx": "explosives/stunsmall",
+                "shockwavefx": "weapons/flashbang_blind"
+            },
+            "bouncesound":  [ "sound/weapons/grenade_bounce1.wav", "sound/weapons/grenade_bounce2.wav" ],
+	    "displayName":  "Throw"
+        },
+        
+        "firemode1": {
+            "type":         "grenade",
+            
+            "firesound":    [
+                "sound/weapons/melee/swing1.mp3",
+                "sound/weapons/melee/swing2.mp3",
+                "sound/weapons/melee/swing3.mp3",
+                "sound/weapons/melee/swing4.mp3"
+            ],
+            "chargingsound": "sound/weapons/grenade_cook.wav",
+            "projectilemodel": "models/weapons/Grenade_Stun/projectile.md3",
+            "miss": {
+                "impactfx": "explosives/stunsmall",
+                "shockwavefx": "weapons/flashbang_blind"
+            },
+            "hit": {
+                "impactfx": "explosives/stunsmall",
+                "shockwavefx": "weapons/flashbang_blind"
+           },
+            "bouncesound":  [ "sound/weapons/grenade_bounce1.wav", "sound/weapons/grenade_bounce2.wav" ],
+	    "displayName":  "Roll"
+        }
+    },
+    
+    "stats": {
+        "slot":         3,
+        "reloadtime":   3000,
+        "ammoIndex":         "grenade_stun",
+        "ammoOnSpawn":   4,
+        "ammoOnPickup":   1,
+        "flags":        [ "roll" ]
+    },
+    
+    "firemode0": {
+        "damage": {
+            "damage": 10,
+			"damageradius": 
+                {
+                    "start": 50, 
+                    "falloff": "constant"
+                },
+			"buffs": [
+					{
+						"buff": "standard-stun",
+						"duration": 4000
+					}
+				],
+			  "flags":	[ "DAMAGE_NO_KNOCKBACK" ]
+		},
+        "ballistic":    true,
+	"useQuantity":	true,
+        "grenadeBounces": false,
+        "collisionsize":1.7,
+        "ammocost":     1,
+        "maxchargetime":3000,
+        "chargedelay":  3000,
+        "firedelay":    1000,
+        "firingtype":   "semi",
+        "recoil":       3.0,
+        "spread":       1.0,
+        "splashrange":  350,
+        "projectilespeed":1200.0,
+        "projectileclass":"repeater_alt_proj",
+        "clipSize":              0,
+        "meansofdeath": "MOD_STUNNED",
+        "splashmeansofdeath": "MOD_EXPLOSION"
+    },
+    
+    "firemode1": {
+        "damage": {
+            "damage": 10,
+			"damageradius": 
+                {
+                    "start": 50, 
+                    "falloff": "constant"
+                },
+			"buffs": [
+					{
+						"buff": "standard-stun",
+						"duration": 4000
+					}
+				],
+			  "flags":	[ "DAMAGE_NO_KNOCKBACK" ]
+		},
+        "ballistic":    true,
+	"useQuantity":	true,
+        "grenadeBounces": false,
+        "collisionsize":1.7,
+        "ammocost":     1,
+        "maxchargetime":3000,
+        "chargedelay":  3000,
+        "firedelay":    1000,
+        "firingtype":   "semi",
+        "recoil":       3.0,
+        "spread":       1.0,
+        "splashrange":  350,
+        "projectilespeed":900.0,
+        "projectileclass":"repeater_alt_proj",
+        "clipSize":              0,
+        "meansofdeath": "MOD_STUNNED",
+        "splashmeansofdeath": "MOD_EXPLOSION"
+    },
+    
+    "playeranims": {
+        "idle":         { "torso": "BOTH_IDLE1", "legs": "BOTH_IDLE1" },
+        "reload":       { "torso": "TORSO_DROPWEAP1" },
+        "ready":        { "torso": "TORSO_WEAPONREADY10", "legs": "BOTH_STAND1" },
+        "firing":       { "torso": "BOTH_THERMAL_THROW" },
+        "sprintStyle": "11"
+    },
+    
+    "weaponanims": {
+        "ready":        "READY",   
+        "reload":       "RELOAD",
+        "firing":       "FIRING"
+    }
+}
