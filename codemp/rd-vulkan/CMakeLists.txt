@@ -128,6 +128,7 @@ set(MPVulkanRendererFiles ${MPVulkanRendererFiles} ${MPVulkanRendererUtils})
 
 set(MPVulkanRendererCommonFiles
 	"${MPDir}/qcommon/matcomp.cpp"
+	"${MPDir}/qcommon/q_math.cpp"
 	"${MPDir}/qcommon/q_shared.cpp"
 	
 	${SharedCommonFiles})
@@ -194,5 +195,5 @@ set_target_properties(${MPVulkanRenderer} PROPERTIES COMPILE_DEFINITIONS "${Shar
 set_property(TARGET ${MPVulkanRenderer} APPEND PROPERTY COMPILE_OPTIONS ${OPENJK_VISIBILITY_FLAGS})
 
 set_target_properties(${MPVulkanRenderer} PROPERTIES INCLUDE_DIRECTORIES "${MPVulkanRendererIncludeDirectories}")
-set_target_properties(${MPVulkanRenderer} PROPERTIES PROJECT_LABEL "MP Vulkan Renderer")
+set_target_properties(${MPVulkanRenderer} PROPERTIES PROJECT_LABEL "MP Vulkan Renderer (rd-galaxies-vk_x86.dll)")
 target_link_libraries(${MPVulkanRenderer} ${MPVulkanRendererLibraries})

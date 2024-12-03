@@ -4894,3 +4894,22 @@ void R_InitShaders( qboolean server )
 		CreateExternalShaders();
 	}
 }
+
+#ifdef USE_JKG
+/*
+=============================
+JEDI KNIGHT GALAXIES
+=============================
+*/
+
+// Replacement code for hacks in jkg_wpindicators.c --eez
+void R_OverrideShaderFrame( qhandle_t shader, int desiredFrame, int time )
+{
+	shader_t* thisShader = tr.shaders[shader];
+	// WTF hack here...
+	thisShader->frameOverride = desiredFrame;
+	if (thisShader->next != nullptr && !Q_stricmp(thisShader->next->name, thisShader->name)) {
+		thisShader->next->frameOverride = desiredFrame;
+	}
+}
+#endif

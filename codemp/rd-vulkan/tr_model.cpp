@@ -758,7 +758,25 @@ qboolean ServerLoadMDXA( model_t *mod, void *buffer, const char *mod_name, qbool
 	}
 
 	// Determine the amount of compressed bones.
+	
+#ifdef USE_JKG
+	// find the largest index, since the actual number of compressed bone pools is not stored anywhere
+	for ( i = 0 ; i < mdxa->numFrames ; i++ ) 
+	{
+		for ( j = 0 ; j < mdxa->numBones ; j++ ) 
+		{
+			k = (i * mdxa->numBones * 3) + (j * 3); // iOffsetToIndex
+			pIndex = (mdxaIndex_t *) ((byte*) mdxa + mdxa->ofsFrames + k);
 
+			// 3 byte ints, yeah...
+			int tmp = pIndex->iIndex & 0xFFFFFF00;
+			LL(tmp);
+			
+			if (maxBoneIndex < tmp)
+				maxBoneIndex = tmp;
+		}
+	}
+#else
 	// Find the largest index by iterating through all frames.
 	// It is not guaranteed that the compressed bone pool resides
 	// at the end of the file.
@@ -773,6 +791,8 @@ qboolean ServerLoadMDXA( model_t *mod, void *buffer, const char *mod_name, qbool
 			}
 		}
 	}
+#endif
+
 
 	// Swap the compressed bones.
 	pCompBonePool = (mdxaCompQuatBone_t *) ((byte *)mdxa + mdxa->ofsCompBonePool);
@@ -1020,7 +1040,7 @@ Ghoul2 Insert End
 
 	if (!r_noServerGhoul2)
 	{ //keep it from choking when it gets to these checks in the g2 code. Registering all r_ cvars for the server would be a Bad Thing though.
-		r_noServerGhoul2 = ri->Cvar_Get( "r_noserverghoul2", "0", 0, "");
+		r_noServerGhoul2 = ri->Cvar_Get( "r_noserverghoul2", "0", 0);
 	}
 
 	if ( !name || !name[0] ) {

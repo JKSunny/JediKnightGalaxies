@@ -21,6 +21,12 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 ===========================================================================
 */
 
+// Vulkan: JKG specific
+#define USE_JKG
+#ifdef USE_JKG
+extern float Q_flrand(float min, float max);
+#endif
+
 #ifndef TR_LOCAL_H
 #define TR_LOCAL_H
 
@@ -636,6 +642,11 @@ typedef struct shader_s {
 	int			numVertexes;
 	int			curVertexes;
 	int			curIndexes;
+#endif
+
+#ifdef USE_JKG
+	// Jedi Knight Galaxies
+	int frameOverride;	// for animmaps, we want to override the frame if not -1
 #endif
 
 	struct shader_s		*remappedShader;			// current shader this one is remapped too

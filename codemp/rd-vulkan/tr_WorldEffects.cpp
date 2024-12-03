@@ -505,7 +505,11 @@ public:
 	////////////////////////////////////////////////////////////////////////////////////
 	// AddWeatherZone - Will add a zone of mins and maxes
 	////////////////////////////////////////////////////////////////////////////////////
+#ifdef USE_JKG
+	void			AddWeatherZone(const vec3_t mins, const vec3_t maxs)
+#else
 	void			AddWeatherZone(vec3_t mins, vec3_t maxs)
+#endif
 	{
 		if (!mWeatherZones.full())
 		{
@@ -703,7 +707,11 @@ COutside			mOutside;
 bool				COutside::SWeatherZone::mMarkedOutside = false;
 
 
+#ifdef USE_JKG
+void RE_AddWeatherZone(const vec3_t mins, const vec3_t maxs)
+#else
 void RE_AddWeatherZone(vec3_t mins, vec3_t maxs)
+#endif
 {
 	mOutside.AddWeatherZone(mins, maxs);
 }
