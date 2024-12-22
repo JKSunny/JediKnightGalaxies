@@ -10,6 +10,20 @@
 [ModDB Page](http://www.moddb.com/mods/jkgalaxies) (not updated frequently)  
 [Odysee.com](https://odysee.com/@JediKnightGalaxies:c?view=about) (not updated frequently)  
 
+### Vulkan Renderer Support ###
+This fork is <u>centered</u> around improving the rendering backend, specifically focusing on adding the [Vulkan API](https://www.vulkan.org).\
+The implementation is maintained against the fork of [EternalJK](https://github.com/JKSunny/EternalJK)
+
+> **NOTE:** Game logic remains untouched, required changes are to include SDL2 vulkan headers and refapi.
+
+Support Initially started by porting to [Quake-III-Arena-Kenny-Edition](https://github.com/kennyalive/Quake-III-Arena-Kenny-Edition).<br />
+After that, I found [vkQuake3](https://github.com/suijingfeng/vkQuake3/tree/master/code), hence the file structure.
+
+Lastly, I stumbled across [Quake3e](https://github.com/ec-/Quake3e).<br />
+Which is highly maintained, and is packed with many additions compared to the other repositories.
+
+Therefore the vulkan renderer is now based on Quake3e. <br />A list of the additions can be found on [here](https://github.com/ec-/Quake3e#user-content-vulkan-renderer).
+
 
 ### Downloads ###
 The most update links are available on the download page on the website, under the [test releases section](https://www.jkgalaxies.net/download.html#testdiv), but you can also use the following links which are occasionally updated:
