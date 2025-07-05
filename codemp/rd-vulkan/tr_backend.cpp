@@ -29,7 +29,7 @@ backEndState_t	backEnd;
 
 //bool tr_stencilled = false;
 //extern qboolean tr_distortionPrePost;
-//extern qboolean tr_distortionNegate; 
+//extern qboolean tr_distortionNegate;
 //extern void RB_CaptureScreenImage(void);
 //extern void RB_DistortionFill(void);
 
@@ -158,6 +158,15 @@ to actually render the visible surfaces for this view
 */
 static void RB_BeginDrawingView( void ) {
 
+	// sync with gl if needed
+	if ( r_finish->integer == 1 && !glState.finishCalled ) {
+		vk_queue_wait_idle();
+
+		glState.finishCalled = qtrue;
+	} else if ( r_finish->integer == 0 ) {
+		glState.finishCalled = qtrue;
+	}
+
 	// we will need to change the projection matrix before drawing
 	// 2D images again
 	backEnd.projection2D = qfalse;
@@ -194,10 +203,11 @@ RB_RenderDrawSurfList
 void RB_RenderDrawSurfList( drawSurf_t *drawSurfs, int numDrawSurfs ) {
 	shader_t		*shader, *oldShader;
 	int				i, fogNum, oldFogNum, entityNum, oldEntityNum, dlighted, oldDlighted;
-	Vk_Depth_Range	depthRange; 
+	Vk_Depth_Range	depthRange;
 	drawSurf_t		*drawSurf;
 	unsigned int	oldSort;
 	float			oldShaderSort, originalTime;
+	CBoneCache		*oldBoneCache = nullptr;
 
 #ifdef USE_VANILLA_SHADOWFINISH
 	qboolean		didShadowPass;
@@ -223,17 +233,11 @@ void RB_RenderDrawSurfList( drawSurf_t *drawSurfs, int numDrawSurfs ) {
 #ifdef USE_VANILLA_SHADOWFINISH
 	didShadowPass			= qfalse;
 #endif
-	
+
 	backEnd.pc.c_surfaces	+= numDrawSurfs;
-	
+
 	for (i = 0, drawSurf = drawSurfs; i < numDrawSurfs; i++, drawSurf++)
 	{
-		if (drawSurf->sort == oldSort && backEnd.refractionFill == shader->useDistortion ) {
-			// fast path, same as previous sort
-			rb_surfaceTable[*drawSurf->surface](drawSurf->surface);
-			continue;
-		}
-		
 		R_DecomposeSort(drawSurf->sort, &entityNum, &shader, &fogNum, &dlighted);
 
 		if (vk.renderPassIndex == RENDER_PASS_SCREENMAP && entityNum != REFENTITYNUM_WORLD && backEnd.refdef.entities[entityNum].e.renderfx & RF_DEPTHHACK) {
@@ -254,22 +258,39 @@ void RB_RenderDrawSurfList( drawSurf_t *drawSurfs, int numDrawSurfs ) {
 			continue;
 		}
 
+		if ( vk.vboGhoul2Active && *drawSurf->surface == SF_MDX )
+		{
+			if ( ((CRenderableSurface*)drawSurf->surface)->boneCache != oldBoneCache )
+			{
+				RB_EndSurface();
+				RB_BeginSurface( shader, fogNum );
+				oldBoneCache = ((CRenderableSurface*)drawSurf->surface)->boneCache;
+				vk.cmd->bones_ubo_offset = RB_GetBoneUboOffset((CRenderableSurface*)drawSurf->surface);
+			}
+		}
+
+		if (drawSurf->sort == oldSort && backEnd.refractionFill == shader->useDistortion ) {
+			// fast path, same as previous sort
+			rb_surfaceTable[*drawSurf->surface](drawSurf->surface);
+			continue;
+		}
+
 		//oldSort = drawSurf->sort;
 
 		//
 		// change the tess parameters if needed
 		// a "entityMergable" shader is a shader that can have surfaces from seperate
 		// entities merged into a single batch, like smoke and blood puff sprites
-		
+
 		push_constant = qfalse;
 
 		//if (((oldSort ^ drawSurfs->sort) & ~QSORT_REFENTITYNUM_MASK) || !shader->entityMergable) {
 		if ( shader != oldShader || fogNum != oldFogNum || dlighted != oldDlighted
-			|| ( entityNum != oldEntityNum && !shader->entityMergable ) ) 
-		{	
-			if (oldShader != NULL) {
+			|| ( entityNum != oldEntityNum && !shader->entityMergable ) )
+		{
+			//if (oldShader != NULL) {
 				RB_EndSurface();
-			}
+			//}
 #ifdef USE_PMLIGHT
 #define INSERT_POINT SS_FOG
 			if (backEnd.refdef.numLitSurfs && oldShaderSort < INSERT_POINT && shader->sort >= INSERT_POINT) {
@@ -332,11 +353,11 @@ void RB_RenderDrawSurfList( drawSurf_t *drawSurfs, int numDrawSurfs ) {
 			// we have to reset the shaderTime as well otherwise image animations on
 			// the world (like water) continue with the wrong frame
 			tess.shaderTime = backEnd.refdef.floatTime - tess.shader->timeOffset;
-			
+
 			vk_set_depthrange( depthRange );
-			
+
 			if ( push_constant ) {
-				Com_Memcpy(vk_world.modelview_transform, backEnd.ori.modelMatrix, 64);
+				Com_Memcpy(vk_world.modelview_transform, backEnd.ori.modelViewMatrix, 64);
 				vk_update_mvp(NULL);
 			}
 
@@ -367,7 +388,7 @@ void RB_RenderDrawSurfList( drawSurf_t *drawSurfs, int numDrawSurfs ) {
 	backEnd.refdef.floatTime = originalTime;
 
 	// go back to the world modelview matrix
-	Com_Memcpy(vk_world.modelview_transform, backEnd.viewParms.world.modelMatrix, 64);
+	Com_Memcpy(vk_world.modelview_transform, backEnd.viewParms.world.modelViewMatrix, 64);
 	//vk_update_mvp();
 	vk_set_depthrange(DEPTH_RANGE_NORMAL);
 
@@ -377,7 +398,7 @@ void RB_RenderDrawSurfList( drawSurf_t *drawSurfs, int numDrawSurfs ) {
 		RB_ShadowFinish();
 		didShadowPass = qtrue;
 	}
-#endif 
+#endif
 }
 
 #ifdef USE_PMLIGHT
@@ -413,7 +434,7 @@ static void RB_RenderLitSurfList( dlight_t *dl ) {
 	Vk_Depth_Range	depthRange;
 	const litSurf_t *litSurf;
 	unsigned int	oldSort;
-	double			originalTime; // -EC- 
+	double			originalTime; // -EC-
 
 	// save original time for entity shader offsets
 	originalTime = backEnd.refdef.floatTime;
@@ -504,7 +525,7 @@ static void RB_RenderLitSurfList( dlight_t *dl ) {
 
 			vk_set_depthrange( depthRange );
 
-			Com_Memcpy(vk_world.modelview_transform, backEnd.ori.modelMatrix, 64);
+			Com_Memcpy(vk_world.modelview_transform, backEnd.ori.modelViewMatrix, 64);
 			vk_update_mvp(NULL);
 
 			oldEntityNum = entityNum;
@@ -522,7 +543,7 @@ static void RB_RenderLitSurfList( dlight_t *dl ) {
 	backEnd.refdef.floatTime = originalTime;
 
 	// go back to the world modelview matrix
-	Com_Memcpy(vk_world.modelview_transform, backEnd.viewParms.world.modelMatrix, 64);
+	Com_Memcpy(vk_world.modelview_transform, backEnd.viewParms.world.modelViewMatrix, 64);
 	//vk_update_mvp();
 
 	vk_set_depthrange(DEPTH_RANGE_NORMAL);
@@ -566,7 +587,7 @@ void RE_StretchRaw ( int x, int y, int w, int h, int cols, int rows, const byte 
 		Com_Error(ERR_DROP, "Draw_StretchRaw: size not a power of 2: %i by %i", cols, rows);
 	}
 
-	RE_UploadCinematic( cols, rows, (byte*)data, client, dirty ); 
+	RE_UploadCinematic( cols, rows, (byte*)data, client, dirty );
 
 	if (r_speeds->integer) {
 		end = ri->Milliseconds() * ri->Cvar_VariableValue("timescale");
@@ -606,7 +627,7 @@ const void *RB_StretchPic ( const void *data ) {
 	shader_t *shader;
 
 	cmd = (const stretchPicCommand_t *)data;
-	
+
 	shader = cmd->shader;
 	if ( shader != tess.shader ) {
 		if ( tess.numIndexes ) {
@@ -623,13 +644,13 @@ const void *RB_StretchPic ( const void *data ) {
 	if ( !backEnd.projection2D )
 	{
 		vk_set_2d();
-	}	
+	}
 
 	if ( vk.bloomActive ) {
 		vk_bloom();
 	}
 
-	RB_AddQuadStamp2( cmd->x, cmd->y, cmd->w, cmd->h, cmd->s1, cmd->t1, 
+	RB_AddQuadStamp2( cmd->x, cmd->y, cmd->w, cmd->h, cmd->s1, cmd->t1,
 		cmd->s2, cmd->t2, backEnd.color2D );
 
 	return (const void *)(cmd + 1);
@@ -852,6 +873,155 @@ static void RB_LightingPass( void )
 }
 #endif
 
+static void vk_update_camera_constants( const trRefdef_t *refdef, const viewParms_t *viewParms ) 
+{
+	// set
+	vkUniformCamera_t uniform = {};
+
+	Com_Memcpy( uniform.viewOrigin, refdef->vieworg, sizeof( vec3_t) );
+	uniform.viewOrigin[3] = 0.0f;
+
+	/*
+	const float* p = viewParms->projectionMatrix;
+	float proj[16];
+	Com_Memcpy(proj, p, 64);
+
+	proj[5] = -p[5];
+	//myGlMultMatrix(vk_world.modelview_transform, proj, uniform.mvp);
+	myGlMultMatrix(viewParms->world.modelViewMatrix, proj, uniform.mvp);
+	*/
+
+	vk.cmd->camera_ubo_offset = vk_append_uniform( &uniform, sizeof(uniform), vk.uniform_camera_item_size );
+}
+
+static void vk_update_entity_light_constants( vkUniformEntity_t &uniform, const trRefEntity_t *refEntity ) 
+{
+	static const float normalizeFactor = 1.0f / 255.0f;
+
+	VectorScale(refEntity->ambientLight, normalizeFactor, uniform.ambientLight);
+	VectorScale(refEntity->directedLight, normalizeFactor, uniform.directedLight);
+	VectorCopy(refEntity->lightDir, uniform.lightOrigin);
+
+	uniform.lightOrigin[3] = 0.0f;
+}
+
+static void vk_update_entity_matrix_constants( vkUniformEntity_t &uniform, const trRefEntity_t *refEntity ) 
+{
+	orientationr_t ori;
+
+	// backend ref cant be right
+	/*if ( refEntity == &tr.worldEntity ) {
+		ori = backEnd.viewParms.world;
+		Matrix16Identity( uniform.modelMatrix );
+	}else{
+		R_RotateForEntity( refEntity, &backEnd.viewParms, &ori );
+		Matrix16Copy( ori.modelMatrix, uniform.modelMatrix );
+	}*/
+
+	R_RotateForEntity(refEntity, &backEnd.viewParms, &ori);
+	Matrix16Copy(ori.modelMatrix, uniform.modelMatrix);
+	VectorCopy(ori.viewOrigin, uniform.localViewOrigin);
+
+	Com_Memcpy( &uniform.localViewOrigin, ori.viewOrigin, sizeof( vec3_t) );
+	uniform.localViewOrigin[3] = 0.0f;
+}
+
+static void vk_update_entity_constants( const trRefdef_t *refdef ) {
+	uint32_t i;
+	Com_Memset( vk.cmd->entity_ubo_offset, 0, sizeof(vk.cmd->entity_ubo_offset) );
+
+	for ( i = 0; i < refdef->num_entities; i++ ) {
+		trRefEntity_t *ent = &refdef->entities[i];
+
+		R_SetupEntityLighting( refdef, ent );
+
+		vkUniformEntity_t uniform = {};
+		vk_update_entity_light_constants( uniform, ent );
+		vk_update_entity_matrix_constants( uniform, ent );
+
+		vk.cmd->entity_ubo_offset[i] = vk_append_uniform( &uniform, sizeof(uniform), vk.uniform_entity_item_size );
+	}
+
+	const trRefEntity_t *ent = &tr.worldEntity;
+	vkUniformEntity_t uniform = {};
+	vk_update_entity_light_constants( uniform, ent );
+	vk_update_entity_matrix_constants( uniform, ent );
+
+	vk.cmd->entity_ubo_offset[REFENTITYNUM_WORLD] = vk_append_uniform( &uniform, sizeof(uniform), vk.uniform_entity_item_size );
+}
+
+static void vk_update_ghoul2_constants( const trRefdef_t *refdef ) {
+	uint32_t i;
+
+	if ( !vk.vboGhoul2Active )
+		return;
+
+	for ( i = 0; i < refdef->num_entities; i++ )
+	{
+		const trRefEntity_t *ent = &refdef->entities[i];
+		if (ent->e.reType != RT_MODEL)
+			continue;
+
+		model_t *model = R_GetModelByHandle(ent->e.hModel);
+		if (!model)
+			continue;
+
+		switch (model->type)
+		{
+		case MOD_MDXM:
+		case MOD_BAD:
+		{
+			// Transform Bones and upload them
+			RB_TransformBones( ent, refdef );
+		}
+		break;
+
+		default:
+			break;
+		}
+	}
+
+}
+
+static void vk_update_fog_constants(const trRefdef_t* refdef)
+{
+	uint32_t i;
+	size_t size;
+	vkUniformFog_t uniform = {};
+
+	uniform.num_fogs = tr.world ? ( tr.world->numfogs - 1 ) : 0;
+
+	size = sizeof(vec4_t);
+
+	for ( i = 0; i < uniform.num_fogs; ++i )
+	{
+		const fog_t *fog = tr.world->fogs + i + 1;
+		vkUniformFogEntry_t *fogData = uniform.fogs + i;
+
+		VectorCopy4( fog->surface, fogData->plane );
+		VectorCopy4( fog->color, fogData->color );
+		fogData->depthToOpaque = sqrtf(-logf(1.0f / 255.0f)) / fog->parms.depthForOpaque;
+		fogData->hasPlane = fog->hasSurface;
+	}
+
+	size += (i * sizeof(vkUniformFogEntry_t));
+
+	vk.cmd->fogs_ubo_offset = vk_append_uniform( &uniform, size, vk.uniform_fogs_item_size );
+}
+
+static void RB_UpdateUniformConstants( const trRefdef_t *refdef, const viewParms_t *viewParms ) 
+{
+	vk_update_camera_constants( refdef, viewParms );
+
+	if ( vk.vboGhoul2Active ) 
+	{
+		vk_update_entity_constants( refdef );
+		vk_update_ghoul2_constants( refdef );
+	}
+
+	vk_update_fog_constants( refdef );
+}
+
 /*
 =============
 RB_DrawSurfs
@@ -876,6 +1046,8 @@ const void	*RB_DrawSurfs( const void *data ) {
 #ifdef USE_VBO
 	VBO_UnBind();
 #endif
+
+	RB_UpdateUniformConstants( &backEnd.refdef, &backEnd.viewParms );
 
 	// clear the z buffer, set the modelview, etc
 	RB_BeginDrawingView();
@@ -930,16 +1102,16 @@ const void	*RB_DrawSurfs( const void *data ) {
 	if ( vk.dglowActive && !( backEnd.refdef.rdflags & RDF_NOWORLDMODEL ) && backEnd.hasGlowSurfaces )
 	{
 		vk_end_render_pass();
-		
+
 		backEnd.isGlowPass = qtrue;
 		vk_begin_dglow_extract_render_pass();
 
 		RB_RenderDrawSurfList( cmd->drawSurfs, cmd->numDrawSurfs );
-		
+
 		vk_begin_dglow_blur();
 		backEnd.isGlowPass = qfalse;
 	}
-	
+
 	//TODO Maybe check for rdf_noworld stuff but q3mme has full 3d ui
 	backEnd.doneSurfaces = qtrue; // for bloom
 
@@ -964,8 +1136,9 @@ const void	*RB_DrawBuffer( const void *data ) {
 	// force depth range and viewport/scissor updates
 	vk.cmd->depth_range = DEPTH_RANGE_COUNT;
 
-	if (r_clear->integer) {
+	if ( r_clear->integer && vk.clearAttachment ) {
 		const vec4_t color = { 1, 0, 0.5, 1 };
+
 		backEnd.projection2D = qtrue; // to ensure we have viewport that occupies entire window
 		vk_clear_color_attachments( color );
 		backEnd.projection2D = qfalse;
@@ -997,6 +1170,10 @@ const void	*RB_SwapBuffers( const void *data ) {
 	tr.needScreenMap = 0;
 
 	vk_end_frame();
+
+	if ( backEnd.doneSurfaces && !glState.finishCalled ) {
+		vk_queue_wait_idle();
+	}
 
 	if (backEnd.screenshotMask && vk.cmd->waitForFence) {
 		if (backEnd.screenshotMask & SCREENSHOT_TGA && backEnd.screenshotTGA[0]) {
@@ -1067,7 +1244,7 @@ static const void *RB_ClearColor( const void *data )
 	backEnd.projection2D = qtrue;
 
 	if ( r_fastsky->integer )
-		vk_clear_color_attachments( (float*)tr.fastskyColor );
+		vk_clear_color_attachments( (float*)tr.clearColor );
 	else
 		vk_clear_color_attachments( (float*)tr.world->fogs[tr.world->globalFog].color );
 
@@ -1127,9 +1304,7 @@ void RB_ExecuteRenderCommands( const void *data ) {
 		case RC_END_OF_LIST:
 		default:
 			// stop rendering
-			if (vk.frame_count) {
-				vk_end_frame();
-			}
+			vk_end_frame();
 			t2 = ri->Milliseconds()*ri->Cvar_VariableValue( "timescale" );
 			backEnd.pc.msec = t2 - t1;
 			return;

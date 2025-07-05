@@ -1018,6 +1018,7 @@ void R_Init( void ) {
 	// init function tables
 	//
 	for (i = 0; i < FUNCTABLE_SIZE; i++) {
+#if 0
 		if (i == 0) {
 			tr.sinTable[i] = EPSILON;
 		}
@@ -1027,6 +1028,9 @@ void R_Init( void ) {
 		else {
 			tr.sinTable[i] = sin(DEG2RAD(i * 360.0f / ((float)(FUNCTABLE_SIZE - 1))));
 		}
+#else
+		tr.sinTable[i] = sin( DEG2RAD( i * 360.0f / FUNCTABLE_SIZE ) + 0.0001f );
+#endif
 		tr.squareTable[i] = (i < FUNCTABLE_SIZE / 2) ? 1.0f : -1.0f;
 		if (i == 0) {
 			tr.sawToothTable[i] = EPSILON;
@@ -1075,11 +1079,19 @@ void R_Init( void ) {
 
 	vk_create_window();		// Vulkan
 
+#ifdef USE_VBO
+	vk_release_world_vbo();
+	vk_release_model_vbo();
+#endif
+
 	R_Set2DRatio();
 	R_InitImages();	
 
+#ifdef _G2_GORE
+	R_CreateGoreVBO();
+#endif
 	vk_create_pipelines();	// Vulkan
-	vk_set_fastsky_color();
+	vk_set_clearcolor();
 
 	R_InitShaders(qfalse);
 	R_InitSkins();
@@ -1109,17 +1121,20 @@ void RE_Shutdown( qboolean destroyWindow, qboolean restarting ) {
 	R_ShutdownFonts();
 
 	// contains vulkan resources/state, reinitialized on a map change.
-	if (tr.registered) {
+	//if (tr.registered) {
 
 		if (destroyWindow){
-			vk_delete_textures();
+			//vk_delete_textures();
 
 			if (restarting)
 				SaveGhoul2InfoArray();
 		}
 
+		vk_delete_textures();
 		vk_release_resources();
-	}
+	//}
+
+	//vk_release_resources(); not merged yet (https://github.com/ec-/Quake3e/commit/d31b84ebf2ab702686e98dff40b7673473026b30)
 
 	if (destroyWindow) {
 		vk_shutdown();
@@ -1225,8 +1240,11 @@ Q_EXPORT refexport_t* QDECL GetRefAPI( int apiVersion, refimport_t *rimp ) {
 	static refexport_t re;
 
 	assert( rimp );
+#ifdef USE_JKG
 	ri = rimp;
-
+#else
+	ri = *rimp;
+#endif
 	memset( &re, 0, sizeof( re ) );
 
 	if ( apiVersion != REF_API_VERSION ) {
@@ -1413,8 +1431,9 @@ Q_EXPORT refexport_t* QDECL GetRefAPI( int apiVersion, refimport_t *rimp ) {
 	// this is set in R_Init
 	//re.G2VertSpaceServer	= G2VertSpaceServer;
 
-	//re.ext.Font_StrLenPixels				= RE_Font_StrLenPixelsNew;
-
+#ifndef USE_JKG
+	re.ext.Font_StrLenPixels				= RE_Font_StrLenPixelsNew;
+#endif
 #ifdef USE_JKG
 	// Jedi Knight Galaxies
 	re.OverrideShaderFrame					= R_OverrideShaderFrame;

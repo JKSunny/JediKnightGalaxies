@@ -111,16 +111,16 @@ void R_IssueRenderCommands( qboolean runPerformanceCounters ) {
 		}
 	}
 
-	// at this point, the back end thread is idle, so it is ok
-	// to look at it's performance counters
-	if ( runPerformanceCounters ) {
-		R_PerformanceCounters();
-	}
-
 	// actually start the commands going
 	if ( !r_skipBackEnd->integer ) {
 		// let it start on the new batch
 		RB_ExecuteRenderCommands( cmdList->cmds );
+	}
+
+	// at this point, the back end thread is idle, so it is ok
+	// to look at it's performance counters
+	if ( runPerformanceCounters ) {
+		R_PerformanceCounters();
 	}
 }
 
@@ -357,6 +357,8 @@ void RE_BeginFrame( stereoFrame_t stereoFrame ) {
 		return;
 	}
 	
+	glState.finishCalled = qfalse;
+
 	ResetGhoul2RenderableSurfaceHeap();
 
 	backEnd.doneBloom = qfalse;
@@ -390,8 +392,12 @@ void RE_BeginFrame( stereoFrame_t stereoFrame ) {
 		cl_ratioFix->modified = qfalse;
 	}
 
-	if ( r_fastsky->modified && vk.fastSky ) {
-		vk_set_fastsky_color();
+#ifndef USE_BUFFER_CLEAR
+	if ( r_fastsky->modified && vk.clearAttachment ) {
+#else
+	if ( r_fastsky->modified ) {
+#endif
+		vk_set_clearcolor();
 		r_fastsky->modified = qfalse;
 	}
 
@@ -407,12 +413,14 @@ void RE_BeginFrame( stereoFrame_t stereoFrame ) {
 
 	cmd->buffer = 0;
 
-	if ( vk.fastSky && ( r_fastsky->integer || ( tr.world && tr.world->globalFog != -1 ) ) ) {
+#ifndef USE_BUFFER_CLEAR
+	if ( vk.clearAttachment && ( r_fastsky->integer || ( tr.world && tr.world->globalFog != -1 ) ) ) {
 		clearColorCommand_t *clrcmd;
 		if ( ( clrcmd = (clearColorCommand_t*)R_GetCommandBuffer( sizeof( *clrcmd ) ) ) == nullptr )
 			return;
 		clrcmd->commandId = RC_CLEARCOLOR;
 	}
+#endif // USE_BUFFER_CLEAR
 }
 
 /*

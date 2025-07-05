@@ -103,7 +103,6 @@ const char *vk_shadertype_string( Vk_Shader_Type code ) {
         CASE_STR(TYPE_FOG_ONLY);
         CASE_STR(TYPE_DOT);
 
-
         CASE_STR(TYPE_SINGLE_TEXTURE_LIGHTING);
         CASE_STR(TYPE_SINGLE_TEXTURE_LIGHTING_LINEAR);
 
@@ -112,12 +111,9 @@ const char *vk_shadertype_string( Vk_Shader_Type code ) {
         CASE_STR(TYPE_SINGLE_TEXTURE);
         CASE_STR(TYPE_SINGLE_TEXTURE_ENV);
 
-
-
-
         CASE_STR(TYPE_SINGLE_TEXTURE_IDENTITY);
         CASE_STR(TYPE_SINGLE_TEXTURE_IDENTITY_ENV);
-	
+
         CASE_STR(TYPE_SINGLE_TEXTURE_FIXED_COLOR);
         CASE_STR(TYPE_SINGLE_TEXTURE_FIXED_COLOR_ENV);
 
@@ -130,9 +126,6 @@ const char *vk_shadertype_string( Vk_Shader_Type code ) {
         CASE_STR(TYPE_MULTI_TEXTURE_ADD2_FIXED_COLOR_ENV);
         CASE_STR(TYPE_MULTI_TEXTURE_MUL2_FIXED_COLOR);
         CASE_STR(TYPE_MULTI_TEXTURE_MUL2_FIXED_COLOR_ENV);
-
-
-
 
         CASE_STR(TYPE_MULTI_TEXTURE_MUL2);
         CASE_STR(TYPE_MULTI_TEXTURE_MUL2_ENV);
@@ -424,6 +417,9 @@ static void VarInfo( void )
 
     if ( r_vertexLight->integer )
         ri->Printf( PRINT_ALL, "HACK: using vertex lightmap approximation\n" );
+
+	if ( r_finish->integer )
+		ri->Printf( PRINT_ALL, "Forcing glFinish\n" );
 }
 
 /*
@@ -450,6 +446,17 @@ void vk_info_f( void ) {
         ri->Printf( PRINT_ALL, "image chunk[%i] items: %i size: %ikbytes used: %ikbytes\n", 
             i, vk_world.image_chunks[i].items, (int)(vk_world.image_chunks[i].size / 1024), (int)(vk_world.image_chunks[i].used / 1024));
 
+#ifdef USE_VBO
+    const int vbo_mode = MIN( r_vbo->integer, 2 );
+    const char *vbo_mode_string[4] = { "off", "world only", "world + models" };
+    const char *yesno[] = {"no ", "yes"};
+
+    ri->Printf( PRINT_ALL, "VBO mode: %s\n", vbo_mode_string[vbo_mode] );
+
+    if( vbo_mode == 2 )
+        ri->Printf( PRINT_ALL, "VBO model buffers: %i", tr.numVBOs );
+
+#endif
 #else
     ri->Printf(PRINT_ALL, "vk_info statistics are not enabled in this build.\n");
 #endif
