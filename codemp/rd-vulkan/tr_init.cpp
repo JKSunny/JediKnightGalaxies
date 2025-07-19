@@ -944,8 +944,8 @@ void R_Register( void )
 	r_nomip								= ri->Cvar_Get("r_nomip",							"0",						CVAR_ARCHIVE | CVAR_LATCH );
 	ri->Cvar_CheckRange(r_nomip, 0, 1, qtrue);
 #ifdef USE_VBO
-	r_vbo								= ri.Cvar_Get("r_vbo",								"0",						CVAR_ARCHIVE | CVAR_LATCH );
-	r_vbo_models						= ri.Cvar_Get("r_vbo_models",						"1",						CVAR_ARCHIVE | CVAR_LATCH );
+	r_vbo								= ri->Cvar_Get("r_vbo",								"0",						CVAR_ARCHIVE | CVAR_LATCH );
+	r_vbo_models						= ri->Cvar_Get("r_vbo_models",						"1",						CVAR_ARCHIVE | CVAR_LATCH );
 #endif
 	r_renderWidth						= ri->Cvar_Get("r_renderWidth",						"800",						CVAR_ARCHIVE | CVAR_LATCH );
 	r_renderHeight						= ri->Cvar_Get("r_renderHeight",						"600",					CVAR_ARCHIVE | CVAR_LATCH);

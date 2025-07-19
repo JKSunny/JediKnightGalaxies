@@ -451,11 +451,11 @@ void vk_info_f( void ) {
     const int vbo_mode = MIN( r_vbo->integer, 1 );
     const int vbo_models_mode = MIN( r_vbo_models->integer, 1 );
 
-    ri.Printf( PRINT_ALL, "VBO world caching: %s\n", yesno[vbo_mode] );
-    ri.Printf( PRINT_ALL, "VBO model caching: %s", yesno[vbo_models_mode] );
+    ri->Printf( PRINT_ALL, "VBO world caching: %s\n", yesno[vbo_mode] );
+    ri->Printf( PRINT_ALL, "VBO model caching: %s", yesno[vbo_models_mode] );
 
     if ( vbo_models_mode )
-        ri.Printf( PRINT_ALL, ", num buffers: %i \n", tr.numVBOs );
+        ri->Printf( PRINT_ALL, ", num buffers: %i \n", tr.numVBOs );
 #endif
 #else
     ri->Printf(PRINT_ALL, "vk_info statistics are not enabled in this build.\n");
