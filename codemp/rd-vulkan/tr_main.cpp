@@ -37,11 +37,8 @@ static const float s_flipMatrix[16] QALIGN(16) = {
 	0, 0, 0, 1
 };
 
-#ifdef USE_JKG
-	refimport_t	*ri;
-#else
-	refimport_t	ri;
-#endif
+
+refimport_t	ri;
 
 // entities that will have procedurally generated surfaces will just
 // point at this for their sorting surface
@@ -868,7 +865,7 @@ static qboolean R_GetPortalOrientations( const drawSurf_t *drawSurf, int entityN
 	// to see a surface before the server has communicated the matching
 	// portal surface entity, so we don't want to print anything here...
 
-	//ri->Printf( PRINT_ALL, "Portal surface without a portal entity\n" );
+	//ri.Printf( PRINT_ALL, "Portal surface without a portal entity\n" );
 
 	return qfalse;
 }

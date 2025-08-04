@@ -571,7 +571,7 @@ typedef struct vkUniformGlobal_s {
 } vkUniformGlobal_t;
 
 typedef struct vkUniformBones_s {
-	mat3x4_t boneMatrices[72];
+	mat3x4_t boneMatrices[MAX_G2_BONES];
 } vkUniformBones_t;
 #endif
 

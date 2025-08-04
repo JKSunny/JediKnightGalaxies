@@ -321,7 +321,7 @@ void vk_create_window( void ) {
 		windowDesc_t windowDesc = { GRAPHICS_API_VULKAN };
 
 		glConfig.deviceSupportsGamma = qfalse;
-		window = ri->WIN_Init(&windowDesc, &glConfig);
+		window = ri.WIN_Init(&windowDesc, &glConfig);
 
 		if (r_ignorehwgamma->integer)
 			glConfig.deviceSupportsGamma = qfalse;
@@ -332,7 +332,7 @@ void vk_create_window( void ) {
 		gls.captureWidth = glConfig.vidWidth;
 		gls.captureHeight = glConfig.vidHeight;
 
-		//ri->CL_SetScaling(1.0, glConfig.vidWidth, glConfig.vidHeight);	// consolefont and avi capture
+		//ri.CL_SetScaling(1.0, glConfig.vidWidth, glConfig.vidHeight);	// consolefont and avi capture
 
 		if (r_fbo->integer)
 		{
@@ -344,31 +344,31 @@ void vk_create_window( void ) {
 			gls.captureWidth = glConfig.vidWidth;
 			gls.captureHeight = glConfig.vidHeight;
 		
-			//ri->CL_SetScaling(1.0, gls.captureWidth, gls.captureHeight);	// consolefont and avi capture
+			//ri.CL_SetScaling(1.0, gls.captureWidth, gls.captureHeight);	// consolefont and avi capture
 
 			if (r_ext_supersample->integer){
 				glConfig.vidWidth *= 2;
 				glConfig.vidHeight *= 2;
 
-				//ri->CL_SetScaling(2.0, gls.captureWidth, gls.captureHeight);	// consolefont and avi capture
+				//ri.CL_SetScaling(2.0, gls.captureWidth, gls.captureHeight);	// consolefont and avi capture
 			}
 		}
 
 		vk_initialize();
 
-		gls.initTime = ri->Milliseconds();
+		gls.initTime = ri.Milliseconds();
 	}
 
 	if ( !vk.active && vk.instance ){
 		// might happen after REF_KEEP_WINDOW
 		vk_initialize();
-		gls.initTime = ri->Milliseconds();
+		gls.initTime = ri.Milliseconds();
 	}
 	if ( vk.active ) {
 		vk_init_descriptors();
 	}
 	else {
-		ri->Error( ERR_FATAL, "Recursive error during Vulkan initialization" );
+		ri.Error( ERR_FATAL, "Recursive error during Vulkan initialization" );
 	}
 
 	glState.glStateBits = GLS_DEPTHTEST_DISABLE | GLS_DEPTHMASK_TRUE;
@@ -445,7 +445,7 @@ void vk_initialize( void )
 		}
 
 		if ( maxDedicatedSize != 0 ) {
-			ri->Printf( PRINT_ALL, "...device memory size: %iMB\n", (int)((maxDedicatedSize + (1024 * 1024) - 1) / (1024 * 1024)) );
+			ri.Printf( PRINT_ALL, "...device memory size: %iMB\n", (int)((maxDedicatedSize + (1024 * 1024) - 1) / (1024 * 1024)) );
 		}
 		if ( maxBARSize != 0 ) {
 			if ( maxBARSize >= 128 * 1024 * 1024 ) {
@@ -454,7 +454,7 @@ void vk_initialize( void )
 				vk.defaults.staging_size = STAGING_BUFFER_SIZE_HI;
 			}
 #ifdef _DEBUG
-			ri->Printf( PRINT_ALL, "...BAR memory size: %iMB\n", (int)((maxBARSize + (1024 * 1024) - 1) / (1024 * 1024)) );
+			ri.Printf( PRINT_ALL, "...BAR memory size: %iMB\n", (int)((maxBARSize + (1024 * 1024) - 1) / (1024 * 1024)) );
 #endif
 		}
 	}
@@ -486,8 +486,8 @@ void vk_initialize( void )
 	vk.maxAnisotropy = props.limits.maxSamplerAnisotropy;
 	vk.maxLod = 1 + Q_log2( glConfig.maxTextureSize );
 
-	ri->Printf( PRINT_ALL, "\nVK_MAX_TEXTURE_SIZE: %d\n", glConfig.maxTextureSize );
-	ri->Printf( PRINT_ALL, "VK_MAX_TEXTURE_UNITS: %d\n", glConfig.maxActiveTextures );
+	ri.Printf( PRINT_ALL, "\nVK_MAX_TEXTURE_SIZE: %d\n", glConfig.maxTextureSize );
+	ri.Printf( PRINT_ALL, "VK_MAX_TEXTURE_UNITS: %d\n", glConfig.maxActiveTextures );
 
 	vk_initTextureCompression();
 
@@ -530,10 +530,10 @@ void vk_initialize( void )
 		vkSamples = VK_SAMPLE_COUNT_1_BIT;
 	}
 
-	ri->Printf( PRINT_ALL, "MSAA max: %dx, using %dx\n", vkMaxSamples, vkSamples );
+	ri.Printf( PRINT_ALL, "MSAA max: %dx, using %dx\n", vkMaxSamples, vkSamples );
 
 	// Anisotropy
-	ri->Printf( PRINT_ALL, "Anisotropy max: %dx, using %dx\n\n", r_ext_max_anisotropy->integer, r_ext_texture_filter_anisotropic->integer );
+	ri.Printf( PRINT_ALL, "Anisotropy max: %dx, using %dx\n\n", r_ext_max_anisotropy->integer, r_ext_texture_filter_anisotropic->integer );
 		
 	// Bloom
 	if ( vk.fboActive && r_bloom->integer )
@@ -608,7 +608,7 @@ void vk_initialize( void )
 // Shutdown vulkan subsystem by releasing resources acquired by Vk_Instance.
 void vk_shutdown( void )
 {
-    ri->Printf( PRINT_ALL, "vk_shutdown()\n" );
+    ri.Printf( PRINT_ALL, "vk_shutdown()\n" );
 
 	if ( qvkQueuePresentKHR == NULL ) {// not fully initialized
 		goto __cleanup;

@@ -39,6 +39,8 @@ extern float Q_flrand(float min, float max);
 	#define USE_VBO_MDV	
 #endif
 
+#define MAX_G2_BONES 80
+
 #define USE_FOG_ONLY
 #define USE_FOG_COLLAPSE		// not compatible with legacy dlights
 #if defined ( USE_VBO ) && !defined( USE_FOG_ONLY )
@@ -518,7 +520,7 @@ typedef struct surfaceSprite_s
 	int				facing;		// Hangdown on vertical sprites, faceup on others.
 } surfaceSprite_t;
 
-#define	MAX_IMAGE_ANIMATIONS	32
+#define	MAX_IMAGE_ANIMATIONS	64
 
 typedef struct textureBundle_s {
 	image_t			*image[MAX_IMAGE_ANIMATIONS];
@@ -765,20 +767,7 @@ typedef struct trRefdef_s {
 	qboolean			needScreenMap;
 } trRefdef_t;
 
-
 //=================================================================================
-
-// skins allow models to be retextured without modifying the model file
-typedef struct {
-	char		name[MAX_QPATH];
-	shader_t	*shader;
-} skinSurface_t;
-
-typedef struct skin_s {
-	char			name[MAX_QPATH];		// game path, including extension
-	int				numSurfaces;
-	skinSurface_t	*surfaces[128];
-} skin_t;
 
 typedef struct fog_s {
 	int				originalBrushNumber;
@@ -1667,6 +1656,10 @@ extern glconfigExt_t	glConfigExt;
 extern glstate_t		glState;		// outside of TR since it shouldn't be cleared during ref re-init
 extern window_t			window;
 extern glRefConfig_t	glRefConfig;
+
+#ifdef USE_JKG
+typedef _skinSurface_t skinSurface_t;
+#endif
 
 // Vulkan
 extern glstatic_t	gls;

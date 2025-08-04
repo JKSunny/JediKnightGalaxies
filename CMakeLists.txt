@@ -134,7 +134,7 @@ get_git_head_revision(GIT_REFSPEC GIT_SHA1)
 # Binary names
 set(MPEngine "jkgalaxies.${Architecture}")
 set(MPVanillaRenderer "rd-galaxies_${Architecture}")
-set(MPVulkanRenderer "rd-galaxies-vk_${Architecture}")
+set(MPVulkanRenderer "rd-vulkan_${Architecture}")
 set(MPDed "jkgalaxiesded.${Architecture}")
 set(MPGame "game${Architecture}")
 set(MPCGame "cgame${Architecture}")

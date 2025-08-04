@@ -78,7 +78,7 @@ void G2Time_ResetTimers(void)
 
 void G2Time_ReportTimers(void)
 {
-	ri->Printf( PRINT_ALL, "\n---------------------------------\nRenderSurfaces: %i\nR_AddGhoulSurfaces: %i\nG2_TransformGhoulBones: %i\nG2_ProcessGeneratedSurfaceBolts: %i\nProcessModelBoltSurfaces: %i\nG2_ConstructGhoulSkeleton: %i\nRB_SurfaceGhoul: %i\nG2_SetupModelPointers: %i\n\nPrecise frame time: %i\nTransformGhoulBones calls: %i\n---------------------------------\n\n",
+	ri.Printf( PRINT_ALL, "\n---------------------------------\nRenderSurfaces: %i\nR_AddGhoulSurfaces: %i\nG2_TransformGhoulBones: %i\nG2_ProcessGeneratedSurfaceBolts: %i\nProcessModelBoltSurfaces: %i\nG2_ConstructGhoulSkeleton: %i\nRB_SurfaceGhoul: %i\nG2_SetupModelPointers: %i\n\nPrecise frame time: %i\nTransformGhoulBones calls: %i\n---------------------------------\n\n",
 		G2Time_RenderSurfaces,
 		G2Time_R_AddGHOULSurfaces,
 		G2Time_G2_TransformGhoulBones,
@@ -110,7 +110,7 @@ static CRenderableSurface *AllocGhoul2RenderableSurface( void )
 {
 	if ( currentRenderSurfIndex >= MAX_RENDERABLE_SURFACES )
 	{
-		ri->Error( ERR_DROP, "AllocRenderableSurface: Reached maximum number of Ghoul2 renderable surfaces (%d)", MAX_RENDERABLE_SURFACES );
+		ri.Error( ERR_DROP, "AllocRenderableSurface: Reached maximum number of Ghoul2 renderable surfaces (%d)", MAX_RENDERABLE_SURFACES );
 		return NULL;
 	}
 
@@ -365,7 +365,7 @@ public:
 	float			mSmoothFactor;
 
 	// GPU Data
-	mat3x4_t boneMatrices[72];
+	mat3x4_t boneMatrices[MAX_G2_BONES];
 	int      uboOffset;
 
 	CBoneCache(const model_t *amod,const mdxaHeader_t *aheader) :
@@ -1009,7 +1009,7 @@ static int G2_ComputeLOD( trRefEntity_t *ent, const model_t *currentModel, int l
 	if (lod < 0)
 		lod = 0;
 
-	//ri->Printf(PRINT_ALL, "radius: %f lod: %d: flod: %f dist: %f numLODS: %d\n", radius, lod, flod, dist, currentModel->numLods);
+	//ri.Printf(PRINT_ALL, "radius: %f lod: %d: flod: %f dist: %f numLODS: %d\n", radius, lod, flod, dist, currentModel->numLods);
 	return lod;
 }
 
@@ -1123,17 +1123,7 @@ static int G2_GetBonePoolIndex(const mdxaHeader_t *pMDXAHeader, int iFrame, int 
 	const int iOffsetToIndex	= (iFrame * pMDXAHeader->numBones * 3) + (iBone * 3);
 	mdxaIndex_t *pIndex			= (mdxaIndex_t *)((byte*)pMDXAHeader + pMDXAHeader->ofsFrames + iOffsetToIndex);
 
-#ifdef USE_JKG
-#ifdef Q3_BIG_ENDIAN
-	int tmp = pIndex->iIndex & 0xFFFFFF00;
-	LL(tmp);
-	return tmp;
-#else
-	return pIndex->iIndex & 0x00FFFFFF;
-#endif
-#else
 	return (pIndex->iIndex[2] << 16) + (pIndex->iIndex[1] << 8) + (pIndex->iIndex[0]);
-#endif
 }
 
 
@@ -1426,7 +1416,7 @@ void G2_RagGetAnimMatrix(CGhoul2Info &ghoul2, const int boneNum, mdxaBone_t &mat
 		if (bListIndex == -1)
 		{
 #ifdef _RAG_PRINT_TEST
-			ri->Printf( PRINT_ALL, "Attempting to add %s\n", skel->name);
+			ri.Printf( PRINT_ALL, "Attempting to add %s\n", skel->name);
 #endif
 			bListIndex = G2_Add_Bone(ghoul2.animModel, ghoul2.mBlist, skel->name);
 		}
@@ -1483,7 +1473,7 @@ void G2_RagGetAnimMatrix(CGhoul2Info &ghoul2, const int boneNum, mdxaBone_t &mat
 		}
 		else
 		{
-			ri->Printf( PRINT_ALL, "BAD LIST INDEX: %s, %s [%i]\n", skel->name, pskel->name, parent);
+			ri.Printf( PRINT_ALL, "BAD LIST INDEX: %s, %s [%i]\n", skel->name, pskel->name, parent);
 		}
 #endif
 	}
@@ -1497,7 +1487,7 @@ void G2_RagGetAnimMatrix(CGhoul2Info &ghoul2, const int boneNum, mdxaBone_t &mat
 		}
 		else
 		{
-			ri->Printf( PRINT_ALL, "BAD LIST INDEX: %s\n", skel->name);
+			ri.Printf( PRINT_ALL, "BAD LIST INDEX: %s\n", skel->name);
 		}
 #endif
 		//bone.animFrameMatrix = ghoul2.mBoneCache->mFinalBones[boneNum].boneMatrix;
@@ -1512,7 +1502,7 @@ void G2_RagGetAnimMatrix(CGhoul2Info &ghoul2, const int boneNum, mdxaBone_t &mat
 #ifdef _RAG_PRINT_TEST
 	if (!actuallySet)
 	{
-		ri->Printf( PRINT_ALL, "SET FAILURE\n");
+		ri.Printf( PRINT_ALL, "SET FAILURE\n");
 		G2_RagPrintMatrix(&bone.animFrameMatrix);
 	}
 #endif
@@ -2106,7 +2096,7 @@ void G2_TransformGhoulBones(boneInfo_v &rootBoneList,mdxaBone_t &rootMatrix, CGh
 	ghoul2.mBoneCache->mUnsquash=false;
 
 	// master smoothing control
-	if (HackadelicOnClient && smooth && !ri->Cvar_VariableIntegerValue( "dedicated" ))
+	if (HackadelicOnClient && smooth && !ri.Cvar_VariableIntegerValue( "dedicated" ))
 	{
 		ghoul2.mBoneCache->mLastTouch=ghoul2.mBoneCache->mLastLastTouch;
 		/*
@@ -4451,7 +4441,7 @@ qboolean R_LoadMDXM( model_t *mod, void *buffer, const char *mod_name, qboolean 
 	}
 
 	if (version != MDXM_VERSION) {
-		ri->Printf( PRINT_ALL, S_COLOR_YELLOW  "R_LoadMDXM: %s has wrong version (%i should be %i)\n",
+		ri.Printf( PRINT_ALL, S_COLOR_YELLOW  "R_LoadMDXM: %s has wrong version (%i should be %i)\n",
 				 mod_name, version, MDXM_VERSION);
 		return qfalse;
 	}
@@ -4461,7 +4451,7 @@ qboolean R_LoadMDXM( model_t *mod, void *buffer, const char *mod_name, qboolean 
 
 	qboolean bAlreadyFound = qfalse;
 	mdxm = (mdxmHeader_t*)RE_RegisterModels_Malloc(size, buffer, mod_name, &bAlreadyFound, TAG_MODEL_GLM);
-	mod->data.glm = (mdxmData_t *)ri->Hunk_Alloc (sizeof (mdxmData_t), h_low);
+	mod->data.glm = (mdxmData_t *)ri.Hunk_Alloc (sizeof (mdxmData_t), h_low);
 	mod->data.glm->header = mdxm;
 
 	assert(bAlreadyCached == bAlreadyFound);
@@ -4469,7 +4459,7 @@ qboolean R_LoadMDXM( model_t *mod, void *buffer, const char *mod_name, qboolean 
 	if (!bAlreadyFound)
 	{
 		// horrible new hackery, if !bAlreadyFound then we've just done a tag-morph, so we need to set the
-		//	bool reference passed into this function to true, to tell the caller NOT to do an ri->FS_Freefile since
+		//	bool reference passed into this function to true, to tell the caller NOT to do an ri.FS_Freefile since
 		//	we've hijacked that memory block...
 		//
 		// Aaaargh. Kill me now...
@@ -4493,7 +4483,7 @@ qboolean R_LoadMDXM( model_t *mod, void *buffer, const char *mod_name, qboolean 
 
 	if (!mdxm->animIndex)
 	{
-		ri->Printf( PRINT_ALL, S_COLOR_YELLOW  "R_LoadMDXM: missing animation file %s for mesh %s\n", mdxm->animName, mdxm->name);
+		ri.Printf( PRINT_ALL, S_COLOR_YELLOW  "R_LoadMDXM: missing animation file %s for mesh %s\n", mdxm->animName, mdxm->name);
 		return qfalse;
 	}
 
@@ -4907,7 +4897,7 @@ qboolean R_LoadMDXA( model_t *mod, void *buffer, const char *mod_name, qboolean 
 	}
 
 	if (version != MDXA_VERSION) {
-		ri->Printf( PRINT_ALL, S_COLOR_YELLOW  "R_LoadMDXA: %s has wrong version (%i should be %i)\n",
+		ri.Printf( PRINT_ALL, S_COLOR_YELLOW  "R_LoadMDXA: %s has wrong version (%i should be %i)\n",
 				 mod_name, version, MDXA_VERSION);
 		return qfalse;
 	}
@@ -4941,7 +4931,7 @@ qboolean R_LoadMDXA( model_t *mod, void *buffer, const char *mod_name, qboolean 
 		memcpy( mdxa, buffer, oSize );
 #else
 		// horrible new hackery, if !bAlreadyFound then we've just done a tag-morph, so we need to set the
-		//	bool reference passed into this function to true, to tell the caller NOT to do an ri->FS_Freefile since
+		//	bool reference passed into this function to true, to tell the caller NOT to do an ri.FS_Freefile since
 		//	we've hijacked that memory block...
 		//
 		// Aaaargh. Kill me now...
@@ -5075,7 +5065,7 @@ qboolean R_LoadMDXA( model_t *mod, void *buffer, const char *mod_name, qboolean 
 #endif //CREATE_LIMB_HIERARCHY
 
  	if ( mdxa->numFrames < 1 ) {
-		ri->Printf( PRINT_ALL, S_COLOR_YELLOW  "R_LoadMDXA: %s has no frames\n", mod_name );
+		ri.Printf( PRINT_ALL, S_COLOR_YELLOW  "R_LoadMDXA: %s has no frames\n", mod_name );
 		return qfalse;
 	}
 
@@ -5111,24 +5101,6 @@ qboolean R_LoadMDXA( model_t *mod, void *buffer, const char *mod_name, qboolean 
 
 	// Determine the amount of compressed bones.
 
-#ifdef USE_JKG
-	// find the largest index, since the actual number of compressed bone pools is not stored anywhere
-	for ( i = 0 ; i < mdxa->numFrames ; i++ ) 
-	{
-		for ( j = 0 ; j < mdxa->numBones ; j++ ) 
-		{
-			k = (i * mdxa->numBones * 3) + (j * 3); // iOffsetToIndex
-			pIndex = (mdxaIndex_t *) ((byte*) mdxa + mdxa->ofsFrames + k);
-
-			// 3 byte ints, yeah...
-			int tmp = pIndex->iIndex & 0xFFFFFF00;
-			LL(tmp);
-			
-			if (maxBoneIndex < tmp)
-				maxBoneIndex = tmp;
-		}
-	}
-#else
 	// Find the largest index by iterating through all frames.
 	// It is not guaranteed that the compressed bone pool resides
 	// at the end of the file.
@@ -5143,7 +5115,6 @@ qboolean R_LoadMDXA( model_t *mod, void *buffer, const char *mod_name, qboolean 
 			}
 		}
 	}
-#endif
 
 	// Swap the compressed bones.
 	pCompBonePool = (mdxaCompQuatBone_t *) ((byte *)mdxa + mdxa->ofsCompBonePool);

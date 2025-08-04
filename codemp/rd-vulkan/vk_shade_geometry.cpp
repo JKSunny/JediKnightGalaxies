@@ -33,7 +33,7 @@ void vk_select_texture( const int index )
 		return;
 
 	if ( index >= glConfig.maxActiveTextures )
-		ri->Error(ERR_DROP, "%s: texture unit overflow = %i", __func__, index);
+		ri.Error(ERR_DROP, "%s: texture unit overflow = %i", __func__, index);
 
 	vk.ctmu = index;
 }
@@ -104,7 +104,7 @@ void vk_set_2d( void )
 
 	// set 2D virtual screen size
 	// set time for 2D shaders
-	backEnd.refdef.time = ri->Milliseconds() * ri->Cvar_VariableValue("timescale");
+	backEnd.refdef.time = ri.Milliseconds() * ri.Cvar_VariableValue("timescale");
 	backEnd.refdef.floatTime = (double)backEnd.refdef.time * 0.001; // -EC-: cast to double
 
 	return;
@@ -1454,8 +1454,8 @@ void R_BindAnimatedImage( const textureBundle_t *bundle ) {
 	int64_t index;
 
 	if ( bundle->isVideoMap ) {
-		ri->CIN_RunCinematic( bundle->videoMapHandle );
-		ri->CIN_UploadCinematic( bundle->videoMapHandle );
+		ri.CIN_RunCinematic( bundle->videoMapHandle );
+		ri.CIN_UploadCinematic( bundle->videoMapHandle );
 		return;
 	}
 	if ( bundle->isScreenMap ) {
@@ -1493,6 +1493,13 @@ void R_BindAnimatedImage( const textureBundle_t *bundle ) {
 		index = Q_ftol( tess.shaderTime * bundle->imageAnimationSpeed * FUNCTABLE_SIZE );
 		index >>= FUNCTABLE_SIZE2;
 
+#ifdef USE_JKG
+		if ( tess.shader->frameOverride != -1 )
+		{
+			index = tess.shader->frameOverride;
+		}
+		else 
+#endif
 		if ( index < 0 ) {
 			index = 0;	// may happen with shader time offsets
 		}
@@ -1506,6 +1513,18 @@ void R_BindAnimatedImage( const textureBundle_t *bundle ) {
 			index = bundle->numImageAnimations - 1;
 		}
 	}
+#ifdef USE_JKG
+	else if( tess.shader->frameOverride == -1 || index >= bundle->numImageAnimations)
+	{
+		// loop
+		if (bundle->numImageAnimations != 0) {
+			index %= bundle->numImageAnimations;
+		}
+		else {
+			index = 0;
+		}
+	}
+#endif
 	else
 	{
 		// loop
@@ -1615,7 +1634,7 @@ void ComputeTexCoords( const int b, const textureBundle_t *bundle ) {
 			break;
 
 		default:
-			ri->Error(ERR_DROP, "ERROR: unknown texmod '%d' in shader '%s'", bundle->texMods[tm].type, tess.shader->name);
+			ri.Error(ERR_DROP, "ERROR: unknown texmod '%d' in shader '%s'", bundle->texMods[tm].type, tess.shader->name);
 			break;
 		}
 	}
@@ -1684,7 +1703,7 @@ static void vk_compute_tex_mods( const textureBundle_t *bundle, float *outMatrix
 			break;
 
 		default:
-			ri->Error( ERR_DROP, "ERROR: unknown texmod '%d' in shader '%s'", bundle->texMods[tm].type, tess.shader->name );
+			ri.Error( ERR_DROP, "ERROR: unknown texmod '%d' in shader '%s'", bundle->texMods[tm].type, tess.shader->name );
 			break;
 		}
 

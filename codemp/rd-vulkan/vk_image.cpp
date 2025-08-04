@@ -74,7 +74,7 @@ void vk_texture_mode( const char *string, const qboolean init ) {
 	mode = GetTextureMode( string );
 
 	if ( mode == NULL ) {
-		ri->Printf( PRINT_ALL, "bad texture filter name '%s'\n", string );
+		ri.Printf( PRINT_ALL, "bad texture filter name '%s'\n", string );
 		return;
 	}
 
@@ -163,7 +163,7 @@ VkSampler vk_find_sampler( const Vk_Sampler_Def *def ) {
 
 	// Create new sampler.
 	if (vk.samplers.count >= MAX_VK_SAMPLERS) {
-		ri->Error(ERR_DROP, "vk_find_sampler: MAX_VK_SAMPLERS hit\n");
+		ri.Error(ERR_DROP, "vk_find_sampler: MAX_VK_SAMPLERS hit\n");
 	}
 
 	address_mode = def->address_mode;
@@ -175,7 +175,7 @@ VkSampler vk_find_sampler( const Vk_Sampler_Def *def ) {
 		mag_filter = VK_FILTER_LINEAR;
 	}
 	else {
-		ri->Error(ERR_FATAL, "vk_find_sampler: invalid gl_mag_filter");
+		ri.Error(ERR_FATAL, "vk_find_sampler: invalid gl_mag_filter");
 		return VK_NULL_HANDLE;
 	}
 
@@ -208,7 +208,7 @@ VkSampler vk_find_sampler( const Vk_Sampler_Def *def ) {
 		mipmap_mode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
 	}
 	else {
-		ri->Error(ERR_FATAL, "vk_find_sampler: invalid gl_min_filter");
+		ri.Error(ERR_FATAL, "vk_find_sampler: invalid gl_min_filter");
 		return VK_NULL_HANDLE;
 	}
 
@@ -287,7 +287,7 @@ uint32_t vk_find_memory_type( uint32_t memory_type_bits, VkMemoryPropertyFlags p
             return i;
         }
     }
-    ri->Error(ERR_FATAL, "Vulkan: failed to find matching memory type with requested properties");
+    ri.Error(ERR_FATAL, "Vulkan: failed to find matching memory type with requested properties");
     return ~0U;
 }
 
@@ -359,7 +359,7 @@ void vk_record_image_layout_transition( VkCommandBuffer cmdBuf, VkImage image,
 			barrier.srcAccessMask = VK_ACCESS_NONE;
 			break;
 		default:
-			ri->Error( ERR_DROP, "unsupported old layout %i", old_layout );
+			ri.Error( ERR_DROP, "unsupported old layout %i", old_layout );
 			src_stage = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT;
 			barrier.srcAccessMask = VK_ACCESS_NONE;
 			break;
@@ -391,7 +391,7 @@ void vk_record_image_layout_transition( VkCommandBuffer cmdBuf, VkImage image,
 			barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_INPUT_ATTACHMENT_READ_BIT;
 			break;
 		default:
-			ri->Error( ERR_DROP, "unsupported new layout %i", new_layout);
+			ri.Error( ERR_DROP, "unsupported new layout %i", new_layout);
 			dst_stage = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT;
 			barrier.dstAccessMask = VK_ACCESS_NONE;
 			break;
@@ -432,7 +432,7 @@ void vk_upload_image( image_t *image, byte *pic ) {
 	vk_create_image( image, w, h, upload_data.mip_levels );
 	vk_upload_image_data( image, 0, 0, w, h, upload_data.mip_levels, upload_data.buffer, upload_data.buffer_size, qfalse );
 
-	ri->Hunk_FreeTempMemory( upload_data.buffer );
+	ri.Hunk_FreeTempMemory( upload_data.buffer );
 }
 
 void vk_generate_image_upload_data( image_t *image, byte *data, Image_Upload_Data *upload_data ) {
@@ -473,13 +473,13 @@ void vk_generate_image_upload_data( image_t *image, byte *data, Image_Upload_Dat
 
 	Com_Memset(upload_data, 0, sizeof(*upload_data));
 
-	upload_data->buffer = (byte*)ri->Hunk_AllocateTempMemory(2 * 4 * scaled_width * scaled_height);
+	upload_data->buffer = (byte*)ri.Hunk_AllocateTempMemory(2 * 4 * scaled_width * scaled_height);
 	if (data == NULL) {
 		Com_Memset(upload_data->buffer, 0, 2 * 4 * scaled_width * scaled_height);
 	}
 
 	if ((scaled_width != width || scaled_height != height) && data) {
-		resampled_buffer = (byte*)ri->Hunk_AllocateTempMemory(scaled_width * scaled_height * 4);
+		resampled_buffer = (byte*)ri.Hunk_AllocateTempMemory(scaled_width * scaled_height * 4);
 		ResampleTexture((unsigned*)data, width, height, (unsigned*)resampled_buffer, scaled_width, scaled_height);
 		data = resampled_buffer;
 	}
@@ -558,7 +558,7 @@ void vk_generate_image_upload_data( image_t *image, byte *data, Image_Upload_Dat
 
 		if ( compressed ) {
 			upload_data->buffer_size = rygCompressedSize(scaled_width, scaled_height);
-			compressed_buffer = (byte*)ri->Hunk_AllocateTempMemory(upload_data->buffer_size);
+			compressed_buffer = (byte*)ri.Hunk_AllocateTempMemory(upload_data->buffer_size);
 			rygCompress(compressed_buffer, data, scaled_width, scaled_height);
 			data = compressed_buffer;
 		}
@@ -571,10 +571,10 @@ void vk_generate_image_upload_data( image_t *image, byte *data, Image_Upload_Dat
 		}
 
 		if (resampled_buffer != NULL) {
-			ri->Hunk_FreeTempMemory(resampled_buffer);
+			ri.Hunk_FreeTempMemory(resampled_buffer);
 		}
 		if (compressed_buffer != NULL) {
-			ri->Hunk_FreeTempMemory(compressed_buffer);
+			ri.Hunk_FreeTempMemory(compressed_buffer);
 		}
 
 		return;	//return upload_data;
@@ -593,7 +593,7 @@ void vk_generate_image_upload_data( image_t *image, byte *data, Image_Upload_Dat
 
 	// At this point width == scaled_width and height == scaled_height.
 
-	scaled_buffer = (unsigned int*)ri->Hunk_AllocateTempMemory(sizeof(unsigned) * scaled_width * scaled_height);
+	scaled_buffer = (unsigned int*)ri.Hunk_AllocateTempMemory(sizeof(unsigned) * scaled_width * scaled_height);
 	Com_Memcpy(scaled_buffer, data, scaled_width * scaled_height * 4);
 
 	if (!(image->flags & IMGFLAG_NOLIGHTSCALE)) {
@@ -605,7 +605,7 @@ void vk_generate_image_upload_data( image_t *image, byte *data, Image_Upload_Dat
 
 	if ( compressed ) {
 		mip_level_size = rygCompressedSize( scaled_width, scaled_height );
-		compressed_buffer = (byte*)ri->Hunk_AllocateTempMemory( mip_level_size );
+		compressed_buffer = (byte*)ri.Hunk_AllocateTempMemory( mip_level_size );
 		rygCompress( compressed_buffer, (byte*)scaled_buffer, scaled_width, scaled_height );
 		Com_Memcpy( upload_data->buffer, compressed_buffer, mip_level_size );
 	}
@@ -649,12 +649,12 @@ void vk_generate_image_upload_data( image_t *image, byte *data, Image_Upload_Dat
 
 	upload_data->mip_levels = miplevel + 1;
 
-	ri->Hunk_FreeTempMemory(scaled_buffer);
+	ri.Hunk_FreeTempMemory(scaled_buffer);
 
 	if (resampled_buffer != NULL)
-		ri->Hunk_FreeTempMemory(resampled_buffer);
+		ri.Hunk_FreeTempMemory(resampled_buffer);
 	if (compressed_buffer != NULL)
-		ri->Hunk_FreeTempMemory(compressed_buffer);
+		ri.Hunk_FreeTempMemory(compressed_buffer);
 }
 
 static VkCommandBuffer staging_command_buffer = VK_NULL_HANDLE;
@@ -684,7 +684,7 @@ static qboolean vk_wait_staging_buffer( void )
 		VkResult res = qvkWaitForFences( vk.device, 1, &vk.aux_fence, VK_TRUE, 5 * 1000000000ULL );
 
 		if ( res != VK_SUCCESS ) {
-			ri->Error( ERR_FATAL, "vkWaitForFences() failed with %s at %s", vk_result_string( res ), __func__ );
+			ri.Error( ERR_FATAL, "vkWaitForFences() failed with %s at %s", vk_result_string( res ), __func__ );
 		}
 		qvkResetFences( vk.device, 1, &vk.aux_fence );
 		VK_CHECK( qvkResetCommandBuffer( vk.staging_command_buffer, 0 ) );
@@ -708,7 +708,7 @@ void vk_flush_staging_buffer( qboolean final )
 		return;
 	}
 
-	//ri->Printf( PRINT_WARNING, S_COLOR_CYAN ">>> flush %i bytes (final=%i)<<<\n", (int)vk.staging_buffer.offset, final );
+	//ri.Printf( PRINT_WARNING, S_COLOR_CYAN ">>> flush %i bytes (final=%i)<<<\n", (int)vk.staging_buffer.offset, final );
 
 	vk.staging_buffer.offset = 0;
 
@@ -734,7 +734,7 @@ void vk_flush_staging_buffer( qboolean final )
 	submit_info.pCommandBuffers = &vk.staging_command_buffer;
 
 	if ( vk.image_uploaded != VK_NULL_HANDLE ) {
-		ri->Error( ERR_FATAL, "Vulkan: incorrect state during image upload" );
+		ri.Error( ERR_FATAL, "Vulkan: incorrect state during image upload" );
 	}
 	if ( final ) {
 		// final submission before recording
@@ -750,7 +750,7 @@ void vk_flush_staging_buffer( qboolean final )
 		VK_CHECK( qvkQueueSubmit( vk.queue, 1, &submit_info, vk.aux_fence ) );
 		res = qvkWaitForFences( vk.device, 1, &vk.aux_fence, VK_TRUE, 5 * 1000000000ULL );
 		if ( res != VK_SUCCESS ) {
-			ri->Error( ERR_FATAL, "vkWaitForFences() failed with %s at %s", vk_result_string( res ), __func__ );
+			ri.Error( ERR_FATAL, "vkWaitForFences() failed with %s at %s", vk_result_string( res ), __func__ );
 		}
 		qvkResetFences( vk.device, 1, &vk.aux_fence );
 		VK_CHECK( qvkResetCommandBuffer( vk.staging_command_buffer, 0 ) );
@@ -809,7 +809,7 @@ static byte *vk_resample_image_data( const int target_format, byte *data, const 
 
 	switch ( target_format ) {
 	case VK_FORMAT_B4G4R4A4_UNORM_PACK16:
-		buffer = (byte*)ri->Hunk_AllocateTempMemory( data_size / 2 );
+		buffer = (byte*)ri.Hunk_AllocateTempMemory( data_size / 2 );
 		p = (uint16_t*)buffer;
 		for ( i = 0; i < data_size; i += 4, p++ ) {
 			byte r = data[i + 0];
@@ -825,7 +825,7 @@ static byte *vk_resample_image_data( const int target_format, byte *data, const 
 		return buffer; // must be freed after upload!
 
 	case VK_FORMAT_A1R5G5B5_UNORM_PACK16:
-		buffer = (byte*)ri->Hunk_AllocateTempMemory( data_size / 2 );
+		buffer = (byte*)ri.Hunk_AllocateTempMemory( data_size / 2 );
 		p = (uint16_t*)buffer;
 		for ( i = 0; i < data_size; i += 4, p++ ) {
 			byte r = data[i + 0];
@@ -840,7 +840,7 @@ static byte *vk_resample_image_data( const int target_format, byte *data, const 
 		return buffer; // must be freed after upload!
 
 	case VK_FORMAT_B8G8R8A8_UNORM:
-		buffer = (byte*)ri->Hunk_AllocateTempMemory( data_size );
+		buffer = (byte*)ri.Hunk_AllocateTempMemory( data_size );
 		for ( i = 0; i < data_size; i += 4 ) {
 			buffer[i + 0] = data[i + 2];
 			buffer[i + 1] = data[i + 1];
@@ -851,7 +851,7 @@ static byte *vk_resample_image_data( const int target_format, byte *data, const 
 		return buffer;
 
 	case VK_FORMAT_R8G8B8_UNORM: {
-		buffer = (byte*)ri->Hunk_AllocateTempMemory( ( data_size * 3 ) / 4 );
+		buffer = (byte*)ri.Hunk_AllocateTempMemory( ( data_size * 3 ) / 4 );
 		for ( i = 0, n = 0; i < data_size; i += 4, n += 3 ) {
 			buffer[n + 0] = data[i + 0];
 			buffer[n + 1] = data[i + 1];
@@ -970,7 +970,7 @@ void vk_upload_image_data( image_t *image, int x, int y, int width,
 		VK_CHECK( qvkBeginCommandBuffer( vk.staging_command_buffer, &begin_info ) );
 	}
 
-	//ri->Printf( PRINT_WARNING, "batch @%6i + %i %s \n", (int)vk.staging_buffer.offset, (int)buffer_size, image->imgName );
+	//ri.Printf( PRINT_WARNING, "batch @%6i + %i %s \n", (int)vk.staging_buffer.offset, (int)buffer_size, image->imgName );
 	vk.staging_buffer.offset += buffer_size;
 
 	command_buffer = vk.staging_command_buffer;
@@ -1007,7 +1007,7 @@ void vk_upload_image_data( image_t *image, int x, int y, int width,
 #endif
 
 	if ( buf != pixels ) {
-		ri->Hunk_FreeTempMemory( buf );
+		ri.Hunk_FreeTempMemory( buf );
 	}
 }
 
@@ -1058,7 +1058,7 @@ static void allocate_and_bind_image_memory( VkImage image ) {
 		else {
 			size = (vk.image_chunk_size * 2);
 
-			ri->Printf(PRINT_DEVELOPER, "Vulkan: create new large memory chunk for image with size (%ikbytes)\n", 
+			ri.Printf(PRINT_DEVELOPER, "Vulkan: create new large memory chunk for image with size (%ikbytes)\n", 
 				(int)(memory_requirements.size / 1024));
 		}
 
@@ -1070,7 +1070,7 @@ static void allocate_and_bind_image_memory( VkImage image ) {
 		result = qvkAllocateMemory(vk.device, &alloc_info, NULL, &memory);
 		
 		if (result < 0) {
-			ri->Error(ERR_DROP, "%s", va("GPU memory heap overflow: Code %i", result));
+			ri.Error(ERR_DROP, "%s", va("GPU memory heap overflow: Code %i", result));
 			vk_restart_swapchain( __func__ );
 		}
 
@@ -1254,7 +1254,7 @@ image_t *R_CreateImage( const char *name, byte *pic, int width, int height, imgF
 
     namelen = (int)strlen(name) + 1;
     if (namelen > MAX_QPATH) {
-        ri->Error(ERR_DROP, "R_CreateImage: \"%s\" is too long", name);
+        ri.Error(ERR_DROP, "R_CreateImage: \"%s\" is too long", name);
     }
 
 #if 0
@@ -1265,11 +1265,11 @@ image_t *R_CreateImage( const char *name, byte *pic, int width, int height, imgF
 #endif
 
     if (tr.numImages == MAX_DRAWIMAGES) {
-        ri->Error(ERR_DROP, "R_CreateImage: MAX_DRAWIMAGES hit");
+        ri.Error(ERR_DROP, "R_CreateImage: MAX_DRAWIMAGES hit");
     }
 
     //image = (image_t*)Z_Malloc(sizeof(*image) + namelen + namelen2, TAG_IMAGE_T, qtrue);
-    image = (image_t*)ri->Hunk_Alloc(sizeof(*image) + namelen, h_low);
+    image = (image_t*)ri.Hunk_Alloc(sizeof(*image) + namelen, h_low);
     image->imgName = (char*)(image + 1);
     strcpy(image->imgName, name);
 
@@ -1324,7 +1324,7 @@ image_t *R_FindImageFile( const char *name, imgFlags_t flags ){
         byte		*pic;
         int			hash;
 
-		if (!name || ri->Cvar_VariableIntegerValue("dedicated"))	// stop ghoul2 horribleness as regards image loading from server
+		if (!name || ri.Cvar_VariableIntegerValue("dedicated"))	// stop ghoul2 horribleness as regards image loading from server
 		{
 			return NULL;
 		}
@@ -1344,7 +1344,7 @@ image_t *R_FindImageFile( const char *name, imgFlags_t flags ){
                 // the white image can be used with any set of parms, but other mismatches are errors
                 if (strcmp(name, "*white")) {
                     if (image->flags != flags) {
-                        ri->Printf(PRINT_DEVELOPER, "WARNING: reused image %s with mixed flags (%i vs %i)\n", name, image->flags, flags);
+                        ri.Printf(PRINT_DEVELOPER, "WARNING: reused image %s with mixed flags (%i vs %i)\n", name, image->flags, flags);
                     }
                 }
                 return image;
@@ -1363,7 +1363,7 @@ image_t *R_FindImageFile( const char *name, imgFlags_t flags ){
 		//
 		if ((width & (width - 1)) || (height & (height - 1)))
 		{
-			ri->Printf(PRINT_ALL, "Refusing to load non-power-2-dims(%d,%d) pic \"%s\"...\n", width, height, name);
+			ri.Printf(PRINT_ALL, "Refusing to load non-power-2-dims(%d,%d) pic \"%s\"...\n", width, height, name);
 			return NULL;
 		}
 
@@ -1387,7 +1387,7 @@ image_t *R_FindImageFile( const char *name, imgFlags_t flags ){
 		}
 
         image = R_CreateImage(name, pic, width, height, flags);
-        ri->Z_Free(pic);
+        ri.Z_Free(pic);
         return image;
 }
 
@@ -1611,7 +1611,7 @@ static void R_CreateFogImage( void )
     }
 
     tr.fogImage = R_CreateImage("*fog", data, FOG_S, FOG_T, IMGFLAG_CLAMPTOEDGE);
-    ri->Hunk_FreeTempMemory(data);
+    ri.Hunk_FreeTempMemory(data);
 }
 
 /*

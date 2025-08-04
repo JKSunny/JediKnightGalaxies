@@ -1276,9 +1276,7 @@ static qboolean ParseStage( shaderStage_t *stage, const char **text )
 					stage->bundle[0].numImageAnimations++;
 				}
 			}
-			// Copy image ptrs into an array of ptrs
-			stage->bundle[0].image = (image_t*) Hunk_Alloc( stage->bundle[0].numImageAnimations * sizeof( image_t* ), h_low );
-			memcpy( stage->bundle[0].image,	images,			stage->bundle[0].numImageAnimations * sizeof( image_t* ) );
+
 			shader.frameOverride = -1;	//default is -1, weapon ammo indicators may overwrite this in bg_weapons_load.cpp if "overrideIndicatorFrame" is set (default is not 0 due to 0 being a valid frame)
 		}
 		else if ( !Q_stricmp( token, "videoMap" ) )
