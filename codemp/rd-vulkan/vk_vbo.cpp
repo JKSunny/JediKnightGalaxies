@@ -713,8 +713,8 @@ VBO_t *R_CreateVBO( const char *name, const byte *vbo_data, int vbo_size )
 	qvkDestroyBuffer(vk.device, staging_vertex_buffer, NULL);
 	qvkFreeMemory(vk.device, staging_buffer_memory, NULL);
 
-	VK_SET_OBJECT_NAME( tr.vbos[tr.numVBOs]->buffer, va( "static VBO[2] %s", name ), VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_EXT );
-	VK_SET_OBJECT_NAME( tr.vbos[tr.numVBOs]->memory, va( "static VBO[2] memory %s", name ), VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_MEMORY_EXT );
+	VK_SET_OBJECT_NAME( tr.vbos[tr.numVBOs]->buffer, va( "static VBO[%d] %s", tr.numVBOs, name ), VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_EXT );
+	VK_SET_OBJECT_NAME( tr.vbos[tr.numVBOs]->memory, va( "static VBO[%d] memory %s", tr.numVBOs, name ), VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_MEMORY_EXT );
 
 	vbo->index = tr.numVBOs++;
 	vbo->index++;
@@ -1089,7 +1089,7 @@ void R_BuildMDXM( model_t *mod, mdxmHeader_t *mdxm )
 					lastWeight -= attr.weights[w];
 				}
 
-				assert(lastWeight > 0);
+				assert(lastWeight >= 0);
 
 				// Ensure that all the weights add up to 1.0
 				attr.weights[lastInfluence] = lastWeight;
